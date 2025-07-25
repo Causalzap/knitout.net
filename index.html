@@ -263,6 +263,12 @@
             grid-template-columns: 1fr;
             gap: 40px;
         }
+
+        .four-column-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
         
         @media (min-width: 1024px) {
             .knit-grid {
@@ -426,7 +432,7 @@
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover the unique elements that make Knit Out a standout puzzle adventure</p>
             </div>
 
-            <div class="knit-feature-grid">
+            <div class="four-column-grid">
                 <div class="feature-card">
                     <div class="p-8">
                         <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-knitBlue text-3xl mb-6 mx-auto">
