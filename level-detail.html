@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knit Out Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --knit-blue: #3498db;
+            --knit-green: #2ecc71;
+            --knit-purple: #9b59b6;
+            --knit-dark: #2c3e50;
+            --background-light: #f5f7fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--knit-blue) 0%, var(--knit-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--knit-dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #7f8c8d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--knit-blue);
+        }
+        
+        /* 主体内容 */
+        .page-header {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+        
+        .page-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--knit-dark);
+            margin-bottom: 15px;
+        }
+        
+        .current-level {
+            font-size: 1.4rem;
+            color: var(--knit-purple);
+            font-weight: 600;
+            background: rgba(155, 89, 182, 0.1);
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .video-section {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .video-container {
+            position: relative;
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            aspect-ratio: 16/9;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85px;
+            height: 85px;
+            background: rgba(231, 126, 34, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .play-button:hover {
+            background: #e67e22;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .level-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--knit-dark);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .level-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .prev-btn {
+            background: var(--knit-purple);
+            color: white;
+        }
+        
+        .all-btn {
+            background: var(--knit-green);
+            color: white;
+        }
+        
+        .next-btn {
+            background: var(--knit-blue);
+            color: white;
+        }
+        
+        .nav-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-3px);
+        }
+        
+        .level-selector {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .level-input {
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            width: 120px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        .level-go-btn {
+            padding: 12px 20px;
+            background: var(--knit-blue);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .level-go-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: #e74c3c;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            z-index: 2000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: #2ecc71;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+            
+            .nav-link {
+                font-size: 16px;
+            }
+            
+            .page-title {
+                font-size: 2.4rem;
+            }
+            
+            .current-level {
+                font-size: 1.1rem;
+            }
+            
+            .level-actions {
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="levels.html" class="nav-link active">Levels</a>
+            <a href="download.html" class="nav-link">Download</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                Knit Out Level <span id="levelNumber">42</span> Solution
+            </h1>
+            <div class="current-level">
+                <i class="fas fa-puzzle-piece"></i>
+                Level <span id="displayLevel">42</span>
+            </div>
+            
+            <div class="level-selector">
+                <input type="number" min="1" max="1858" placeholder="1" class="level-input" id="levelInput">
+                <button class="level-go-btn" id="goToLevelBtn">
+                    Go to Level
+                </button>
+            </div>
+        </div>
+        
+        <div class="video-section">
+            <!-- YouTube视频容器 -->
+            <div class="video-container" id="videoContainer">
+                <img id="videoThumbnail" 
+                     src="https://i.ytimg.com/vi/rymW4r3lH8w/maxresdefault.jpg" 
+                     alt="Solution Video" 
+                     class="video-thumbnail">
+                <div class="play-button" id="playButton">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+            
+            <!-- 关卡描述 -->
+            <p class="level-description" id="levelDescription">
+                Level 42 introduces an intricate threading pattern that requires precise coordination. 
+                You'll need to carefully navigate the yarn paths to avoid tangles and create the required pattern. 
+                This intermediate challenge tests your planning and spatial awareness skills.
+            </p>
+            
+            <!-- 操作按钮 -->
+            <div class="level-actions">
+                <a href="#" id="prevBtn" class="nav-btn prev-btn">
+                    <i class="fas fa-arrow-left"></i> Previous Level
+                </a>
+                <a href="levels.html" class="nav-btn all-btn">
+                    <i class="fas fa-list"></i> All Levels
+                </a>
+                <a href="#" id="nextBtn" class="nav-btn next-btn">
+                    Next Level <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">Video loaded successfully!</div>
+    
+    <script>
+        // 从URL中获取关卡ID
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentLevel = parseInt(urlParams.get('id') || '42');
+        
+        // 初始化页面
+        async function initPage() {
+            // 验证关卡范围
+            if (currentLevel < 1 || currentLevel > 1858) {
+                currentLevel = 42;
+            }
+            
+            // 更新页面内容
+            document.getElementById('levelNumber').textContent = currentLevel;
+            document.getElementById('displayLevel').textContent = currentLevel;
+            document.getElementById('levelInput').value = currentLevel;
+            
+            // 加载关卡内容
+            await loadLevelContent(currentLevel);
+            
+            // 更新按钮状态
+            updateNavigationButtons();
+            
+            // 设置事件监听器
+            setupEventListeners();
+        }
+        
+        // 加载关卡内容
+        async function loadLevelContent(level) {
+            try {
+                // 加载视频数据
+                const videosData = await loadVideoData();
+                const videoId = videosData[level] || videosData[42];
+                
+                // 设置视频缩略图
+                const videoThumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+                document.getElementById('videoThumbnail').src = videoThumbnail;
+                
+                // 存储当前视频ID
+                window.currentVideoId = videoId;
+                
+                // 显示成功通知
+                showNotification(`Level ${level} video loaded`, 'success');
+            } catch (error) {
+                console.error('Error loading level content:', error);
+                showNotification('Failed to load video data', 'error');
+            }
+        }
+        
+        // 加载视频数据
+        async function loadVideoData() {
+    try {
+        // 输出获取视频数据的日志
+        console.log('Fetching video data...');
+
+        // 使用 fetch 请求动态加载 videos.json 数据
+        const response = await fetch('./videos.json');  // 假设 videos.json 在同一目录下
+
+        // 输出响应状态
+        console.log('Response:', response);
+
+        if (!response.ok) {
+            throw new Error('Failed to load videos.json');
+        }
+
+        // 解析 JSON 数据
+        const videoData = await response.json();  
+        
+        // 打印并返回视频数据
+        console.log('Video data:', videoData);  // 输出整个视频数据对象
+
+        return videoData;
+    } catch (error) {
+        console.error('Error loading video data:', error);
+        
+        // 返回默认回退数据
+        return {
+            42: "rymW4r3lH8w",
+            106: "8SbUC-UaAxE",
+            200: "QH2-TGUlwu4",
+            418: "9U6ULRW5E_4"
+        };
+    }
+}
+
+loadVideoData();
+
+
+        // 视频加载功能
+        function loadVideo() {
+            if (!window.currentVideoId) {
+                showNotification('No video available for this level', 'error');
+                return;
+            }
+            
+            const videoContainer = document.getElementById('videoContainer');
+            videoContainer.innerHTML = `
+                <iframe width="100%" height="100%" 
+                        src="https://www.youtube.com/embed/${window.currentVideoId}?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            `;
+        }
+        
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (currentLevel > 1) {
+                prevBtn.href = `level-detail.html?id=${currentLevel - 1}`;
+            } else {
+                prevBtn.style.display = 'none';
+            }
+            
+            if (currentLevel < 1858) {
+                nextBtn.href = `level-detail.html?id=${currentLevel + 1}`;
+            } else {
+                nextBtn.style.display = 'none';
+            }
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 播放按钮事件
+            document.getElementById('playButton').addEventListener('click', loadVideo);
+            
+            // 跳转按钮事件
+            document.getElementById('goToLevelBtn').addEventListener('click', goToLevel);
+            
+            // 输入框回车事件
+            document.getElementById('levelInput').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    goToLevel();
+                }
+            });
+            
+            // 导航按钮事件
+            document.getElementById('prevBtn').addEventListener('click', function(e) {
+                if (currentLevel > 1) {
+                    window.location.href = `level-detail.html?id=${currentLevel - 1}`;
+                }
+            });
+            
+            document.getElementById('nextBtn').addEventListener('click', function(e) {
+                if (currentLevel < 1858) {
+                    window.location.href = `level-detail.html?id=${currentLevel + 1}`;
+                }
+            });
+        }
+        
+        // 跳转到指定关卡
+        function goToLevel() {
+            const levelInput = document.getElementById('levelInput');
+            const level = parseInt(levelInput.value);
+            
+            if (isNaN(level) || level < 1 || level > 1858) {
+                showNotification('Please enter a valid level between 1 and 1858', 'error');
+                levelInput.focus();
+                return;
+            }
+            
+            window.location.href = `level-detail.html?id=${level}`;
+        }
+        
+        // 显示通知
+        function showNotification(message, type = '') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show';
+            
+            if (type === 'success') {
+                notification.classList.add('success');
+            } else if (type === 'error') {
+                notification.classList.remove('success');
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
