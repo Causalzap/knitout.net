@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knit Out Level Solutions</title>
+    <title>Knit Out - The Ultimate Yarn Puzzle Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -37,113 +37,27 @@
             color: #333;
         }
         
-        .game-container {
+        .knit-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .knit-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .knit-logo {
             position: relative;
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;  /* 保证图片不会溢出容器 */
-        display: flex;
-        justify-content: center;  /* 确保图片水平居中 */
-        align-items: center;      /* 确保图片垂直居中 */
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        border-radius: 24px;
-        }
-        
-        .game-container:hover {
-            transform: translateY(-5px);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-        }
-        
-        .game-header {
-            background: linear-gradient(to right, #2c3e50, #1a2530);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .progress-bar {
-            height: 6px;
-            border-radius: 3px;
             overflow: hidden;
-        }
-        
-        .spool {
-            width: 50px;
-            height: 50px;
             border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            transition: transform 0.3s ease;
-        }
-        
-        .spool:hover {
-            transform: scale(1.1);
-        }
-        
-        .feature-card {
-            transition: all 0.3s ease;
-            border-radius: 16px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border: none;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .input-field:focus {
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(90deg, #3498db, #2ecc71);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-        }
-
-        .gradient-text::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #3498db, #2ecc71);
-            border-radius: 2px;
-        }
-        
-        .full-image-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-radius: 20px;
-        }
-        
-        .game-image {
-            width: 100%;
-        height: auto;         /* 高度自适应 */
-        object-fit: contain;  /* 保持图片比例，确保不被裁剪 */
-        border-radius: 0;     /* 去掉圆角 */
-        transition: transform 0.5s ease;
-        }
-        
-        .game-image:hover {
-            transform: scale(1.03); /* 鼠标悬停时稍微放大图片 */
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
         }
         
         .knit-card {
@@ -180,27 +94,24 @@
             background: linear-gradient(135deg, #2980b9 0%, #27ae60 100%);
         }
         
-        .explore-btn {
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-            background: linear-gradient(to right, #9b59b6, #8e44ad);
-            color: white;
-            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
-            text-decoration: none;
+        .gradient-text {
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
             display: inline-block;
-            text-align: center;
         }
-        
-        .explore-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(155, 89, 182, 0.4);
-            background: linear-gradient(to right, #8e44ad, #7d3c98);
+
+        .gradient-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 2px;
         }
         
         .knit-section {
@@ -233,6 +144,55 @@
             z-index: 0;
         }
         
+        .knit-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.1) 0%, transparent 20%);
+            z-index: 1;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 24px;
+        }
+        
+        .game-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        .full-image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .game-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 0;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-image:hover {
+            transform: scale(1.03);
+        }
+        
         .knit-faq-card {
             background: white;
             border-radius: 16px;
@@ -253,135 +213,111 @@
             overflow: hidden;
         }
         
-        .knit-footer::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: rgba(52, 152, 219, 0.05);
-            z-index: 0;
-        }
-        
-        .knit-footer::after {
-            content: '';
-            position: absolute;
-            bottom: -100px;
-            right: -100px;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: rgba(46, 204, 113, 0.05);
-            z-index: 0;
-        }
-        
-        .knit-pattern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.1) 0%, transparent 20%);
-            z-index: 1;
-        }
-        
-        .knit-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .knit-logo {
-            position: relative;
+        .feature-card {
+            transition: all 0.3s ease;
+            border-radius: 16px;
             overflow: hidden;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
-        }
-        
-        .knit-logo::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
-            z-index: -1;
-            border-radius: 50%;
-            filter: blur(10px);
-            opacity: 0.5;
-        }
-        
-        /* 重定向弹窗样式 */
-        .redirect-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-        
-        .redirect-content {
             background: white;
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-        }
-        
-        .redirect-url {
-            font-family: monospace;
-            background: #f5f5f5;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            overflow-wrap: break-word;
-        }
-        
-        .redirect-message {
-            font-size: 1.5rem;
-            color: var(--knitDark);
-            margin-bottom: 30px;
-        }
-        
-        .confirm-button {
-            background: #27ae60;
-            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: button;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
         }
         
-        .confirm-button:hover {
-            background: #219d56;
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .explore-btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(to right, #9b59b6, #8e44ad);
+            color: white;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .explore-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
+            box-shadow: 0 8px 20px rgba(155, 89, 182, 0.4);
+            background: linear-gradient(to right, #8e44ad, #7d3c98);
+        }
+        
+        /* 新增和谐调整样式 */
+        .knit-header {
+            padding: 100px 0 60px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+        }
+        
+        .knit-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        @media (min-width: 1024px) {
+            .knit-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .knit-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .knit-faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .knit-download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .knit-step-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .knit-step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .knit-video-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body class="bg-gray-50">
     
-    <!-- 导航栏（已移除语言选项） -->
+    <!-- 导航栏 -->
     <nav class="knit-nav py-4">
-        <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="knit-container flex justify-between items-center">
             <div class="flex items-center">
                 <div class="w-12 h-12 knit-logo flex items-center justify-center text-white font-bold text-xl mr-3">KO</div>
                 <span class="text-xl font-bold text-knitDark">Knit Out Solutions</span>
@@ -395,250 +331,251 @@
         </div>
     </nav>
     
-
-     <div class="container mx-auto px-4 py-12">
-        <div class="flex flex-col lg:flex-row justify-between items-center mt-8 gap-10">
-            <!-- Left content section -->
-            <div class="w-full lg:w-1/2 space-y-8">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">Master Every Knit Out Level</h1>
-                <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                    Discover step-by-step solutions, expert tips, and winning strategies for all 390 levels. Jump directly to any level solution with our intuitive search.
-                </p>
-                <div class="mb-8">
-                    <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                        <div class="flex-grow">
-                            <div class="relative">
-                                <input
-                                    id="levelInput"
-                                    type="number"
-                                    min="1"
-                                    max="390"
-                                    placeholder="Enter level number (1-390)"
-                                    class="w-full px-8 py-4 border border-gray-200 rounded-full text-xl focus:outline-none focus:ring-2 focus:ring-knitBlue focus:border-transparent shadow-md input-field"
-                                />
-                                <i class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+    <!-- 头部区域 -->
+    <header class="knit-header">
+        <div class="knit-container">
+            <div class="knit-grid">
+                <div class="space-y-8">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 gradient-text">Master Every Knit Out Level</h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Discover step-by-step solutions, expert tips, and winning strategies for all 390 levels. Jump directly to any level solution with our intuitive search.
+                    </p>
+                    <div class="mb-8">
+                        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                            <div class="flex-grow">
+                                <div class="relative">
+                                    <input
+                                        id="levelInput"
+                                        type="number"
+                                        min="1"
+                                        max="390"
+                                        placeholder="Enter level number (1-390)"
+                                        class="w-full px-8 py-4 border border-gray-200 rounded-full text-xl focus:outline-none focus:ring-2 focus:ring-knitBlue focus:border-transparent shadow-md input-field"
+                                    />
+                                    <i class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+                                </div>
                             </div>
+                            <button id="findSolutionBtn" class="knit-btn px-8 py-4 text-lg whitespace-nowrap">
+                                Find Solution
+                            </button>
                         </div>
-                        <button id="findSolutionBtn" class="knit-btn px-8 py-4 text-lg whitespace-nowrap">
-                            Find Solution
-                        </button>
+                        <a href="levels.html" class="explore-btn inline-block text-center w-full md:w-auto">
+                            Explore All Levels
+                        </a>
                     </div>
-                    <a href="levels.html" class="explore-btn inline-block text-center w-full md:w-auto">
-                        Explore All Levels
-                    </a>
+                    
+                    <div class="mt-12">
+                        <h2 class="text-2xl font-bold mb-6 text-knitDark border-l-4 border-knitBlue pl-4">Popular Level Guides</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <a href="level-detail.html?id=94" class="knit-card p-5 flex items-center">
+                                <div class="w-16 h-16 rounded-xl bg-knitBlue flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">94</div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800">Level 94 Strategy</h3>
+                                    <p class="text-gray-600 mt-1">Advanced threading techniques</p>
+                                </div>
+                            </a>
+
+                            <a href="level-detail.html?id=162" class="knit-card p-5 flex items-center">
+                                <div class="w-16 h-16 rounded-xl bg-knitGreen flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">162</div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800">Level 162 Walkthrough</h3>
+                                    <p class="text-gray-600 mt-1">Color matching patterns</p>
+                                </div>
+                            </a>
+
+                            <a href="level-detail.html?id=201" class="knit-card p-5 flex items-center">
+                                <div class="w-16 h-16 rounded-xl bg-knitPurple flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">201</div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800">Level 201 Solution</h3>
+                                    <p class="text-gray-600 mt-1">Multi-thread weaving</p>
+                                </div>
+                            </a>
+
+                            <a href="level-detail.html?id=205" class="knit-card p-5 flex items-center">
+                                <div class="w-16 h-16 rounded-xl bg-knitPink flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">205</div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800">Level 205 Guide</h3>
+                                    <p class="text-gray-600 mt-1">Complex pattern sorting</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧游戏界面 -->
+                <div class="flex justify-center items-center">
+                    <div class="game-container w-full">
+                        <div class="full-image-container">
+                            <img 
+                                src="/images/knit-out-game-level-screenshot.jpeg" 
+                                alt="Knit Out Game Screenshot" 
+                                class="game-image"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 功能卡片区域 -->
+    <section class="knit-section">
+        <div class="knit-container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Why Knit Out Captivates Players</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover the unique elements that make Knit Out a standout puzzle adventure</p>
+            </div>
+
+            <div class="knit-feature-grid">
+                <div class="feature-card">
+                    <div class="p-8">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-knitBlue text-3xl mb-6 mx-auto">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Relaxing Yet Challenging Difficulty Curve</h3>
+                        <p class="text-gray-600 text-center">The first 20 levels are easy and relaxing, focusing on basic gameplay and tool usage. As players progress through levels 21-24, the difficulty gradually increases, offering satisfying feedback and creating a chess-like experience where every move feels deliberate and impactful.</p>
+                    </div>
                 </div>
                 
-                <div class="mt-12">
-                    <h2 class="text-2xl font-bold mb-6 text-knitDark border-l-4 border-knitBlue pl-4">Popular Level Guides</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <a href="level-detail.html?id=94" class="knit-card p-5 flex items-center">
-                            <div class="w-16 h-16 rounded-xl bg-knitBlue flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">94</div>
-                            <div>
-                                <h3 class="font-bold text-xl text-gray-800">Level 94 Strategy</h3>
-                                <p class="text-gray-600 mt-1">Advanced threading techniques</p>
-                            </div>
-                        </a>
-
-                        <a href="level-detail.html?id=162" class="knit-card p-5 flex items-center">
-                            <div class="w-16 h-16 rounded-xl bg-knitGreen flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">162</div>
-                            <div>
-                                <h3 class="font-bold text-xl text-gray-800">Level 162 Walkthrough</h3>
-                                <p class="text-gray-600 mt-1">Color matching patterns</p>
-                            </div>
-                        </a>
-
-                        <a href="level-detail.html?id=201" class="knit-card p-5 flex items-center">
-                            <div class="w-16 h-16 rounded-xl bg-knitPurple flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">201</div>
-                            <div>
-                                <h3 class="font-bold text-xl text-gray-800">Level 201 Solution</h3>
-                                <p class="text-gray-600 mt-1">Multi-thread weaving</p>
-                            </div>
-                        </a>
-
-                        <a href="level-detail.html?id=205" class="knit-card p-5 flex items-center">
-                            <div class="w-16 h-16 rounded-xl bg-knitPink flex items-center justify-center text-white font-bold text-2xl mr-4 shadow-md">205</div>
-                            <div>
-                                <h3 class="font-bold text-xl text-gray-800">Level 205 Guide</h3>
-                                <p class="text-gray-600 mt-1">Complex pattern sorting</p>
-                            </div>
-                        </a>
+                <div class="feature-card">
+                    <div class="p-8">
+                        <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-knitGreen text-3xl mb-6 mx-auto">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Immersive Psychological Feedback</h3>
+                        <p class="text-gray-600 text-center">The game uses clever visual cues, such as a red animation when only one space is left, signaling danger. This technique enhances player focus, making them more cautious and deeply immersed in the gameplay, creating a rewarding experience.</p>
                     </div>
                 </div>
-
-            </div>
-
-            <!-- Right content section -->
-            <div class="w-full lg:w-1/2 flex justify-center">
-                <div class="game-container w-full max-w-lg">
-                    <img 
-                        src="/images/knit-out-game-level-screenshot.png" 
-                        alt="Knit Out Game Screenshot" 
-                        class="game-image"
-                    >
+                
+                <div class="feature-card">
+                    <div class="p-8">
+                        <div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center text-knitPurple text-3xl mb-6 mx-auto">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Intuitive UI and Clear Guidance</h3>
+                        <p class="text-gray-600 text-center">Knit Out features a simple, clean UI with clear guidance in the first few levels, ensuring players quickly learn the mechanics and objectives. Tool instructions are given through small animations, making it easy to understand and apply new features.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="p-8">
+                        <div class="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center text-knitPink text-3xl mb-6 mx-auto">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Rewarding Feedback and Flow State</h3>
+                        <p class="text-gray-600 text-center">Positive reinforcement is abundant as players successfully complete puzzles. The game offers a strong sense of progression and satisfaction, particularly in challenging levels, encouraging players to reach a state of flow and continue progressing through the game.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-       <!-- 功能卡片区域 -->
-<div class="knit-section mt-24">
-    <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold mb-4 gradient-text">Why Knit Out Captivates Players</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover the unique elements that make Knit Out a standout puzzle adventure</p>
-    </div>
+    <!-- 下载区域 -->
+    <section class="py-16 bg-knitLight">
+        <div class="knit-container">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-4 gradient-text">Get Knit Out Now</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">Available on all mobile platforms for endless puzzle fun</p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="feature-card">
-            <div class="p-8">
-                <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-knitBlue text-3xl mb-6 mx-auto">
-                    <i class="fas fa-puzzle-piece"></i>
+                <div class="knit-download-grid">
+                    <div class="knit-card p-8">
+                        <div class="flex flex-col items-center">
+                            <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center text-5xl text-knitBlue mb-6">
+                                <i class="fab fa-apple"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-3">iOS Version</h3>
+                            <p class="text-gray-600 mb-6">Knit Out for iPhone and iPad</p>
+                            <a href="https://apps.apple.com/us/app/knit-out/id6740406762" target="_blank">
+                                <button class="knit-btn px-6 py-3">
+                                    Download on App Store
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="knit-card p-8">
+                        <div class="flex flex-col items-center">
+                            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-5xl text-knitGreen mb-6">
+                                <i class="fab fa-android"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Android Version</h3>
+                            <p class="text-gray-600 mb-6">Knit Out for Android devices</p>
+                            <a href="https://play.google.com/store/apps/details?id=com.sbg.knitout&hl=zh" target="_blank">
+                                <button class="knit-btn px-6 py-3">
+                                    Download on Play Store
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Relaxing Yet Challenging Difficulty Curve</h3>
-                <p class="text-gray-600 text-center">The first 20 levels are easy and relaxing, focusing on basic gameplay and tool usage. As players progress through levels 21-24, the difficulty gradually increases, offering satisfying feedback and creating a chess-like experience where every move feels deliberate and impactful.</p>
             </div>
         </div>
-        
-        <div class="feature-card">
-            <div class="p-8">
-                <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-knitGreen text-3xl mb-6 mx-auto">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Immersive Psychological Feedback</h3>
-                <p class="text-gray-600 text-center">The game uses clever visual cues, such as a red animation when only one space is left, signaling danger. This technique enhances player focus, making them more cautious and deeply immersed in the gameplay, creating a rewarding experience.</p>
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="p-8">
-                <div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center text-knitPurple text-3xl mb-6 mx-auto">
-                    <i class="fas fa-trophy"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Intuitive UI and Clear Guidance</h3>
-                <p class="text-gray-600 text-center">Knit Out features a simple, clean UI with clear guidance in the first few levels, ensuring players quickly learn the mechanics and objectives. Tool instructions are given through small animations, making it easy to understand and apply new features.</p>
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="p-8">
-                <div class="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center text-knitPink text-3xl mb-6 mx-auto">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-3 text-center text-gray-800">Rewarding Feedback and Flow State</h3>
-                <p class="text-gray-600 text-center">Positive reinforcement is abundant as players successfully complete puzzles. The game offers a strong sense of progression and satisfaction, particularly in challenging levels, encouraging players to reach a state of flow and continue progressing through the game.</p>
-            </div>
-        </div>
-    </div>
+    </section>
 
-
-
-        <!-- 下载区域 -->
-        <div class="mt-20 text-center">
-    <h2 class="text-4xl font-bold mb-4 gradient-text">Get Knit Out Now</h2>
-    <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">Available on all mobile platforms for endless puzzle fun</p>
-
-    <div class="grid grid-cols-2 gap-8 w-full px-8 mx-auto">
-        <div class="knit-card p-8 w-full">
-            <div class="flex flex-col items-center">
-                <div class="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center text-5xl text-knitBlue mb-6">
-                    <i class="fab fa-apple"></i>
-                </div>
-                <h3 class="text-2xl font-semibold text-gray-800 mb-3">iOS Version</h3>
-                <p class="text-gray-600 mb-6">Knit Out for iPhone and iPad</p>
-                <a href="https://apps.apple.com/us/app/knit-out/id6740406762" target="_blank">
-                    <button class="knit-btn px-6 py-3">
-                        Download on App Store
-                    </button>
-                </a>
-            </div>
-        </div>
-
-        <div class="knit-card p-8 w-full">
-            <div class="flex flex-col items-center">
-                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-5xl text-knitGreen mb-6">
-                    <i class="fab fa-android"></i>
-                </div>
-                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Android Version</h3>
-                <p class="text-gray-600 mb-6">Knit Out for Android devices</p>
-                <a href="https://play.google.com/store/apps/details?id=com.sbg.knitout&hl=zh" target="_blank">
-                    <button class="knit-btn px-6 py-3">
-                        Download on Play Store
-                    </button>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-        <!-- 游戏步骤区域 -->
-        <div class="knit-section mt-24">
-            <div class="flex flex-col lg:flex-row items-start gap-12">
-                <div class="w-full lg:w-1/2">
+    <!-- 游戏步骤区域 -->
+    <section class="knit-section py-16">
+        <div class="knit-container">
+            <div class="knit-grid">
+                <div class="space-y-8">
                     <h2 class="text-4xl font-bold mb-6 gradient-text">Your Knit Out Journey</h2>
                     <p class="text-xl text-gray-600 mb-10">
                         Embark on an exciting puzzle adventure where creativity and logic unlock new levels and challenges.
                     </p>
                     
                     <div class="space-y-8">
-                        <div class="knit-card p-8">
-                            <div class="flex items-start gap-6">
-                                <div class="text-4xl text-knitBlue">1</div>
-                                <div>
-                                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Slide the Yarn</h3>
-                                    <p class="text-gray-600">
-Drag the yarn loops to the correct positions where the colors match with the nearby woven pieces. The yarn will automatically wrap around the matching colors, and the more precise your placement, the more satisfying the process.                                    </p>
-                                </div>
+                        <div class="knit-card p-8 knit-step-card">
+                            <div class="knit-step-number">1</div>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Slide the Yarn</h3>
+                                <p class="text-gray-600">
+                                    Drag the yarn loops to the correct positions where the colors match with the nearby woven pieces. The yarn will automatically wrap around the matching colors, and the more precise your placement, the more satisfying the process.
+                                </p>
                             </div>
                         </div>
                         
-                        <div class="knit-card p-8">
-                            <div class="flex items-start gap-6">
-                                <div class="text-4xl text-knitGreen">2</div>
-                                <div>
-                                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Plan Your Moves</h3>
-                                    <p class="text-gray-600">
-As you progress, plan each move carefully. Pay attention to obstacles and ensure you have enough space for the yarn loops to move into the right positions. Each step requires strategic thinking to avoid running out of moves.                                    </p>
-                                </div>
+                        <div class="knit-card p-8 knit-step-card">
+                            <div class="knit-step-number">2</div>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Plan Your Moves</h3>
+                                <p class="text-gray-600">
+                                    As you progress, plan each move carefully. Pay attention to obstacles and ensure you have enough space for the yarn loops to move into the right positions. Each step requires strategic thinking to avoid running out of moves.
+                                </p>
                             </div>
                         </div>
                         
-                        <div class="knit-card p-8">
-                            <div class="flex items-start gap-6">
-                                <div class="text-4xl text-knitPurple">3</div>
-                                <div>
-                                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Progress and Level Up</h3>
-                                    <p class="text-gray-600">
-Clear the levels by successfully matching all yarn pieces, completing the challenge. As you progress through levels, the difficulty increases, and new challenges are introduced, giving players a sense of achievement as they level up.                                    </p>
-                                </div>
+                        <div class="knit-card p-8 knit-step-card">
+                            <div class="knit-step-number">3</div>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Progress and Level Up</h3>
+                                <p class="text-gray-600">
+                                    Clear the levels by successfully matching all yarn pieces, completing the challenge. As you progress through levels, the difficulty increases, and new challenges are introduced, giving players a sense of achievement as they level up.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="w-full lg:w-1/2">
-    <div class="game-container w-full h-[600px]">
-        <div class="full-image-container">
-            <!-- Replacing the image with a video -->
-            <video class="game-image w-full h-full" controls>
-                <source src="https://play-games.googleusercontent.com/vp/mp4/1280x720/OA66L57ZDO4.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
-</div>
-
+                <div class="flex justify-center items-center">
+                    <div class="knit-video-container w-full">
+                        <video class="w-full h-auto" controls>
+                            <source src="https://play-games.googleusercontent.com/vp/mp4/1280x720/OA66L57ZDO4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- FAQ区域 -->
-        <div class="mt-28">
+    <!-- FAQ区域 -->
+    <section class="py-16 bg-knitLight">
+        <div class="knit-container">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4 gradient-text">Knit Out FAQ</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to know about this captivating puzzle adventure</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div class="knit-faq-grid">
                 <div class="knit-faq-card p-8">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-3">
                         <i class="fas fa-question-circle text-knitBlue"></i>
@@ -675,7 +612,8 @@ Clear the levels by successfully matching all yarn pieces, completing the challe
                         Can I restart a level if I get stuck?
                     </h3>
                     <p class="text-gray-600">
-Yes, if you find yourself unable to complete a level, you can restart it. The game will offer a retry option when you fail, allowing you to try again and adjust your strategy.                    </p>
+                        Yes, if you find yourself unable to complete a level, you can restart it. The game will offer a retry option when you fail, allowing you to try again and adjust your strategy.
+                    </p>
                 </div>
                 
                 <div class="knit-faq-card p-8">
@@ -684,7 +622,8 @@ Yes, if you find yourself unable to complete a level, you can restart it. The ga
                         Why can’t I pass a level sometimes?
                     </h3>
                     <p class="text-gray-600">
-If you're stuck on a level, it may be because you need to rethink your strategy or plan your moves more carefully. Try a different order of moves, and ensure each yarn loop is placed in the optimal position. If you’re still struggling, consider using items to help you pass.                     </p>   
+                        If you're stuck on a level, it may be because you need to rethink your strategy or plan your moves more carefully. Try a different order of moves, and ensure each yarn loop is placed in the optimal position. If you’re still struggling, consider using items to help you pass.
+                    </p>   
                 </div>
                 
                 <div class="knit-faq-card p-8">
@@ -693,16 +632,17 @@ If you're stuck on a level, it may be because you need to rethink your strategy 
                         Does Knit Out include in-app purchases?
                     </h3>
                     <p class="text-gray-600">
-Yes, Knit Out offers in-app purchases. Players can buy virtual currency, items, or unlock additional levels. While the game is free to play, purchasing in-game items can speed up progress or help players in more challenging levels.                    </p>
+                        Yes, Knit Out offers in-app purchases. Players can buy virtual currency, items, or unlock additional levels. While the game is free to play, purchasing in-game items can speed up progress or help players in more challenging levels.
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     
     <!-- 页脚 -->
     <footer class="knit-footer py-16 text-white">
         <div class="knit-pattern"></div>
-        <div class="container mx-auto px-4 relative z-10">
+        <div class="knit-container relative z-10">
             <div class="flex flex-col md:flex-row justify-between">
                 <div class="mb-12 md:mb-0">
                     <div class="flex items-center mb-6">
@@ -755,7 +695,6 @@ Yes, Knit Out offers in-app purchases. Players can buy virtual currency, items, 
             // 直接跳转到关卡详情页
             window.location.href = `level-detail.html?id=${level}`;
         });
-
 
         // 按回车键触发搜索
         document.getElementById('levelInput').addEventListener('keyup', function(e) {
