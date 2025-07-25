@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - Knit Out</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --main-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --ios-color: #e74c3c;
+            --android-color: #27ae60;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--main-bg);
+            min-height: 100vh;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-dark);
+        }
+        
+        .nav-link.active {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+        }
+        
+        .lang-selector {
+            font-size: 16px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .app-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+        
+        .download-text {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 60px;
+            max-width: 700px;
+            font-weight: 500;
+        }
+        
+        .download-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .download-card {
+            width: 350px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            padding: 40px 30px;
+            border-bottom: 5px solid;
+        }
+        
+        .ios-card {
+            border-color: var(--ios-color);
+        }
+        
+        .android-card {
+            border-color: var(--android-color);
+        }
+        
+        .download-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .card-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
+        }
+        
+        .ios-icon {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--ios-color);
+        }
+        
+        .android-icon {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: var(--android-color);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .card-desc {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            color: white;
+            width: 80%;
+            max-width: 250px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .ios-btn {
+            background: var(--ios-color);
+        }
+        
+        .android-btn {
+            background: var(--android-color);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        
+        .ios-btn:hover {
+            background: #c0392b;
+        }
+        
+        .android-btn:hover {
+            background: #219d56;
+        }
+        
+        /* 页脚 */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .download-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-card {
+                width: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .lang-selector {
+                display: none;
+            }
+            
+            .app-title {
+                font-size: 3rem;
+            }
+            
+            .download-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .app-title {
+                font-size: 2.5rem;
+            }
+            
+            .download-text {
+                font-size: 1.2rem;
+            }
+            
+            .download-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="levels.html" class="nav-link">Levels</a>
+            <a href="download.html" class="nav-link active">Download</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+        </div>
+    </nav>
+    
+    <!-- 主要内容 -->
+    <div class="main-content">
+        <h1 class="app-title">Knit Out</h1>
+        <p class="download-text">Download Knit Out Mobile App</p>
+        
+        <div class="download-cards">
+            <!-- iOS下载卡片 -->
+            <div class="download-card ios-card">
+                <div class="card-icon ios-icon">
+                    <i class="fab fa-apple"></i>
+                </div>
+                <h2 class="card-title">iOS Version</h2>
+                <p class="card-desc">Knit Out app for iPhone and iPad</p>
+                <a href="https://apps.apple.com/us/app/knit-out/id6740406762" class="download-btn ios-btn">Download</a>
+            </div>
+            
+            <!-- Android下载卡片 -->
+            <div class="download-card android-card">
+                <div class="card-icon android-icon">
+                    <i class="fab fa-android"></i>
+                </div>
+                <h2 class="card-title">Android Version</h2>
+                <p class="card-desc">Knit Out app for Android devices</p>
+                <a href="https://play.google.com/store/apps/details?id=com.sbg.knitout&hl=zh" class="download-btn android-btn">Download</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2023 Knit Out. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 为按钮添加悬停效果
+        const buttons = document.querySelectorAll('.download-btn');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
