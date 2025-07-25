@@ -70,6 +70,80 @@
             --section-bg: #ffffff;
             --border-color: #e2e8f0;
         }
+
+        /* 新增导航栏样式 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--dark-text);
+        }
+        
+        .nav-link.active {
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            border-radius: 3px;
+        }
         
         * {
             margin: 0;
@@ -384,6 +458,21 @@
     </style>
 </head>
 <body>
+    <!-- 新增导航栏 -->
+    <nav class="nav-container">
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="levels.html" class="nav-link">Levels</a>
+            <a href="download.html" class="nav-link">Download</a>
+            <a href="blog.html" class="nav-link active">Blog</a>
+        </div>
+    </nav>
+
     <!-- 面包屑导航 -->
     <div class="breadcrumb">
         <a href="https://yourdomain.com">Home</a> &gt; 
