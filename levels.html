@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levels - Knit Out Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      knitBlue: '#3498db',
+                      knitGreen: '#2ecc71',
+                      knitPurple: '#9b59b6',
+                      knitPink: '#e84393',
+                      knitYellow: '#f1c40f',
+                      knitDark: '#2c3e50',
+                      knitLight: '#f5f7fa'
+                  }
+              }
+          }
+      }
+   </script>
+    <style>
+        :root {
+            --knit-blue: #3498db;
+            --knit-green: #2ecc71;
+            --knit-dark: #2c3e50;
+            --knit-light: #f5f7fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .knit-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-dark);
+        }
+        
+        .nav-link.active {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+        }
+        
+        .lang-selector {
+            font-size: 16px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-circle {
+            width: 48px;
+            height: 48px;
+            background-color: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-item {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-item:hover {
+            color: #333;
+        }
+        
+        .nav-item.active {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .nav-item.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #28a745;
+        }
+        
+        .nav-lang {
+            font-size: 16px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        /* 关卡分组导航 */
+        .level-groups-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .level-groups-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .level-groups {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .group-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 100px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .group-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .group-btn.active {
+            background: #28a745;
+            color: white;
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        /* 关卡网格 */
+        .level-grid-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            padding: 30px;
+        }
+        
+        .level-grid-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(14, 1fr);
+            gap: 10px;
+        }
+        
+        .level-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .level-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: #2980b9;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .level-grid {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-lang {
+                display: none;
+            }
+            
+            .level-groups {
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .level-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 8px;
+            }
+            
+            .level-item {
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .level-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+      <div class="brand">
+          <div class="logo">KO</div>
+          <div class="brand-name">Knit Out</div>
+      </div>
+      
+      <div class="nav-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="levels.html" class="nav-link active">Levels</a>
+          <a href="download.html" class="nav-link ">Download</a>
+          <a href="blog.html" class="nav-link">Blog</a>
+      </div>
+  </nav>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <h1 class="page-title">All Levels</h1>
+        
+        <!-- 关卡分组 -->
+        <div class="level-groups-container">
+            <h2 class="level-groups-title">Select Level Range</h2>
+            <div class="level-groups" id="levelGroups">
+                <!-- 分组按钮将通过JavaScript生成 -->
+            </div>
+        </div>
+        
+        <!-- 关卡网格 -->
+        <div class="level-grid-container">
+            <h2 class="level-grid-title" id="levelGridTitle">Levels 101-150</h2>
+            <div class="level-grid" id="levelGrid">
+                <!-- 关卡网格将通过JavaScript生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 定义所有关卡分组（与图片完全一致）
+        const levelGroups = [
+            {id: '1-50', start: 1, end: 50},
+            {id: '51-100', start: 51, end: 100},
+            {id: '101-150', start: 101, end: 150, selected: true},
+            {id: '151-200', start: 151, end: 200},
+            {id: '201-250', start: 201, end: 250},
+            {id: '251-300', start: 251, end: 300},
+            {id: '301-350', start: 301, end: 350},
+            {id: '351-400', start: 351, end: 400},
+            {id: '401-450', start: 401, end: 450},
+            {id: '451-500', start: 451, end: 500},
+            {id: '501-550', start: 501, end: 550},
+            {id: '551-600', start: 551, end: 600},
+            {id: '601-650', start: 601, end: 650},
+            {id: '651-700', start: 651, end: 700},
+            {id: '701-750', start: 701, end: 750},
+            {id: '751-800', start: 751, end: 800},
+            {id: '801-850', start: 801, end: 850},
+            {id: '851-900', start: 851, end: 900},
+            {id: '901-950', start: 901, end: 950},
+            {id: '951-1000', start: 951, end: 1000},
+            {id: '1001-1050', start: 1001, end: 1050},
+            {id: '1051-1100', start: 1051, end: 1100},
+            {id: '1101-1150', start: 1101, end: 1150},
+            {id: '1151-1200', start: 1151, end: 1200},
+            {id: '1201-1250', start: 1201, end: 1250},
+            {id: '1251-1300', start: 1251, end: 1300},
+            {id: '1301-1350', start: 1301, end: 1350},
+            {id: '1351-1400', start: 1351, end: 1400},
+            {id: '1401-1450', start: 1401, end: 1450},
+            {id: '1451-1500', start: 1451, end: 1500},
+            {id: '1501-1550', start: 1501, end: 1550},
+            {id: '1551-1600', start: 1551, end: 1600},
+            {id: '1601-1650', start: 1601, end: 1650},
+            {id: '1651-1700', start: 1651, end: 1700},
+            {id: '1701-1750', start: 1701, end: 1750},
+            {id: '1751-1800', start: 1751, end: 1800},
+            {id: '1801-1850', start: 1801, end: 1850},
+            {id: '1851-1859', start: 1851, end: 1859}
+        ];
+        
+        // 初始化分组按钮
+        const levelGroupsContainer = document.getElementById('levelGroups');
+        levelGroups.forEach(group => {
+            const btn = document.createElement('div');
+            btn.className = `group-btn ${group.selected ? 'active' : ''}`;
+            btn.textContent = group.id;
+            btn.dataset.id = group.id;
+            btn.dataset.start = group.start;
+            btn.dataset.end = group.end;
+            
+            btn.addEventListener('click', function() {
+                // 更新UI选择状态
+                document.querySelectorAll('.group-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 更新关卡网格
+                updateLevelGrid({
+                    start: parseInt(this.dataset.start),
+                    end: parseInt(this.dataset.end)
+                });
+            });
+            
+            levelGroupsContainer.appendChild(btn);
+        });
+        
+        // 更新关卡网格显示（去除行号）
+        function updateLevelGrid(group) {
+            const levelGrid = document.getElementById('levelGrid');
+            const levelGridTitle = document.getElementById('levelGridTitle');
+            
+            // 更新标题（与图片显示方式一致）
+            levelGridTitle.textContent = `Levels ${group.start}-${group.end}`;
+            
+            // 清空现有网格
+            levelGrid.innerHTML = '';
+            
+            // 生成关卡按钮（50个）
+            const levelCount = group.end - group.start + 1;
+            for (let i = 1; i <= levelCount; i++) {
+                const levelItem = document.createElement('a');
+                levelItem.className = 'level-item';
+                levelItem.textContent = group.start + i - 1;
+                levelItem.href = `level-detail.html?id=${group.start + i - 1}`;
+                levelGrid.appendChild(levelItem);
+            }
+        }
+        
+        // 初始化页面：默认显示101-150的关卡（与图片一致）
+        updateLevelGrid({start: 101, end: 150});
+        
+        // 关卡项悬停效果增强
+        function applyLevelItemHover() {
+            const levelItems = document.querySelectorAll('.level-item');
+            levelItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 8px 15px rgba(0,0,0,0.2)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                });
+            });
+        }
+        
+        // 应用悬停效果
+        applyLevelItemHover();
+        
+        // 监听网格变化并重新应用悬停效果
+        const observer = new MutationObserver(applyLevelItemHover);
+        observer.observe(document.getElementById('levelGrid'), {
+            childList: true,
+            subtree: true
+        });
+    </script>
+</body>
+</html>
