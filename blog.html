@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knit Out Blog - Article List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --knit-blue: #3498db;
+            --knit-green: #2ecc71;
+            --knit-purple: #9b59b6;
+            --knit-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f9f9f9;
+            --knit-orange: #e67e22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--knit-blue) 0%, var(--knit-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--knit-dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--knit-dark);
+        }
+        
+        .nav-link.active {
+            color: var(--knit-dark);
+            font-weight: 600;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
+            border-radius: 3px;
+        }
+        
+        /* 博客页面头部 */
+        .blog-header {
+            text-align: center;
+            padding: 80px 0 50px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
+            margin-bottom: 50px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .blog-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--knit-dark);
+            margin-bottom: 20px;
+        }
+        
+        .blog-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 博客文章网格 */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-category {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--knit-dark);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .card-excerpt {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .card-date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .read-more {
+            color: var(--knit-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            color: var(--knit-dark);
+            gap: 8px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+            
+            .nav-link {
+                font-size: 16px;
+            }
+            
+            .blog-header {
+                padding: 60px 20px 40px;
+            }
+            
+            .blog-title {
+                font-size: 2.8rem;
+            }
+            
+            .blog-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="levels.html" class="nav-link">Levels</a>
+            <a href="download.html" class="nav-link">Download</a>
+            <a href="blog.html" class="nav-link active">Blog</a>
+        </div>
+    </nav>
+    
+    <!-- 博客头部 -->
+    <header class="blog-header">
+        <div class="container">
+            <h1 class="blog-title">Knit Out Blog</h1>
+            <p class="blog-subtitle">
+                Discover game strategies, level insights, and community stories to enhance your Knit Out experience.
+            </p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- 文章列表 -->
+        <div class="blog-grid" id="blogGrid">
+            <!-- 博客文章将通过JavaScript动态加载 -->
+        </div>
+    </div>
+    
+    <script>
+        // 博客文章数据（带独立文章URL）
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Rollic Game Strategy: Innovation, Skin-Swaps, and IP",
+                excerpt: "Explore Rollic’s game strategy, including skin-swaps and successful titles like Color Block Jam and Barbie™ Merge Mystery.",
+                category: "Game Strategies",
+                date: "2025-07-20",
+                image: "https://images.unsplash.com/photo-1624969868652-4c8e3c8be3c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                readTime: "8 min read",
+                url: "articles/rollic-game-strategy-innovation-skin-swaps-ip.html"
+            },
+            {
+                id: 2,
+                title: "Knit Out: The Unbeatable Yarn-Themed Game of 2025!",
+                excerpt: "Knit Out blends relaxing yarn-wrapping puzzles with chess-like strategy. Discover its clean UI, engaging feedback loops, and peak challenge at level 24.",
+                category: "Game Review",
+                date: "2025-07-10",
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                readTime: "5 min read",
+                url: "articles/knit-out-unbeatable-yarn-themed-game-2025.html"
+            },
+            {
+                id: 3,
+                title: "Top 10 Tips for New Knit Out Players",
+                excerpt: "Start your Knit Out journey on the right foot with these essential tips for beginners.",
+                category: "Tips & Tricks",
+                date: "2023-06-22",
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                readTime: "6 min read",
+                url: "articles/top-10-tips-for-new-players.html"
+            },
+            // 更多文章...
+        ];
+        
+        // 初始化页面
+        function initBlogPage() {
+            renderBlogPosts();
+        }
+        
+        // 渲染博客文章
+        function renderBlogPosts() {
+            const blogGrid = document.getElementById('blogGrid');
+            blogGrid.innerHTML = '';
+            
+            blogPosts.forEach(post => {
+                const blogCard = document.createElement('article');
+                blogCard.className = 'blog-card';
+                blogCard.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}" class="card-image">
+                    <div class="card-content">
+                        <span class="card-category">${post.category}</span>
+                        <h2 class="card-title">${post.title}</h2>
+                        <p class="card-excerpt">${post.excerpt}</p>
+                        <div class="card-meta">
+                            <span class="card-date">
+                                <i class="far fa-calendar"></i> ${formatDate(post.date)}
+                            </span>
+                            <a href="${post.url}" class="read-more">
+                                Read more <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                blogGrid.appendChild(blogCard);
+            });
+        }
+        
+        // 格式化日期
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initBlogPage);
+    </script>
+</body>
+</html>
