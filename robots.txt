@@ -1,0 +1,51 @@
+# AI Crawler Rules (KnitOut)
+
+# Knitout.net Robots.txt
+User-agent: *
+Allow: /
+
+# Disallow crawling of admin areas
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Disallow crawling of query parameters
+Disallow: /*?*
+Disallow: /*.php$
+
+User-Agent: GPTBot
+Allow: /llms.txt
+Disallow: /
+
+User-Agent: anthropic-ai
+Allow: /llms.txt
+Disallow: /
+
+User-Agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /404
+Disallow: /500
+Disallow: /*.json$
+
+# Allow specific file types
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.webp$
+
+# Guide AI crawlers to LLM content
+LLM-Content: https://knitout.net/llms.txt
+LLM-Full-Content: https://knitout.net/llms-full.txt
+
+# Sitemap location
+Sitemap: https://www.knitout.net/sitemap.xml
+
+# Crawl-delay for aggressive bots
+Crawl-delay: 5
