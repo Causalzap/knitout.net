@@ -1,0 +1,58 @@
+# Knitout Full Introduction
+
+> Knitout is an innovative yarn-themed puzzle gaming platform dedicated to providing players worldwide with relaxing yet challenging puzzle experiences. Combining knitting aesthetics with chess-like strategy, Knitout offers a unique blend of mental stimulation and creative expression.
+
+## Website Background
+
+Knitout was created to revolutionize the puzzle game genre by introducing yarn-wrapping mechanics that provide both relaxation and cognitive challenge. Our mission is to create a gaming experience that appeals to both casual players and puzzle enthusiasts, bridging the gap between simple entertainment and deep strategic thinking. With its distinctive visual style and progressive difficulty curve, Knitout continues to expand its level library while maintaining a commitment to intuitive design and positive player experiences. We strive to build a welcoming community where players can unwind, challenge themselves, and share their knitting-inspired puzzle achievements.
+
+## Content Categories
+
+### [Featured Levels](https://www.knitout.net/levels.html)  
+Handpicked levels showcasing the best of Knitout's puzzle design and yarn-wrapping mechanics.
+
+### [Daily Challenges](https://www.knitout.net/daily-challenges.html)  
+Special puzzles refreshed daily with unique constraints and scoring opportunities.
+
+### [Strategy Guides](https://www.knitout.net/guides.html)  
+In-depth tutorials and tips for mastering Knitout's yarn-wrapping mechanics.
+
+### [Community Creations](https://www.knitout.net/community.html)  
+Player-designed levels and innovative solutions shared by the Knitout community.
+
+### [Game Updates](https://www.knitout.net/blog.html)  
+Latest news, feature additions, and game improvements.
+
+## User Value
+
+Knitout provides players with a unique puzzle experience that combines relaxation with mental stimulation. Our platform helps:
+- Reduce stress through soothing yarn-themed visuals and satisfying mechanics
+- Improve problem-solving skills with chess-like strategic challenges
+- Enhance spatial reasoning through innovative yarn-wrapping puzzles
+- Foster creativity with pattern recognition and solution optimization
+- Build a global community of puzzle enthusiasts sharing strategies and designs
+
+With no complex installations required and optimized for all devices, Knitout makes engaging puzzle gameplay accessible anytime, anywhere.
+
+## Key Resources
+- [Privacy Policy](https://www.knitout.net/privacy-policy.html): How we protect player data and ensure privacy
+- [Terms of Service](https://www.knitout.net/terms.html): Guidelines for using Knitout.net
+- [FAQ & Support](https://www.knitout.net/support.html): Answers to common questions and technical assistance
+- [Level Editor Guide](https://www.knitout.net/level-editor.html): How to create and share custom levels
+
+## Latest Content Updates
+
+### [The Weaver's Challenge (Level 414)](https://www.knitout.net/level-detail.html?id=414)  
+Released July 2025, this advanced puzzle requires intricate yarn path planning and strategic blocking. Players must weave through complex patterns while managing limited space, offering a satisfying challenge for experienced puzzle solvers.
+
+### [Symmetry Mastery (Level 360)](https://www.knitout.net/level-detail.html?id=360)  
+Added July 2025, this level introduces symmetrical yarn-wrapping mechanics where solutions must mirror across multiple axes. Perfect for players who enjoy spatial reasoning and pattern recognition challenges.
+
+### [Chess Master Puzzle (Level 403)](https://www.knitout.net/level-detail.html?id=403)  
+July 2025 update featuring chess-inspired mechanics where different yarn pieces have unique movement patterns, requiring players to think several moves ahead like in a chess match.
+
+### [Endless Loop (Level 131)](https://www.knitout.net/level-detail.html?id=131)  
+New July 2025 beginner-friendly level focusing on looping patterns and continuous yarn paths, designed to teach core mechanics while providing a relaxing experience.
+
+### [Mind Bender (Level 371)](https://www.knitout.net/level-detail.html?id=371)  
+Latest addition challenging players with multi-layered yarn connections and color-matching requirements that test both logic and visual-spatial skills.
