@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knit Out Solutions</title>
+    <title>Knit Out Level 2 Solution</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
+            --primary: #6a5acd;     /* 紫色 - 主色调 */
+            --secondary: #ff7f50;  /* 珊瑚色 - 强调色 */
+            --accent: #20b2aa;     /* 青绿色 - 辅助色 */
+            --dark: #2c3e50;       /* 深蓝色 - 文字颜色 */
+            --light: #f8f9fa;      /* 浅灰色 - 背景色 */
+            --white: #ffffff;      /* 白色 */
             --knit-blue: #3498db;
             --knit-green: #2ecc71;
             --knit-purple: #9b59b6;
-            --knit-dark: #2c3e50;
-            --background-light: #f5f7fa;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
         }
         
         * {
@@ -22,18 +30,13 @@
         }
         
         body {
-            background-color: var(--background-light);
-            color: #333;
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+            min-height: 100vh;
+            color: var(--dark);
             line-height: 1.6;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        
-        /* 导航栏 */
+        /* === 导航栏样式（保留原样） === */
         .nav-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -69,7 +72,7 @@
         .brand-name {
             font-size: 24px;
             font-weight: 600;
-            color: var(--knit-dark);
+            color: var(--dark);
         }
         
         .nav-menu {
@@ -82,62 +85,145 @@
             padding: 8px 0;
             font-size: 18px;
             font-weight: 500;
-            color: #7f8c8d;
+            color: #666;
             text-decoration: none;
             transition: color 0.3s;
         }
         
-        .nav-link:hover, .nav-link.active {
-            color: var(--knit-blue);
+        .nav-link:hover {
+            color: var(--dark);
         }
         
-        /* 主体内容 */
-        .page-header {
-            text-align: center;
-            margin: 60px 0 40px;
-        }
-        
-        .page-title {
-            font-size: 3.2rem;
-            font-weight: 800;
-            color: var(--knit-dark);
-            margin-bottom: 15px;
-        }
-        
-        .current-level {
-            font-size: 1.4rem;
-            color: var(--knit-purple);
+        .nav-link.active {
+            color: var(--dark);
             font-weight: 600;
-            background: rgba(155, 89, 182, 0.1);
-            padding: 8px 20px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
         
-        .video-section {
-            max-width: 800px;
-            margin: 0 auto;
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
+        }
+        
+        /* === 页面主内容样式 === */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px 40px;
+        }
+        
+        /* 关卡头部 - 根据第二张图优化 */
+        .level-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px 30px;
+            margin-bottom: 30px;
+        }
+        
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .level-number-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .header-text {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 5px;
         }
         
-        .video-container {
-            position: relative;
-            background-color: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-            aspect-ratio: 16/9;
+        .level-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
         }
         
-        .video-thumbnail {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .level-subtitle {
+            font-size: 1.2rem;
+            color: var(--knit-purple);
+            font-weight: 600;
+        }
+        
+        /* 美化后的Go to Level按钮 - 根据第二张图设计 */
+        .goto-level-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #f5f2ee 0%, #e8e1f1 100%);
+            border: none;
+            box-shadow: var(--shadow);
             cursor: pointer;
+            transition: var(--transition);
+            min-width: 220px;
+        }
+        
+        .goto-level-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .puzzle-icon {
+            font-size: 24px;
+            color: var(--knit-purple);
+        }
+        
+        .goto-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--knit-purple);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 视频区域 */
+        .video-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-placeholder {
+            position: relative;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: linear-gradient(135deg, var(--knit-purple) 0%, var(--knit-blue) 100%);
         }
         
         .play-button {
@@ -145,138 +231,197 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 85px;
-            height: 85px;
-            background: rgba(231, 126, 34, 0.9);
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 36px;
+            color: var(--white);
+            font-size: 30px;
             cursor: pointer;
-            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(255, 127, 80, 0.4);
+            transition: var(--transition);
+            z-index: 10;
         }
         
         .play-button:hover {
-            background: #e67e22;
             transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 12px 25px rgba(255, 127, 80, 0.6);
         }
         
-        .level-description {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: var(--knit-dark);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
+        .video-info {
             padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         
-        .level-actions {
+        .level-select-btn {
+            background: var(--light);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 25px;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
             display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .level-select-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        /* 描述区域 */
+        .description-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .challenge-text {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feature-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
             gap: 15px;
-            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            color: var(--white);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            font-size: 16px;
+            color: var(--dark);
+        }
+        
+        /* 导航按钮 */
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-top: 30px;
         }
         
         .nav-btn {
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            box-shadow: var(--shadow);
+            min-width: 180px;
+            justify-content: center;
         }
         
-        .prev-btn {
-            background: var(--knit-purple);
-            color: white;
+        .nav-btn.prev {
+            background: var(--primary);
+            color: var(--white);
         }
         
-        .all-btn {
+        .nav-btn.all {
             background: var(--knit-green);
-            color: white;
+            color: var(--white);
         }
         
-        .next-btn {
+        .nav-btn.next {
             background: var(--knit-blue);
-            color: white;
+            color: var(--white);
         }
         
         .nav-btn:hover {
-            opacity: 0.9;
             transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
         
-        .level-selector {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .level-input {
-            padding: 12px 15px;
-            font-size: 1.1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            width: 120px;
-            text-align: center;
-            margin-right: 10px;
-        }
-        
-        .level-go-btn {
-            padding: 12px 20px;
-            background: var(--knit-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .level-go-btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 8px;
-            background: #e74c3c;
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transform: translateX(150%);
-            transition: transform 0.5s ease;
-            z-index: 2000;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.success {
-            background: #2ecc71;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 15px 20px;
+        /* 响应式调整 */
+        @media (max-width: 900px) {
+            .navigation-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
+            .level-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .left-section {
+                flex-direction: column;
+            }
+            
+            .goto-level-btn {
+                margin-top: 15px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 600px) {
             .nav-menu {
                 gap: 15px;
             }
@@ -285,27 +430,20 @@
                 font-size: 16px;
             }
             
-            .page-title {
-                font-size: 2.4rem;
+            .brand-name {
+                font-size: 20px;
             }
             
-            .current-level {
-                font-size: 1.1rem;
-            }
-            
-            .level-actions {
-                gap: 10px;
-            }
-            
-            .nav-btn {
-                padding: 12px 24px;
-                font-size: 1rem;
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- 导航栏（保留原样） -->
     <nav class="nav-container">
         <div class="brand">
             <div class="logo">KO</div>
@@ -319,253 +457,128 @@
             <a href="blog.html" class="nav-link">Blog</a>
         </div>
     </nav>
-    
+
     <div class="container">
-        <div class="page-header">
-            <h1 class="page-title">
-                Knit Out Level <span id="levelNumber">42</span> Solution
-            </h1>
-            <div class="current-level">
-                <i class="fas fa-puzzle-piece"></i>
-                Level <span id="displayLevel">42</span>
-            </div>
-            
-            <div class="level-selector">
-                <input type="number" min="1" max="1858" placeholder="1" class="level-input" id="levelInput">
-                <button class="level-go-btn" id="goToLevelBtn">
-                    Go to Level
-                </button>
-            </div>
-        </div>
-        
-        <div class="video-section">
-            <!-- YouTube视频容器 -->
-            <div class="video-container" id="videoContainer">
-                <img id="videoThumbnail" 
-                     src="https://i.ytimg.com/vi/rymW4r3lH8w/maxresdefault.jpg" 
-                     alt="Solution Video" 
-                     class="video-thumbnail">
-                <div class="play-button" id="playButton">
-                    <i class="fas fa-play"></i>
+        <!-- 关卡头部 - 根据第二张图优化 -->
+        <div class="level-header">
+            <div class="left-section">
+                <div class="level-number-circle">2</div>
+                <div class="header-text">
+                    <h1 class="level-title">Knit Out Level 2 Solution</h1>
+                    <div class="level-subtitle">Complete Walkthrough & Strategy</div>
                 </div>
             </div>
             
-            <!-- 关卡描述 -->
-            <p class="level-description" id="levelDescription">
-                
-                  Your challenge is to clear lines of colorful knots from the top, releasing ropes that need to find their matching bobbins below. Strategically choose the right bobbins from the grid to collect the ropes and complete each level.
-
-                  Featuring:
-
-                  Hundreds of intricate puzzles to solve
-                  A vibrant palette of colors to keep your mind sharp
-                  Relaxing gameplay with no timers—perfect for unwinding
-                  Satisfying animations and delightful sound effects
-            </p>
-            
-            <!-- 操作按钮 -->
-            <div class="level-actions">
-                <a href="#" id="prevBtn" class="nav-btn prev-btn">
-                    <i class="fas fa-arrow-left"></i> Previous Level
-                </a>
-                <a href="levels.html" class="nav-btn all-btn">
-                    <i class="fas fa-list"></i> All Levels
-                </a>
-                <a href="#" id="nextBtn" class="nav-btn next-btn">
-                    Next Level <i class="fas fa-arrow-right"></i>
-                </a>
+            <!-- 美化后的Go to Level按钮 -->
+            <button class="goto-level-btn">
+                <i class="fas fa-puzzle-piece puzzle-icon"></i>
+                <span class="goto-text">Go to Level</span>
+            </button>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 视频区域 -->
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <button class="level-select-btn">
+                        <i class="fas fa-arrow-left"></i> Level 1
+                    </button>
+                    <button class="level-select-btn">
+                        Level 3 <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div>
+            
+            <!-- 描述区域 -->
+            <div class="description-container">
+                <h3 class="section-title">Challenge Description</h3>
+                <p class="challenge-text">
+                    Your challenge is to clear lines of colorful knots from the top, releasing ropes that need to find their matching bobbins below. Strategically choose the right bobbins from the grid to collect the ropes and complete each level.
+                </p>
+                
+                <h3 class="section-title">Game Features</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <p class="feature-text">Hundreds of intricate puzzles to solve</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <p class="feature-text">A vibrant palette of colors to keep your mind sharp</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <p class="feature-text">Relaxing gameplay with no timers - perfect for unwinding</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <p class="feature-text">Satisfying animations and delightful sound effects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 导航按钮 -->
+        <div class="navigation-buttons">
+            <button class="nav-btn prev">
+                <i class="fas fa-arrow-left"></i> Previous Level
+            </button>
+            <button class="nav-btn all">
+                <i class="fas fa-list"></i> All Levels
+            </button>
+            <button class="nav-btn next">
+                Next Level <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
     
-    <div class="notification" id="notification">Video loaded successfully!</div>
-    
     <script>
-        // 从URL中获取关卡ID
-        const urlParams = new URLSearchParams(window.location.search);
-        let currentLevel = parseInt(urlParams.get('id') || '42');
+        // 添加播放按钮交互
+        document.querySelector('.play-button').addEventListener('click', function() {
+            alert('Video playback started!');
+        });
         
-        // 初始化页面
-        async function initPage() {
-            // 验证关卡范围
-            if (currentLevel < 1 || currentLevel > 1858) {
-                currentLevel = 42;
-            }
-            
-            // 更新页面内容
-            document.getElementById('levelNumber').textContent = currentLevel;
-            document.getElementById('displayLevel').textContent = currentLevel;
-            document.getElementById('levelInput').value = currentLevel;
-            
-            // 加载关卡内容
-            await loadLevelContent(currentLevel);
-            
-            // 更新按钮状态
-            updateNavigationButtons();
-            
-            // 设置事件监听器
-            setupEventListeners();
-        }
+        // 添加导航按钮交互
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const btnType = this.classList.contains('prev') ? 'Previous Level' : 
+                               this.classList.contains('all') ? 'All Levels' : 'Next Level';
+                alert(`Navigating to ${btnType}`);
+            });
+        });
         
-        // 加载关卡内容
-        async function loadLevelContent(level) {
-            try {
-                // 加载视频数据
-                const videosData = await loadVideoData();
-                const videoId = videosData[level] || videosData[42];
-                
-                // 设置视频缩略图
-                const videoThumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-                document.getElementById('videoThumbnail').src = videoThumbnail;
-                
-                // 存储当前视频ID
-                window.currentVideoId = videoId;
-                
-                // 显示成功通知
-                showNotification(`Level ${level} video loaded`, 'success');
-            } catch (error) {
-                console.error('Error loading level content:', error);
-                showNotification('Failed to load video data', 'error');
-            }
-        }
-        
-        // 加载视频数据
-        async function loadVideoData() {
-    try {
-        // 输出获取视频数据的日志
-        console.log('Fetching video data...');
-
-        // 使用 fetch 请求动态加载 videos.json 数据
-        const response = await fetch('./test.json');  // 假设 videos.json 在同一目录下
-
-        // 输出响应状态
-        console.log('Response:', response);
-
-        if (!response.ok) {
-            throw new Error('Failed to load test.json');
-        }
-
-        // 解析 JSON 数据
-        const videoData = await response.json();  
-        
-        // 打印并返回视频数据
-        console.log('Video data:', videoData);  // 输出整个视频数据对象
-
-        return videoData;
-    } catch (error) {
-        console.error('Error loading video data:', error);
-        
-        // 返回默认回退数据
-        return {
-            42: "rymW4r3lH8w",
-            106: "8SbUC-UaAxE",
-            200: "QH2-TGUlwu4",
-            418: "9U6ULRW5E_4"
-        };
-    }
-}
-
-loadVideoData();
-
-
-        // 视频加载功能
-        function loadVideo() {
-            if (!window.currentVideoId) {
-                showNotification('No video available for this level', 'error');
-                return;
-            }
-            
-            const videoContainer = document.getElementById('videoContainer');
-            videoContainer.innerHTML = `
-                <iframe width="100%" height="100%" 
-                        src="https://www.youtube.com/embed/${window.currentVideoId}?autoplay=1" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
-            `;
-        }
-        
-        // 更新导航按钮状态
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            if (currentLevel > 1) {
-                prevBtn.href = `level-detail.html?id=${currentLevel - 1}`;
-            } else {
-                prevBtn.style.display = 'none';
-            }
-            
-            if (currentLevel < 1858) {
-                nextBtn.href = `level-detail.html?id=${currentLevel + 1}`;
-            } else {
-                nextBtn.style.display = 'none';
-            }
-        }
-        
-        // 设置事件监听器
-        function setupEventListeners() {
-            // 播放按钮事件
-            document.getElementById('playButton').addEventListener('click', loadVideo);
-            
-            // 跳转按钮事件
-            document.getElementById('goToLevelBtn').addEventListener('click', goToLevel);
-            
-            // 输入框回车事件
-            document.getElementById('levelInput').addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') {
-                    goToLevel();
+        // 添加关卡选择交互
+        document.querySelectorAll('.level-select-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                if(this.textContent.includes('Level 1')) {
+                    alert('Loading Level 1');
+                } else if(this.textContent.includes('Level 3')) {
+                    alert('Loading Level 3');
                 }
             });
-            
-            // 导航按钮事件
-            document.getElementById('prevBtn').addEventListener('click', function(e) {
-                if (currentLevel > 1) {
-                    window.location.href = `level-detail.html?id=${currentLevel - 1}`;
-                }
-            });
-            
-            document.getElementById('nextBtn').addEventListener('click', function(e) {
-                if (currentLevel < 1858) {
-                    window.location.href = `level-detail.html?id=${currentLevel + 1}`;
-                }
-            });
-        }
+        });
         
-        // 跳转到指定关卡
-        function goToLevel() {
-            const levelInput = document.getElementById('levelInput');
-            const level = parseInt(levelInput.value);
-            
-            if (isNaN(level) || level < 1 || level > 1858) {
-                showNotification('Please enter a valid level between 1 and 1858', 'error');
-                levelInput.focus();
-                return;
-            }
-            
-            window.location.href = `level-detail.html?id=${level}`;
-        }
-        
-        // 显示通知
-        function showNotification(message, type = '') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = 'notification show';
-            
-            if (type === 'success') {
-                notification.classList.add('success');
-            } else if (type === 'error') {
-                notification.classList.remove('success');
-            }
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // 页面加载时初始化
-        window.addEventListener('DOMContentLoaded', initPage);
+        // 添加Go to Level按钮交互
+        document.querySelector('.goto-level-btn').addEventListener('click', function() {
+            alert('Opening level selection menu');
+        });
     </script>
 </body>
 </html>
