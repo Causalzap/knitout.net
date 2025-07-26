@@ -430,13 +430,13 @@
         console.log('Fetching video data...');
 
         // 使用 fetch 请求动态加载 videos.json 数据
-        const response = await fetch('./videos.json');  // 假设 videos.json 在同一目录下
+        const response = await fetch('./test.json');  // 假设 videos.json 在同一目录下
 
         // 输出响应状态
         console.log('Response:', response);
 
         if (!response.ok) {
-            throw new Error('Failed to load videos.json');
+            throw new Error('Failed to load test.json');
         }
 
         // 解析 JSON 数据
