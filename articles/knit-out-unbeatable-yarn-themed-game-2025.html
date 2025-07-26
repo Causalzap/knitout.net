@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Knit Out: The Unbeatable Yarn-Themed Game of 2025!</title>
+  <title>Knit Out: The Ultimate Yarn-Themed Puzzle Game of 2025</title>
   <meta name="description" content="Knit Out blends relaxing yarn-wrapping puzzles with chess-like strategy. Discover its clean UI, engaging feedback loops, and peak challenge at level 24." />
   <meta name="keywords" content="Knit Out,yarn-themed puzzle game,2025 best puzzle game,chess-like strategy,relaxing gameplay,challenging levels" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,19 +18,25 @@
       --border-radius: 12px;
       --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
+      --primary-blue: #3498db;
+      --primary-green: #2ecc71;
+      --dark-text: #2c3e50;
+      --light-text: #7f8c8d;
+      --background-light: #f9f9f9;
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-light);
+      color: var(--dark-text);
       line-height: 1.7;
-      color: var(--text-color);
-      background-color: var(--light-color);
+      font-size: 1.1rem;
       background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
                          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 L100,100" stroke="rgba(230, 126, 34, 0.1)" stroke-width="1"/></svg>');
       background-size: 30px 30px;
@@ -40,6 +46,80 @@
       max-width: 900px;
       margin: 0 auto;
       padding: 0 20px;
+    }
+    
+    /* 新增导航栏样式 */
+    .nav-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    
+    .brand-name {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--dark-text);
+    }
+    
+    .nav-menu {
+      display: flex;
+      gap: 35px;
+    }
+    
+    .nav-link {
+      position: relative;
+      padding: 8px 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--light-text);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .nav-link:hover {
+      color: var(--dark-text);
+    }
+    
+    .nav-link.active {
+      color: var(--dark-text);
+      font-weight: 600;
+    }
+    
+    .nav-link.active:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+      border-radius: 3px;
     }
     
     /* 头部样式 */
@@ -86,6 +166,38 @@
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       position: relative;
       z-index: 2;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: var(--dark-color);
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+    
+    h3 {
+      font-size: 1.4rem;
+      margin: 20px 0 15px;
+      color: var(--dark-color);
+    }
+    
+    h4 {
+      font-size: 1.1rem;
+      margin: 15px 0 10px;
+      color: var(--dark-color);
     }
     
     .date {
@@ -135,26 +247,6 @@
     
     section:last-child {
       border-bottom: none;
-    }
-    
-    h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 25px;
-      color: var(--dark-color);
-      position: relative;
-      padding-bottom: 15px;
-    }
-    
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-      border-radius: 2px;
     }
     
     ul {
@@ -223,38 +315,93 @@
       background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
     }
     
-    .rating {
+    /* 精选关卡样式 - 按图片样式设计 */
+    .featured-section {
+      padding: 40px;
+      background-color: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 25px;
+    }
+    
+    .featured-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      height: 100%;
+    }
+    
+    .featured-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .level-image {
+      height: 180px;
       display: flex;
+      align-items: center;
       justify-content: center;
-      margin: 30px 0;
-      gap: 10px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     }
     
-    .star {
+    .level-icon {
+      color: white;
+      font-size: 4.5rem;
+    }
+    
+    .level-content {
+      padding: 25px;
+      background-color: white;
+    }
+    
+    .level-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--dark-text);
+    }
+    
+    .level-description {
+      margin-bottom: 20px;
+      color: var(--text-color);
+      min-height: 60px;
+    }
+    
+    .level-stars {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .level-star {
       color: #ddd;
-      font-size: 2rem;
+      font-size: 1.3rem;
     }
     
-    .star.filled {
+    .level-star.filled {
       color: #f1c40f;
     }
     
-    .cta-button {
-      display: inline-block;
+    .level-button {
+      display: block;
+      text-align: center;
       background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
       color: white;
-      padding: 15px 30px;
-      border-radius: 50px;
+      padding: 12px 20px;
+      border-radius: 6px;
       text-decoration: none;
       font-weight: 600;
-      margin-top: 20px;
       transition: var(--transition);
-      box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
     }
     
-    .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+    .level-button:hover {
+      background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
     }
     
     /* 响应式设计 */
@@ -267,12 +414,36 @@
         font-size: 2.2rem;
       }
       
+      h2 {
+        font-size: 1.6rem;
+      }
+      
+      h3 {
+        font-size: 1.3rem;
+      }
+      
+      .nav-container {
+        padding: 12px 20px;
+      }
+      
+      .brand-name {
+        font-size: 20px;
+      }
+      
+      .nav-menu {
+        gap: 20px;
+      }
+      
+      .nav-link {
+        font-size: 16px;
+      }
+      
       .intro, section {
         padding: 30px 20px;
       }
       
-      h2 {
-        font-size: 1.6rem;
+      .featured-grid {
+        grid-template-columns: 1fr;
       }
     }
     
@@ -285,6 +456,21 @@
         font-size: 1.4rem;
       }
       
+      h3 {
+        font-size: 1.2rem;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav-menu {
+        width: 100%;
+        justify-content: space-around;
+        gap: 10px;
+      }
+      
       .game-feature {
         flex-direction: column;
         align-items: flex-start;
@@ -293,11 +479,26 @@
   </style>
 </head>
 <body>
+  <!-- 新增导航栏 -->
+  <nav class="nav-container">
+    <div class="brand">
+      <div class="logo">KO</div>
+      <div class="brand-name">Knit Out</div>
+    </div>
+    
+    <div class="nav-menu">
+      <a href="https://causalzap.github.io/knitout.net/index.html" class="nav-link">Home</a>
+      <a href="https://causalzap.github.io/knitout.net/levels.html" class="nav-link">Levels</a>
+      <a href="https://causalzap.github.io/knitout.net/download.html" class="nav-link">Download</a>
+      <a href="https://causalzap.github.io/knitout.net/blog.html" class="nav-link active">Blog</a>
+    </div>
+  </nav>
+  
   <header>
     <div class="container">
-      <h1>Knit Out: The Unbeatable Yarn-Themed Game of 2025!</h1>
+      <h1>Knit Out: The Ultimate Yarn-Themed Puzzle Game of 2025</h1>
       <p class="date">
-        <i class="far fa-calendar"></i> July 10, 2025
+        <i class="far fa-calendar"></i> July 26, 2025
       </p>
     </div>
   </header>
@@ -307,104 +508,166 @@
       <article>
         <div class="intro">
           <p>
-            If you're looking for a <a href="https://causalzap.com/en/c/puzzle-games" target="_blank">puzzle game</a> that combines strategic depth with a relaxing, knitting-themed experience, <strong>Knit Out</strong>  is the game for you. Released in 2025, it offers a unique blend of intellectual challenge and soothing gameplay. Perfect for players who enjoy strategic thinking and games like <strong>chess</strong> , Knit Out invites you to immerse yourself in an experience where every move counts, and each level brings its own rewarding challenge.          
+            A Comprehensive Guide to the Mind-Bending Puzzle Game Experience
+          </p>
+          <p>
+            If you're looking for a puzzle game that combines strategic depth with a relaxing, knitting-themed experience, <strong>Knit Out</strong> is the game for you. Released in 2025, it offers a unique blend of intellectual challenge and soothing gameplay. Perfect for players who enjoy strategic thinking and games like <strong>chess</strong>, Knit Out invites you to immerse yourself in an experience where every move counts, and each level brings its own rewarding challenge.
           </p>
         </div>
         
         <section>
           <h2>Who Is Knit Out For?</h2>
-          <li><strong>Puzzle Enthusiasts</strong>: Those who enjoy thinking through strategic moves and solving complex puzzles.</li>
-          <li><strong>Casual Gamers</strong>: Individuals looking for a relaxing game with gradual challenges and frequent rewards.</li>
-          <li><strong>Players Who Enjoy Games Like Chess</strong>: If you like the mental stimulation of chess but prefer a more casual setting, Knit Out provides that balance.</li>
-          <li><strong>Fans of Relaxing Gameplay</strong>: Ideal for those who appreciate a game with a peaceful pace, especially during the early levels.</li>
-        </section>
-        
-        <section>
-          <h2 class="wp-block-heading" id="h-key-features-and-gameplay-insights">Key Features and Gameplay Insights</h2>
-          <h3 class="wp-block-heading" id="h-early-game-relax-and-learn-the-basics">Early Game: Relax and Learn the Basics</h3>
-            <li><strong>Introduction to Core Mechanics</strong>: The first 20 levels offer a smooth introduction, guiding players through the basics with minimal pressure.</li>
-            <li><strong>Tutorial and Power-ups</strong>: As you advance, you'll be introduced to various power-ups that enhance gameplay, teaching you how to maximize efficiency and strategy.</li>
-          <h3 class="wp-block-heading" id="h-mid-to-late-game-escalating-challenges-and-strategic-engagement">Mid to Late Game: Escalating Challenges and Strategic Engagement</h3>
-            <li><strong>Gradual Increase in Difficulty</strong>: As you move past level 20, the game introduces a rise in difficulty, requiring more strategic thinking. Players can enjoy solving puzzles that resemble the thought processes of chess, where each move feels impactful.</li>
-            <li><strong>Chess-like Strategy</strong>: Similar to chess, the game encourages players to make calculated moves, adding a layer of satisfaction as you start influencing the game board with every decision.</li>
-        </section>
-        
-        <section>
-          <h2>Engaging Mechanics and Feedback</h2>
-          
           <ul>
-            <li>
-              <strong>Red Alert Animation:</strong> Whenever there's only one empty space left, a red animation pops up, signaling danger. This visual cue warns players to be cautious and avoid using the last empty space. The subconscious association of red with danger adds to the immersion, making players more focused and preventing mistakes.
-            </li>
-            
-            <li>
-              <strong>Clear and Intuitive Tool Instructions:</strong> Tools are introduced with small animations, immediately demonstrating how to use them. This clear visual feedback helps players quickly understand and apply new features.
-            </li>
-            
-            <li>
-              <strong>Percentage Display:</strong> The game includes a percentage display, making it easier for users to calculate their progress. It's visually simple and effective—three small blocks equal 100%, helping players keep track of their achievements.
-            </li>
-            
-            <li>
-              <strong>Distinction Between Movable and Immovable Pieces:</strong> The game clearly differentiates between movable and immovable pieces, making gameplay easy to understand and reducing cognitive load.
-            </li>
-            
-            <li>
-              <strong>Consistent Iconography for Tools:</strong> The icons for tools match their functions, making it intuitive for players to understand how to use them.
-            </li>
+            <li><strong>Puzzle Enthusiasts</strong>: Those who enjoy thinking through strategic moves and solving complex puzzles.</li>
+            <li><strong>Casual Gamers</strong>: Individuals looking for a relaxing game with gradual challenges and frequent rewards.</li>
+            <li><strong>Players Who Enjoy Games Like Chess</strong>: If you like the mental stimulation of chess but prefer a more casual setting, Knit Out provides that balance.</li>
+            <li><strong>Fans of Relaxing Gameplay</strong>: Ideal for those who appreciate a game with a peaceful pace, especially during the early levels.</li>
           </ul>
         </section>
         
         <section>
-          <h2>Challenging Levels and Psychological Feedback</h2>
+          <h2>Key Features and Gameplay Insights</h2>
           
-          <div class="game-feature">
-            <div class="feature-icon">
-              <i class="fas fa-crown"></i>
-            </div>
-            <div>
-              <h3>Level 24: The Ultimate Challenge</h3>
-              <p>The 24th level is extremely difficult, but the game offers several hints in advance. Upon entering, the background changes to a darker color, creating a visual contrast and reinforcing the idea of difficulty. This dark theme, along with the previous bright levels, builds anticipation and intensifies the challenge perception.</p>
-            </div>
-          </div>
+          <h3>Early Game: Relax and Learn the Basics</h3>
+          <ul>
+            <li><strong>Introduction to Core Mechanics</strong>: The first 20 levels offer a smooth introduction, guiding players through the basics with minimal pressure.</li>
+            <li><strong>Tutorial and Power-ups</strong>: As you advance, you'll be introduced to various power-ups that enhance gameplay, teaching you how to maximize efficiency and strategy.</li>
+          </ul>
           
-          <div class="game-feature">
-            <div class="feature-icon">
-              <i class="fas fa-smile"></i>
-            </div>
-            <div>
-              <h3>Satisfying Feedback</h3>
-              <p>After failing the level once, players find themselves solving it more easily on the second try. The gameplay mechanics, where multiple blocks move and disappear together, offer gratifying positive feedback. As players' actions are reduced and the feedback increases, the game leads them to a state of flow, with the excitement of completing the level reaching its peak.</p>
-            </div>
-          </div>
+          <h3>Mid to Late Game: Escalating Challenges and Strategic Engagement</h3>
+          <ul>
+            <li><strong>Gradual Increase in Difficulty</strong>: As you move past level 20, the game introduces a rise in difficulty, requiring more strategic thinking. Players can enjoy solving puzzles that resemble the thought processes of chess, where each move feels impactful.</li>
+            <li><strong>Chess-like Strategy</strong>: Similar to chess, the game encourages players to make calculated moves, adding a layer of satisfaction as you start influencing the game board with every decision.</li>
+          </ul>
           
-          <p>For puzzle enthusiasts, this is an exceptional experience, and even casual players will appreciate the satisfying feedback. If players can't clear a level, they can always opt to pay to progress.</p>
+          <h3>A Seamless User Interface and Guided Progression</h3>
+          <ul>
+            <li><strong>Intuitive Design</strong>: Knit Out offers an incredibly user-friendly interface. The first five levels teach players the rules through visual cues and simple controls, ensuring a smooth learning curve.</li>
+            <li><strong>Guided Tutorial System</strong>: All key elements, from power-ups to game mechanics, are explained through concise, animated tutorials, followed by hands-on practice. This clear instruction ensures players never feel lost.</li>
+          </ul>
+          
+          <h3>Monetization Strategy: Subtle and Engaging</h3>
+          <ul>
+            <li><strong>Advertisements and Subtle Prompts</strong>: Knit Out encourages players to engage with advertisements through large, strategically placed buttons. This approach ensures monetization while still maintaining a positive player experience.</li>
+          </ul>
+          
+          <h3>Immersive Gameplay with Risk Communication</h3>
+          <ul>
+            <li><strong>Visual Cues for Focus</strong>: When only one empty space remains on the game board, a red animation appears as a visual cue, signaling limited space. This intuitive design communicates urgency, guiding players toward making more deliberate decisions.</li>
+            <li><strong>Behavioral Nudges</strong>: The red warning influences players to avoid using the last space, tapping into universal perceptions of danger. However, using that space can sometimes simplify the puzzle, offering a clever psychological twist to gameplay.</li>
+            <li><strong>Enhanced Focus</strong>: The visual cue drives players into a state of heightened concentration, increasing their involvement in the game and enhancing the overall immersive experience.</li>
+          </ul>
+          
+          <h3>Level 24: The Ultimate Test</h3>
+          <ul>
+            <li><strong>Challenging Gameplay</strong>: Level 24 serves as the ultimate test of your puzzle-solving skills. The background shifts to a dark color, signifying the heightened difficulty. Players are warned beforehand, yet the challenge still feels fresh and rewarding.</li>
+            <li><strong>Satisfying Feedback Loop</strong>: Conquering this level requires careful thought and strategy. The mechanics of multiple colored blocks clearing simultaneously provide satisfying feedback, making each victory feel earned.</li>
+            <li><strong>Peak Mental Flow</strong>: Successfully completing this level not only challenges puzzle enthusiasts but also provides ample positive reinforcement, making it a satisfying experience for casual players as well.</li>
+          </ul>
+          
+          <h3>Visual Clarity and User-Friendly Design</h3>
+          <ul>
+            <li><strong>Clear Percentage Display</strong>: A visual percentage display using colored blocks simplifies complex calculations, helping players track their progress.</li>
+            <li><strong>Easy-to-Distinguish Pieces</strong>: Movable and immovable pieces are clearly marked, ensuring players can quickly understand the board layout and take action.</li>
+            <li><strong>Iconic Power-Up Design</strong>: Power-up icons are easy to understand, making it clear what each icon does without confusion. This intuitive design reduces the time it takes for players to comprehend new mechanics.</li>
+          </ul>
         </section>
         
-        <div class="conclusion">
-          <h2>Conclusion: A Masterpiece in Puzzle Design</h2>
-          <p><strong>Knit Out</strong> is, without a doubt, the best yarn-themed puzzle game variant I've played this year. It combines accessibility with depth, offering a game that is easy to learn but hard to master. With a rewarding sense of strategy and chess-like decision-making, the game is an excellent example of design that appeals to both casual and hardcore puzzle gamers.</p>
+        <section class="conclusion">
+          <h2>Conclusion: Why Knit Out is a Must-Play Puzzle Game</h2>
+          <p>Knit Out is a standout game in the puzzle genre, offering a unique experience that combines relaxation and strategic challenge. It's easy to learn, difficult to master, with an intuitive user interface and rewarding progression that appeals to both casual players and puzzle enthusiasts alike. Its clever incorporation of chess-like strategy alongside a soothing, knitting-themed environment makes it a one-of-a-kind gaming experience in 2025.</p>
           
-          <div class="rating">
-            <div class="star filled"><i class="fas fa-star"></i></div>
-            <div class="star filled"><i class="fas fa-star"></i></div>
-            <div class="star filled"><i class="fas fa-star"></i></div>
-            <div class="star filled"><i class="fas fa-star"></i></div>
-            <div class="star filled"><i class="fas fa-star"></i></div>
+          <p>For developers and gamers alike, Knit Out is a perfect example of how to create a highly engaging, casual game that balances relaxation with deep strategic gameplay. Whether you're developing a similar game or simply looking for a new challenge, Knit Out is a game worth exploring.</p>
+        </section>
+        
+        <!-- 精选关卡部分 - 按照图片设计 -->
+        <section class="featured-section">
+          <h2>Featured Levels</h2>
+          <p>Explore these specially selected levels that showcase the best of Knit Out's puzzle design:</p>
+          
+          <div class="featured-grid">
+            <!-- Level 414 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-puzzle-piece level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 414: The Weaver's Challenge</h3>
+                <p class="level-description">A complex pattern that requires careful planning and strategic moves.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=414" class="level-button">Play Level 414</a>
+              </div>
+            </div>
+            
+            <!-- Level 360 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-yin-yang level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 360: Symmetry Puzzle</h3>
+                <p class="level-description">Master the art of symmetrical yarn wrapping in this elegant challenge.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star"></i>
+                  <i class="fas fa-star level-star"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=360" class="level-button">Play Level 360</a>
+              </div>
+            </div>
+            
+            <!-- Level 403 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-chess-knight level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 403: Chess Master</h3>
+                <p class="level-description">For chess enthusiasts - requires thinking several moves ahead.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=403" class="level-button">Play Level 403</a>
+              </div>
+            </div>
+            
+            <!-- Level 131 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-infinity level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 131: Endless Loop</h3>
+                <p class="level-description">A relaxing level perfect for beginners with looping patterns.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star"></i>
+                  <i class="fas fa-star level-star"></i>
+                  <i class="fas fa-star level-star"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=131" class="level-button">Play Level 131</a>
+              </div>
+            </div>
           </div>
-          
-          <p>If you're thinking about adapting this concept for the domestic market, don't hesitate—get started now!</p>
-          
-          <a href="#" class="cta-button">
-            <i class="fas fa-download"></i> Download Knit Out Now
-          </a>
-        </div>
+        </section>
       </article>
     </main>
   </div>
   
   <script>
-    // 简单的动画效果
     document.addEventListener('DOMContentLoaded', function() {
       // 添加滚动动画
       const sections = document.querySelectorAll('section, .conclusion');
@@ -427,16 +690,14 @@
         observer.observe(section);
       });
       
-      // 为CTA按钮添加动画
-      const ctaButton = document.querySelector('.cta-button');
-      if (ctaButton) {
-        setTimeout(() => {
-          ctaButton.style.transform = 'scale(1.05)';
-          setTimeout(() => {
-            ctaButton.style.transform = 'scale(1)';
-          }, 500);
-        }, 2000);
-      }
+      // 为导航链接添加活动状态
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
     });
   </script>
 </body>
