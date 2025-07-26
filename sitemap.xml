@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Homepage -->
+    <url>
+        <loc>https://www.knitout.net/</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Main sections -->
+    <url>
+        <loc>https://www.knitout.net/levels.html</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.knitout.net/download.html</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.knitout.net/blog.html</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Blog articles -->
+    <url>
+        <loc>https://www.knitout.net/articles/knit-out-unbeatable-yarn-themed-game-2025.html</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Level detail pages -->
+    <url>
+        <loc>https://www.knitout.net/level-detail.html?id=414</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.knitout.net/level-detail.html?id=360</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.knitout.net/level-detail.html?id=403</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.knitout.net/level-detail.html?id=131</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.knitout.net/level-detail.html?id=371</loc>
+        <lastmod>2025-07-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+</urlset>
