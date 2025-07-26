@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knit Out Level 2 Solution</title>
+    <title>Knit Out Level 1 Solution</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -19,11 +19,11 @@
             line-height: 1.6;
             min-height: 100vh;
             padding: 0;
+            background-image: linear-gradient(to bottom, #f8f9fa, #e9ecef);
         }
         
         .nav-container {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             padding: 15px 40px;
             display: flex;
@@ -32,18 +32,21 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid #eaeaea;
         }
         
         .brand {
             display: flex;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
+            color: inherit;
         }
         
         .logo {
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+            background: linear-gradient(135deg, #5C4B9B, #3F88C5);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -67,13 +70,26 @@
         .nav-link {
             font-size: 18px;
             font-weight: 500;
-            color: #7f8c8d;
+            color: #6c757d;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            padding-bottom: 5px;
         }
         
         .nav-link:hover, .nav-link.active {
-            color: #3498db;
+            color: #5C4B9B;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #5C4B9B, #3F88C5);
+            border-radius: 2px;
         }
         
         .main-container {
@@ -85,19 +101,23 @@
         .page-header {
             text-align: center;
             margin-bottom: 40px;
+            padding: 0 20px;
         }
         
         .page-title {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 800;
             color: #2c3e50;
             margin-bottom: 10px;
             position: relative;
+            background: linear-gradient(to right, #5C4B9B, #3F88C5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .page-subtitle {
             font-size: 1.2rem;
-            color: #7f8c8d;
+            color: #6c757d;
             font-weight: 500;
             margin-bottom: 30px;
         }
@@ -108,20 +128,29 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            margin: 0 auto 30px;
         }
         
         .level-display {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #9b59b6;
-            background: rgba(155, 89, 182, 0.1);
+            color: #5C4B9B;
+            background: rgba(92, 75, 155, 0.1);
             padding: 8px 30px;
             border-radius: 30px;
+            min-width: 120px;
+            text-align: center;
         }
         
         .level-selector {
             display: flex;
             gap: 10px;
+            flex-grow: 1;
         }
         
         .level-input {
@@ -129,25 +158,34 @@
             font-size: 1.1rem;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            width: 120px;
             text-align: center;
             font-weight: 600;
             color: #2c3e50;
+            width: 120px;
+        }
+        
+        .level-input:focus {
+            outline: none;
+            border-color: #5C4B9B;
+            box-shadow: 0 0 0 3px rgba(92, 75, 155, 0.2);
         }
         
         .level-go-btn {
             padding: 12px 25px;
-            background: #3498db;
+            background: #5C4B9B;
             color: white;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            min-width: 140px;
         }
         
         .level-go-btn:hover {
-            background: #2980b9;
+            background: #4c3d82;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
         .content-container {
@@ -158,7 +196,7 @@
         
         .video-container {
             flex: 1;
-            background: linear-gradient(135deg, #3498db, #9b59b6);
+            background: white;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -172,32 +210,53 @@
         .video-backdrop {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #5D54A4, #7C78B8);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
+            background-color: #f8f9fa;
+            position: relative;
         }
         
         .play-button {
             width: 80px;
             height: 80px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(92, 75, 155, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #9b59b6;
+            color: white;
             font-size: 32px;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 2;
         }
         
         .play-button:hover {
             transform: scale(1.1);
-            background: white;
+            background: rgba(76, 61, 130, 0.9);
+        }
+        
+        .video-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-weight: 500;
+            z-index: 1;
+        }
+        
+        .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .video-artist {
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
         
         .video-frame {
@@ -216,7 +275,7 @@
         
         .section-title {
             font-size: 1.8rem;
-            color: #3498db;
+            color: #5C4B9B;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #e2e8f0;
@@ -225,7 +284,7 @@
         .description-text {
             font-size: 1.1rem;
             line-height: 1.7;
-            color: #2c3e50;
+            color: #495057;
             margin-bottom: 25px;
         }
         
@@ -235,13 +294,13 @@
         
         .feature-list {
             list-style-type: none;
-            padding-left: 20px;
+            padding-left: 0;
         }
         
         .feature-item {
             padding: 10px 0;
             font-size: 1.1rem;
-            color: #2c3e50;
+            color: #495057;
             position: relative;
             display: flex;
             align-items: center;
@@ -279,24 +338,22 @@
             gap: 10px;
             transition: all 0.3s;
             font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: none;
             cursor: pointer;
+            color: white;
         }
         
         .prev-btn {
-            background: #9b59b6;
-            color: white;
+            background: #6f42c1;
         }
         
         .all-btn {
-            background: #2ecc71;
-            color: white;
+            background: #3F88C5;
         }
         
         .next-btn {
-            background: #3498db;
-            color: white;
+            background: #5C4B9B;
         }
         
         .nav-btn:hover {
@@ -320,6 +377,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            max-width: 400px;
         }
         
         .notification.show {
@@ -335,21 +393,21 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
+            color: #5C4B9B;
             font-size: 1.2rem;
             display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 8px;
         }
         
-        .video-status {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
             font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: none;
+            border-top: 1px solid #eaeaea;
+            margin-top: 30px;
         }
         
         @media (max-width: 1000px) {
@@ -361,10 +419,12 @@
         @media (max-width: 768px) {
             .nav-container {
                 padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
             }
             
             .nav-menu {
-                gap: 20px;
+                gap: 15px;
             }
             
             .page-title {
@@ -373,11 +433,13 @@
             
             .level-display {
                 font-size: 1.4rem;
+                padding: 6px 20px;
             }
             
             .current-level-container {
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
+                padding: 15px;
             }
             
             .nav-link {
@@ -396,6 +458,15 @@
             .description-container {
                 padding: 20px;
             }
+            
+            .level-selector {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .level-input, .level-go-btn {
+                width: 100%;
+            }
         }
         
         @media (max-width: 480px) {
@@ -406,29 +477,22 @@
             .level-actions {
                 flex-direction: column;
                 width: 100%;
+                gap: 10px;
             }
             
             .nav-btn {
                 width: 100%;
                 justify-content: center;
             }
-            
-            .level-selector {
-                flex-direction: column;
-            }
-            
-            .level-input, .level-go-btn {
-                width: 100%;
-            }
         }
     </style>
 </head>
 <body>
     <nav class="nav-container">
-        <div class="brand">
+        <a href="index.html" class="brand">
             <div class="logo">KO</div>
             <div class="brand-name">Knit Out</div>
-        </div>
+        </a>
         
         <div class="nav-menu">
             <a href="index.html" class="nav-link">Home</a>
@@ -441,19 +505,19 @@
     <div class="main-container">
         <div class="page-header">
             <h1 class="page-title">
-                Knit Out Level <span id="levelNumber">2</span> Solution
+                Knit Out Level <span id="levelNumber">1</span> Solution
             </h1>
             <div class="page-subtitle">Complete Walkthrough & Strategy</div>
             
             <div class="current-level-container">
                 <div class="level-display">
-                    Level <span id="displayLevel">2</span>
+                    Level <span id="displayLevel">1</span>
                 </div>
                 
                 <div class="level-selector">
-                    <input type="number" min="1" max="1858" placeholder="1" class="level-input" id="levelInput" value="2">
+                    <input type="number" min="1" max="1858" placeholder="1" class="level-input" id="levelInput" value="1">
                     <button class="level-go-btn" id="goToLevelBtn">
-                        Go to Level
+                        <i class="fas fa-arrow-right"></i> Go to Level
                     </button>
                 </div>
             </div>
@@ -462,13 +526,18 @@
         <div class="content-container">
             <div class="video-container" id="videoContainer">
                 <div class="video-backdrop" id="videoBackdrop">
+                    <div class="video-info">
+                        <div class="video-title">Never Gonna Give You Up</div>
+                        <div class="video-artist">Rick Ashley</div>
+                    </div>
                     <div class="play-button" id="playButton">
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
                 <iframe class="video-frame" id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="video-loading" id="videoLoading">Loading video...</div>
-                <div class="video-status" id="videoStatus"></div>
+                <div class="video-loading" id="videoLoading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading video...
+                </div>
             </div>
             
             <div class="description-container">
@@ -505,9 +574,13 @@
         </div>
     </div>
     
+    <div class="footer">
+        © 2023 Knit Out Solutions. All rights reserved.
+    </div>
+    
     <div class="notification" id="notification">
         <i class="fas fa-info-circle"></i>
-        <span id="notificationMessage">Video loaded successfully!</span>
+        <span id="notificationMessage">Level 1 loaded successfully!</span>
     </div>
     
     <script>
@@ -521,40 +594,34 @@
         const playButton = document.getElementById('playButton');
         const videoFrame = document.getElementById('videoFrame');
         const videoLoading = document.getElementById('videoLoading');
-        const videoStatus = document.getElementById('videoStatus');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const notification = document.getElementById('notification');
         const notificationMessage = document.getElementById('notificationMessage');
         
-        // YouTube video IDs for different levels
-        const videoData = {
-            1: "dQw4w9WgXcQ",
-            2: "rymW4r3lH8w", // Level 2 video
-            3: "QH2-TGUlwu4",
-            4: "9U6ULRW5E_4",
-            5: "8SbUC-UaAxE"
-        };
-        
-        // Set initial video for level 2
-        window.currentVideoId = videoData[2];
-        
-        // Get level from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        let currentLevel = parseInt(urlParams.get('id') || '2');
+        // State variables
+        let videoData = {};
+        let currentLevel = 1;
         
         // Initialize page
-        function initPage() {
+        async function initPage() {
+            // Get level from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            currentLevel = parseInt(urlParams.get('id') || '1');
+            
             // Validate level
-            if (currentLevel < 1 || currentLevel > 1858) currentLevel = 2;
+            if (currentLevel < 1 || currentLevel > 1858) currentLevel = 1;
+            
+            // Load video data
+            await loadVideoData();
             
             // Update UI
-            updateLevelDisplay(currentLevel);
+            updateLevelDisplay();
             
-            // Update video
+            // Load initial video
             updateVideoContent();
             
-            // Update buttons
+            // Update navigation buttons
             updateNavigationButtons();
             
             // Add event listeners
@@ -564,30 +631,71 @@
             showNotification(`Level ${currentLevel} loaded successfully!`, 'success');
         }
         
+        // Load video data from test.json
+        async function loadVideoData() {
+            try {
+                // Show loading message
+                showNotification('Loading video data...');
+                
+                const response = await fetch('./test.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Store video data
+                videoData = data;
+                
+                console.log('Successfully loaded video data:', videoData);
+                showNotification('Video data loaded successfully!', 'success');
+                return data;
+            } catch (error) {
+                console.error('Error loading video data:', error);
+                
+                // Fallback data
+                videoData = {
+                    1: "dQw4w9WgXcQ",
+                    2: "rymW4r3lH8w",
+                    3: "QH2-TGUlwu4",
+                    4: "9U6ULRW5E_4",
+                    5: "8SbUC-UaAxE"
+                };
+                
+                showNotification('Using fallback video data', 'error');
+                return videoData;
+            }
+        }
+        
         // Update video content
         function updateVideoContent() {
-            // Check if video ID is available
-            if (window.currentVideoId) {
-                // Show loading state
-                videoLoading.style.display = 'block';
-                videoStatus.textContent = `Loading level ${currentLevel} video...`;
-                videoStatus.style.display = 'block';
-                
-                // Set video source
-                videoFrame.src = `https://www.youtube.com/embed/${window.currentVideoId}`;
-                
-                // Hide loading after delay
-                setTimeout(() => {
-                    videoLoading.style.display = 'none';
-                    videoStatus.textContent = `Level ${currentLevel} video ready`;
-                }, 1000);
-                
-                showNotification(`Video for Level ${currentLevel} is ready`, 'success');
-            } else {
-                showNotification('No video available for this level', 'error');
-                videoStatus.textContent = 'No video available';
-                videoStatus.style.display = 'block';
+            if (!videoData || Object.keys(videoData).length === 0) {
+                showNotification('No video data available', 'error');
+                return;
             }
+            
+            // Get video ID for current level
+            const videoId = videoData[currentLevel];
+            
+            if (!videoId) {
+                showNotification(`No video for level ${currentLevel}`, 'error');
+                return;
+            }
+            
+            // Show loading
+            videoLoading.style.display = 'flex';
+            
+            // Update the video frame
+            videoFrame.src = `https://www.youtube.com/embed/${videoId}`;
+            videoBackdrop.style.display = 'flex';
+            videoFrame.style.display = 'none';
+            
+            // Hide loading after a short delay to simulate loading time
+            setTimeout(() => {
+                videoLoading.style.display = 'none';
+                showNotification(`Video for Level ${currentLevel} ready`, 'success');
+            }, 1000);
         }
         
         // Play video
@@ -606,23 +714,15 @@
                     : `${currentSrc}?autoplay=1`;
             }
             
-            // Update status
-            videoStatus.textContent = `Playing Level ${currentLevel} solution`;
-            videoStatus.style.display = 'block';
+            // Show status
+            showNotification(`Playing Level ${currentLevel} solution`);
         }
         
         // Update level display
-        function updateLevelDisplay(level) {
-            levelNumberEl.textContent = level;
-            displayLevelEl.textContent = level;
-            levelInputEl.value = level;
-            
-            // Update the current level in the video data
-            if (videoData[level]) {
-                window.currentVideoId = videoData[level];
-            } else {
-                window.currentVideoId = videoData[2]; // Default to level 2
-            }
+        function updateLevelDisplay() {
+            levelNumberEl.textContent = currentLevel;
+            displayLevelEl.textContent = currentLevel;
+            levelInputEl.value = currentLevel;
         }
         
         // Update navigation buttons
@@ -635,7 +735,7 @@
                 prevBtn.style.opacity = "1";
             }
             
-            if (currentLevel >= 5) { // For demo, 5 is max level
+            if (currentLevel >= 1858) {
                 nextBtn.disabled = true;
                 nextBtn.style.opacity = "0.6";
             } else {
@@ -648,10 +748,13 @@
         function showNotification(message, type = '') {
             notificationMessage.textContent = message;
             notification.className = 'notification show';
+            
             if (type === 'success') {
                 notification.style.background = '#2ecc71';
-            } else {
+            } else if (type === 'error') {
                 notification.style.background = '#e74c3c';
+            } else {
+                notification.style.background = '#3498db';
             }
             
             setTimeout(() => {
@@ -667,10 +770,10 @@
             // Go to level button
             goToLevelBtn.addEventListener('click', () => {
                 const level = parseInt(levelInputEl.value);
-                if (level >= 1 && level <= 5) { // For demo, levels 1-5
+                if (level >= 1 && level <= 1858) {
                     navigateToLevel(level);
                 } else {
-                    showNotification('Please enter a valid level between 1 and 5');
+                    showNotification('Please enter a level between 1 and 1858', 'error');
                 }
             });
             
@@ -689,34 +792,48 @@
             });
             
             nextBtn.addEventListener('click', () => {
-                if (currentLevel < 5) { // For demo, max level 5
+                if (currentLevel < 1858) {
                     navigateToLevel(currentLevel + 1);
                 }
             });
             
-            // Reset video display when navigating to new level
+            // Reset video when frame loads
             videoFrame.addEventListener('load', () => {
                 videoLoading.style.display = 'none';
-                videoStatus.textContent = `Level ${currentLevel} video loaded`;
             });
         }
         
         // Navigate to level
         function navigateToLevel(level) {
+            // Update URL without reloading the page
+            window.history.pushState(null, null, `?id=${level}`);
+            
+            // Update current level
             currentLevel = level;
-            updateLevelDisplay(currentLevel);
+            
+            // Update UI
+            updateLevelDisplay();
             updateNavigationButtons();
             updateVideoContent();
-            resetVideoDisplay();
+            
+            // Show notification
+            showNotification(`Level ${level} loaded`, 'success');
         }
         
-        // Reset video display
-        function resetVideoDisplay() {
-            videoBackdrop.style.display = 'flex';
-            videoFrame.style.display = 'none';
-            videoStatus.textContent = `Level ${currentLevel} video loaded`;
-            videoStatus.style.display = 'block';
-        }
+        // Handle back/forward navigation
+        window.addEventListener('popstate', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const levelParam = urlParams.get('id');
+            const level = parseInt(levelParam) || 1;
+            
+            if (level !== currentLevel) {
+                currentLevel = level;
+                updateLevelDisplay();
+                updateNavigationButtons();
+                updateVideoContent();
+                showNotification(`Level ${level} loaded from history`, 'success');
+            }
+        });
         
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', initPage);
