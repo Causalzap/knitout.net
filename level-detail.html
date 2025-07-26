@@ -169,27 +169,26 @@
             position: relative;
         }
         
-        .video-thumbnail {
+        .video-backdrop {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: linear-gradient(135deg, #5D54A4, #7C78B8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            opacity: 0.7;
+            transition: all 0.3s;
         }
         
         .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #3498db;
+            color: #9b59b6;
             font-size: 32px;
             cursor: pointer;
             transition: all 0.3s;
@@ -197,8 +196,14 @@
         }
         
         .play-button:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            color: #9b59b6;
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .video-frame {
+            width: 100%;
+            height: 100%;
+            display: none;
         }
         
         .description-container {
@@ -261,6 +266,7 @@
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 40px;
         }
         
         .nav-btn {
@@ -311,6 +317,9 @@
             transform: translateX(150%);
             transition: transform 0.5s ease;
             z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .notification.show {
@@ -319,6 +328,28 @@
         
         .notification.success {
             background: #2ecc71;
+        }
+        
+        .video-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.2rem;
+            display: none;
+        }
+        
+        .video-status {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: none;
         }
         
         @media (max-width: 1000px) {
@@ -430,10 +461,14 @@
         
         <div class="content-container">
             <div class="video-container" id="videoContainer">
-                <img src="https://i.ytimg.com/vi/rymW4r3lH8w/maxresdefault.jpg" alt="Solution Video" class="video-thumbnail">
-                <div class="play-button" id="playButton">
-                    <i class="fas fa-play"></i>
+                <div class="video-backdrop" id="videoBackdrop">
+                    <div class="play-button" id="playButton">
+                        <i class="fas fa-play"></i>
+                    </div>
                 </div>
+                <iframe class="video-frame" id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-loading" id="videoLoading">Loading video...</div>
+                <div class="video-status" id="videoStatus"></div>
             </div>
             
             <div class="description-container">
@@ -449,8 +484,8 @@
                     <h2 class="section-title">Game Features</h2>
                     <ul class="feature-list">
                         <li class="feature-item">Hundreds of intricate puzzles to solve</li>
-                        <li class="feature-item">Relaxing gameplay with no timers - perfect for unwinding</li>
                         <li class="feature-item">A vibrant palette of colors to keep your mind sharp</li>
+                        <li class="feature-item">Relaxing gameplay with no timers - perfect for unwinding</li>
                         <li class="feature-item">Satisfying animations and delightful sound effects</li>
                     </ul>
                 </div>
@@ -470,7 +505,10 @@
         </div>
     </div>
     
-    <div class="notification" id="notification">Video loaded successfully!</div>
+    <div class="notification" id="notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="notificationMessage">Video loaded successfully!</span>
+    </div>
     
     <script>
         // DOM elements
@@ -479,10 +517,27 @@
         const levelInputEl = document.getElementById('levelInput');
         const goToLevelBtn = document.getElementById('goToLevelBtn');
         const videoContainer = document.getElementById('videoContainer');
+        const videoBackdrop = document.getElementById('videoBackdrop');
         const playButton = document.getElementById('playButton');
+        const videoFrame = document.getElementById('videoFrame');
+        const videoLoading = document.getElementById('videoLoading');
+        const videoStatus = document.getElementById('videoStatus');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notificationMessage');
+        
+        // YouTube video IDs for different levels
+        const videoData = {
+            1: "dQw4w9WgXcQ",
+            2: "rymW4r3lH8w", // Level 2 video
+            3: "QH2-TGUlwu4",
+            4: "9U6ULRW5E_4",
+            5: "8SbUC-UaAxE"
+        };
+        
+        // Set initial video for level 2
+        window.currentVideoId = videoData[2];
         
         // Get level from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -496,8 +551,8 @@
             // Update UI
             updateLevelDisplay(currentLevel);
             
-            // Load level content
-            loadLevelContent(currentLevel);
+            // Update video
+            updateVideoContent();
             
             // Update buttons
             updateNavigationButtons();
@@ -509,19 +564,65 @@
             showNotification(`Level ${currentLevel} loaded successfully!`, 'success');
         }
         
+        // Update video content
+        function updateVideoContent() {
+            // Check if video ID is available
+            if (window.currentVideoId) {
+                // Show loading state
+                videoLoading.style.display = 'block';
+                videoStatus.textContent = `Loading level ${currentLevel} video...`;
+                videoStatus.style.display = 'block';
+                
+                // Set video source
+                videoFrame.src = `https://www.youtube.com/embed/${window.currentVideoId}`;
+                
+                // Hide loading after delay
+                setTimeout(() => {
+                    videoLoading.style.display = 'none';
+                    videoStatus.textContent = `Level ${currentLevel} video ready`;
+                }, 1000);
+                
+                showNotification(`Video for Level ${currentLevel} is ready`, 'success');
+            } else {
+                showNotification('No video available for this level', 'error');
+                videoStatus.textContent = 'No video available';
+                videoStatus.style.display = 'block';
+            }
+        }
+        
+        // Play video
+        function playVideo() {
+            // Hide the backdrop and play button
+            videoBackdrop.style.display = 'none';
+            
+            // Show and play the video
+            videoFrame.style.display = 'block';
+            
+            // Add autoplay parameter to the URL
+            const currentSrc = videoFrame.src;
+            if (!currentSrc.includes('autoplay=1')) {
+                videoFrame.src = currentSrc.includes('?') 
+                    ? `${currentSrc}&autoplay=1`
+                    : `${currentSrc}?autoplay=1`;
+            }
+            
+            // Update status
+            videoStatus.textContent = `Playing Level ${currentLevel} solution`;
+            videoStatus.style.display = 'block';
+        }
+        
         // Update level display
         function updateLevelDisplay(level) {
             levelNumberEl.textContent = level;
             displayLevelEl.textContent = level;
             levelInputEl.value = level;
-        }
-        
-        // Load level content
-        function loadLevelContent(level) {
-            // Simulate loading data - in a real app this would be from an API
-            setTimeout(() => {
-                showNotification(`Level ${level} content loaded`);
-            }, 500);
+            
+            // Update the current level in the video data
+            if (videoData[level]) {
+                window.currentVideoId = videoData[level];
+            } else {
+                window.currentVideoId = videoData[2]; // Default to level 2
+            }
         }
         
         // Update navigation buttons
@@ -534,7 +635,7 @@
                 prevBtn.style.opacity = "1";
             }
             
-            if (currentLevel >= 1858) {
+            if (currentLevel >= 5) { // For demo, 5 is max level
                 nextBtn.disabled = true;
                 nextBtn.style.opacity = "0.6";
             } else {
@@ -545,27 +646,17 @@
         
         // Show notification
         function showNotification(message, type = '') {
-            notification.textContent = message;
+            notificationMessage.textContent = message;
             notification.className = 'notification show';
             if (type === 'success') {
-                notification.classList.add('success');
+                notification.style.background = '#2ecc71';
+            } else {
+                notification.style.background = '#e74c3c';
             }
             
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
-        }
-        
-        // Video player functionality
-        function playVideo() {
-            videoContainer.innerHTML = `
-                <iframe width="100%" height="100%" 
-                    src="https://www.youtube.com/embed/rymW4r3lH8w?autoplay=1" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            `;
         }
         
         // Setup event listeners
@@ -576,10 +667,10 @@
             // Go to level button
             goToLevelBtn.addEventListener('click', () => {
                 const level = parseInt(levelInputEl.value);
-                if (level >= 1 && level <= 1858) {
+                if (level >= 1 && level <= 5) { // For demo, levels 1-5
                     navigateToLevel(level);
                 } else {
-                    showNotification('Please enter a valid level between 1 and 1858');
+                    showNotification('Please enter a valid level between 1 and 5');
                 }
             });
             
@@ -598,15 +689,33 @@
             });
             
             nextBtn.addEventListener('click', () => {
-                if (currentLevel < 1858) {
+                if (currentLevel < 5) { // For demo, max level 5
                     navigateToLevel(currentLevel + 1);
                 }
+            });
+            
+            // Reset video display when navigating to new level
+            videoFrame.addEventListener('load', () => {
+                videoLoading.style.display = 'none';
+                videoStatus.textContent = `Level ${currentLevel} video loaded`;
             });
         }
         
         // Navigate to level
         function navigateToLevel(level) {
-            window.location.href = `level-detail.html?id=${level}`;
+            currentLevel = level;
+            updateLevelDisplay(currentLevel);
+            updateNavigationButtons();
+            updateVideoContent();
+            resetVideoDisplay();
+        }
+        
+        // Reset video display
+        function resetVideoDisplay() {
+            videoBackdrop.style.display = 'flex';
+            videoFrame.style.display = 'none';
+            videoStatus.textContent = `Level ${currentLevel} video loaded`;
+            videoStatus.style.display = 'block';
         }
         
         // Initialize on DOM load
