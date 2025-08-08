@@ -8,6 +8,9 @@
         <priority>1.0</priority>
     </url>
     
+    
+    
+    
     <!-- Main sections -->
     <url>
         <loc>https://www.knitout.net/levels.html</loc>
@@ -21,6 +24,13 @@
         <lastmod>2025-07-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://www.knitout.net/articles/knit-out-hybrid-casual.html/</loc>
+        <lastmod>2025-08-08</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
     
     <url>
