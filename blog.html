@@ -1,10 +1,25 @@
-、<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover the latest strategies, in-depth reviews, and analysis on Knit Out and other successful hybrid-casual games. Learn about monetization, UA, and game design.">
     <title>Knit Out Blog - Article List</title>
+    <meta name="description" content="Discover the latest strategies, in-depth reviews, and analysis on Knit Out and other successful hybrid-casual games. Learn about monetization, UA, and game design.">
+    <link rel="canonical" href="https://www.knitout.net/blog.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Knit Out Blog - Strategy, Monetization & UA">
+    <meta property="og:description" content="Level breakdowns, monetization blueprints, and UA creatives for hybrid-casual puzzle games.">
+    <meta property="og:url" content="https://www.knitout.net/blog.html">
+    <meta property="og:image" content="https://www.knitout.net/images/og-blog.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Knit Out Blog - Strategy, Monetization & UA">
+    <meta name="twitter:description" content="Deep-dive analyses, level spikes, ad-IAP balance, and creative insights.">
+    <meta name="twitter:image" content="https://www.knitout.net/images/og-blog.jpg">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -131,6 +146,80 @@
             color: var(--text-light);
             max-width: 700px;
             margin: 0 auto;
+        }
+        
+        /* 内容介绍部分 - 保持与原始设计一致 */
+        .content-intro {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .content-intro h2 {
+            font-size: 1.8rem;
+            color: var(--knit-dark);
+            margin-bottom: 15px;
+        }
+        
+        .content-intro p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .content-intro a {
+            color: var(--knit-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .content-intro a:hover {
+            text-decoration: underline;
+        }
+        
+        /* FAQ部分 - 保持与原始设计一致 */
+        .faq-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+        
+        .faq-section h2 {
+            font-size: 1.8rem;
+            color: var(--knit-dark);
+            margin-bottom: 20px;
+        }
+        
+        .faq-item {
+            border-top: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .faq-item:first-child {
+            border-top: none;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--knit-dark);
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-top: 8px;
         }
         
         /* 博客文章网格 */
@@ -303,6 +392,11 @@
                 font-size: 1.2rem;
             }
             
+            .content-intro,
+            .faq-section {
+                padding: 20px;
+            }
+            
             .blog-grid {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -337,6 +431,30 @@
     </header>
     
     <div class="container">
+        <!-- 内容介绍部分 -->
+        <section class="content-intro">
+            <h2>About Knit Out Blog</h2>
+            <p>Knit Out Blog curates deep-dive analyses of hybrid-casual puzzle games, level design breakdowns, monetization patterns, and user acquisition creatives. From yarn-wrapping loop design to ad-IAP balance, our articles explain how seemingly cozy mechanics scale into repeatable retention systems.</p>
+            <p>You'll also find teardown notes on studios like Rollic, Lion Studios, and emerging teams building merge, sort, and unscrew-style loops. For practitioners, we link to <a href="articles/knit-out-hybrid-casual.html">gameplay & monetization breakdowns</a>, <a href="articles/rollic-game-strategy-innovation-skin-swaps-ip.html">strategy case studies</a>, and <a href="articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html">revenue blueprints</a>.</p>
+        </section>
+        
+        <!-- FAQ部分 -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">What makes Knit Out a hybrid-casual puzzle game?</div>
+                <div class="faq-answer">It combines simple, tactile wrapping mechanics with midcore-like progression, meta goals, ad-IAP balance, and UA creatives tailored for broad reach.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How do you design difficulty around level spikes?</div>
+                <div class="faq-answer">We recommend introducing novel blockers in controlled batches, using preview affordances and reversible steps to keep failure instructional rather than punishing.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Which monetization levers work best?</div>
+                <div class="faq-answer">Time-savers (skip, scissors, extra slots), cosmetic bundles that reinforce core fantasy, and low-friction rewarded ad loops tend to perform well.</div>
+            </div>
+        </section>
+        
         <!-- 文章列表 -->
         <div class="blog-grid" id="blogGrid">
             <!-- 博客文章将通过JavaScript动态加载 -->
@@ -350,10 +468,10 @@
                 id: 1,
                 title: "Rollic Game Strategy: Innovation, Skin-Swaps, and IP",
                 description: "An in-depth analysis of Rollic's game strategy: innovation, skin-changing mechanics, and IP application in game design.",
-                excerpt: "Explore Rollic’s game strategy, including skin-swaps and successful titles like Color Block Jam and Barbie™ Merge Mystery.",
+                excerpt: "Explore Rollic's game strategy, including skin-swaps and successful titles like Color Block Jam and Barbie™ Merge Mystery.",
                 category: "Game Strategies",
                 date: "2025-07-20",
-                image: "https://causalzap.github.io/knitout.net/images/rollic-games-gecko-rush-slither-blast-blasty-stacks-puzzle.jpeg" ,
+                image: "https://causalzap.github.io/knitout.net/images/rollic-games-gecko-rush-slither-blast-blasty-stacks-puzzle.jpeg",
                 imageAlt: "Screenshot showcasing Rollic's skin-changing mechanics with a colorful game interface.",
                 readTime: "8 min read",
                 url: "articles/rollic-game-strategy-innovation-skin-swaps-ip.html"
@@ -365,7 +483,7 @@
                 excerpt: "Knit Out blends relaxing yarn-wrapping puzzles with chess-like strategy. Discover its clean UI, engaging feedback loops, and peak challenge at level 24.",
                 category: "Game Review",
                 date: "2025-07-10",
-                image: "https://www.knitout.net/images/2025-best-yarn-themed-puzzle-game-knit-out-deep-review.jpeg", 
+                image: "https://www.knitout.net/images/2025-best-yarn-themed-puzzle-game-knit-out-deep-review.jpeg",
                 imageAlt: "Knit Out game screen, showcasing yarn-themed puzzle elements",
                 readTime: "5 min read",
                 url: "articles/knit-out-unbeatable-yarn-themed-game-2025.html"
@@ -373,7 +491,7 @@
             {
                id: 3,
                title: "Knit Out: Hybrid-Casual Breakdown of Gameplay, Monetization & UA",
-               description: "A concise teardown of Knit Out’s unscrew-style loop, ¥15 M+ monthly IAP, rewarded-ad economy, and life-element UA creatives that signal 2025’s next hit.",
+               description: "A concise teardown of Knit Out's unscrew-style loop, ¥15 M+ monthly IAP, rewarded-ad economy, and life-element UA creatives that signal 2025's next hit.",
                excerpt: "See how Rollic turns cozy yarn-wrapping into a money-making hybrid-casual loop: design hook, scissors monetization, IQ-test ads, and why revenue spiked after May.",
                category: "Game Analysis",
                date: "2025-08-08",
@@ -386,7 +504,7 @@
                "id": 4,
                "title": "Hybrid-Casual Monetization: Coin Sort's $1.5M/Month Blueprint",
                "description": "A deep dive into Coin Sort's hybrid-casual mechanics, including coin merging, space constraints, and flexible ad monetization, and how it achieved $1.5M/month.",
-               "excerpt": "Explore how Coin Sort builds on Hexa Sort’s success with relatable coin-themed mechanics, strategic monetization, and ad-IAP balance to capture $1.5M/month in revenue.",
+               "excerpt": "Explore how Coin Sort builds on Hexa Sort's success with relatable coin-themed mechanics, strategic monetization, and ad-IAP balance to capture $1.5M/month in revenue.",
                "category": "Game Analysis",
                "date": "2025-08-15",
                "image": "/images/hexa-sort-lion-studios-core-gameplay-live-ops.jpeg",
@@ -400,6 +518,7 @@
         function initBlogPage() {
             renderBlogPosts();
             addCardClickHandlers();
+            initFAQInteraction();
         }
         
         // 渲染博客文章
@@ -416,7 +535,7 @@
                     <div class="card-link-overlay" tabindex="0" role="link" aria-label="Read ${post.title}"></div>
                     <div class="card-click-indicator"></div>
                     
-                    <img src="${post.image}" alt="${post.title}" class="card-image">
+                    <img src="${post.image}" alt="${post.imageAlt || post.title}" class="card-image" loading="lazy">
                     <div class="card-content">
                         <span class="card-category">${post.category}</span>
                         <h2 class="card-title">${post.title}</h2>
@@ -461,9 +580,35 @@
             });
         }
         
+        // 初始化FAQ交互
+        function initFAQInteraction() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isVisible = answer.style.display === 'block';
+                    
+                    // 切换所有FAQ答案的显示状态
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        ans.style.display = 'none';
+                    });
+                    
+                    // 如果当前答案未显示，则显示它
+                    if (!isVisible) {
+                        answer.style.display = 'block';
+                    }
+                });
+            });
+            
+            // 默认隐藏所有答案
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.display = 'none';
+            });
+        }
+        
         // 导航到文章页 - 直接跳转
         function navigateToArticle(articleUrl) {
-            // 在实际应用中直接跳转到文章
             window.location.href = articleUrl;
         }
         
