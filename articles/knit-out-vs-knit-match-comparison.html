@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ★★★  SEO  ★★★ -->
+  <title>Knit Out vs Knit Match Puzzle Game Comparison</title>
+  <meta name="description" content="Knit Out vs Knit Match puzzle game comparison: find out which knitting puzzle is better for stress relief, accessibility, and gameplay." />
+  <meta name="keywords" content="knit out, knit match, puzzle game comparison, stress relief games, knitting puzzle games, mobile puzzle games, game accessibility" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- ★★★  Styles  ★★★ -->
+  <style>
+    :root{
+      --primary-color:#e67e22;
+      --secondary-color:#9b59b6;
+      --dark-color:#2c3e50;
+      --light-color:#f9f9f9;
+      --accent-color:#3498db;
+      --dark-text:#2c3e50;
+      --light-text:#7f8c8d;
+      --background-light:#f9f9f9;
+      --border-radius:12px;
+      --box-shadow:0 10px 30px rgba(0,0,0,.1)
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    body{
+      background:var(--background-light);
+      color:var(--dark-text);
+      line-height:1.7;font-size:1.1rem;
+      background-image:linear-gradient(rgba(255,255,255,.95),rgba(255,255,255,.95)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><path d="M0,0 L100,100" stroke="rgba(230,126,34,0.1)" stroke-width="1"/></svg>');
+      background-size:30px 30px
+    }
+    .container{max-width:900px;margin:0 auto;padding:0 20px}
+
+    /* ────  NAV  ──── */
+    .nav-container{
+      background:rgba(255,255,255,.95);backdrop-filter:blur(10px);
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+      padding:15px 40px;display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:1000
+    }
+    .brand{display:flex;align-items:center;gap:15px}
+    .logo{
+      width:48px;height:48px;border-radius:50%;
+      background:linear-gradient(135deg,#3498db 0%,#2ecc71 100%);
+      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px
+    }
+    .brand-name{font-size:24px;font-weight:600;color:var(--dark-text)}
+    .nav-menu{display:flex;gap:35px}
+    .nav-link{position:relative;padding:8px 0;font-size:18px;font-weight:500;color:var(--light-text);text-decoration:none;transition:.3s}
+    .nav-link:hover{color:var(--dark-text)}
+    .nav-link.active{color:var(--dark-text);font-weight:600}
+    .nav-link.active::after{
+      content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;border-radius:3px;
+      background:linear-gradient(90deg,#3498db,#2ecc71)
+    }
+
+    /* ────  HEADER  ──── */
+    header{
+      background:linear-gradient(135deg,var(--primary-color),var(--secondary-color));
+      color:#fff;padding:60px 0;margin-bottom:50px;text-align:center;
+      box-shadow:var(--box-shadow);position:relative;overflow:hidden
+    }
+    header::before,header::after{
+      content:'';position:absolute;width:150px;height:150px;opacity:.5;background-size:contain
+    }
+    header::before{top:-50px;left:-50px;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="8" stroke-dasharray="15,10"/></svg>')}
+    header::after{bottom:-50px;right:-50px;transform:rotate(180deg);background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="8" stroke-dasharray="15,10"/></svg>')}
+    h1{font-size:2.8rem;font-weight:800;margin-bottom:20px;text-shadow:0 2px 4px rgba(0,0,0,.2)}
+    .date{font-size:1rem;display:flex;gap:8px;justify-content:center}
+
+    /* ────  MAIN LAYOUT  ──── */
+    main{margin-bottom:60px}
+    article{
+      background:#fff;border-radius:var(--border-radius);
+      overflow:hidden;box-shadow:var(--box-shadow)
+    }
+    section{padding:40px 40px;border-bottom:1px solid rgba(0,0,0,.05)}
+    section:last-child{border-bottom:none}
+    .intro{background:linear-gradient(135deg,rgba(230,126,34,.1),rgba(155,89,182,.1))}
+    .intro p{font-size:1.2rem;font-weight:500;margin-bottom:10px}
+    h2{font-size:1.8rem;font-weight:700;margin-bottom:25px;position:relative;padding-bottom:15px;color:var(--dark-color)}
+    h2::after{content:'';position:absolute;bottom:0;left:0;width:80px;height:4px;border-radius:2px;
+      background:linear-gradient(90deg,var(--primary-color),var(--secondary-color))}
+    h3{font-size:1.4rem;margin:20px 0 15px;color:var(--dark-color)}
+    ul{list-style:none;margin:20px 0}
+    li{position:relative;margin-bottom:15px;padding-left:28px}
+    li::before{content:'•';position:absolute;left:0;top:-2px;font-size:1.4rem;color:var(--primary-color)}
+    .highlight{margin:25px 0;padding:20px;border-left:4px solid var(--accent-color);
+      background:linear-gradient(135deg,rgba(52,152,219,.1),rgba(46,204,113,.1));border-radius:0 8px 8px 0}
+
+    /* ────  FIGURE  ──── */
+    figure{text-align:center;margin:25px 0}
+    figure img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,.05)}
+
+    /* ────  COMPARISON TABLE  ──── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .comparison-table th {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 600;
+    }
+    
+    .comparison-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .comparison-table tr:nth-child(even) {
+      background-color: rgba(0,0,0,0.03);
+    }
+    
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .winner-badge {
+      background: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    /* ────  FEATURED LEVELS  ──── */
+    .featured-section{}
+    .featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;margin-top:25px}
+    .featured-card{
+      border-radius:var(--border-radius);overflow:hidden;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.08);
+      transition:.3s
+    }
+    .featured-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.15)}
+    .level-image{height:160px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--primary-color),var(--secondary-color))}
+    .level-icon{color:#fff;font-size:3.5rem}
+    .level-content{padding:25px}
+    .level-title{font-size:1.2rem;font-weight:700;margin-bottom:10px;color:var(--dark-text)}
+    .level-description{font-size:.95rem;color:#555;margin-bottom:15px;min-height:55px}
+    .level-stars{display:flex;gap:4px;margin-bottom:15px}
+    .level-star{color:#ddd;font-size:1.1rem}
+    .level-star.filled{color:#f1c40f}
+    .level-button{display:block;text-align:center;text-decoration:none;color:#fff;font-weight:600;
+      background:linear-gradient(135deg,var(--primary-color),var(--secondary-color));
+      padding:10px 20px;border-radius:6px}
+    .level-button:hover{background:linear-gradient(135deg,var(--secondary-color),var(--primary-color))}
+
+    /* ────  CONCLUSION  ──── */
+    .conclusion{background:linear-gradient(135deg,rgba(230,126,34,.05),rgba(155,89,182,.05));border-radius:var(--border-radius)}
+    
+    /* ────  WHO BENEFITS SECTION  ──── */
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+    
+    .benefit-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .benefit-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+    
+    .benefit-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--dark-color);
+    }
+
+    /* ────  RESPONSIVE  ──── */
+    @media(max-width:768px){
+      header{padding:40px 20px}
+      h1{font-size:2.2rem}h2{font-size:1.6rem}h3{font-size:1.3rem}
+      section{padding:30px 20px}
+      .nav-container{padding:12px 20px}.brand-name{font-size:20px}.nav-menu{gap:20px}
+    }
+    @media(max-width:480px){
+      h1{font-size:1.8rem}
+      .nav-container{flex-direction:column;gap:15px}
+      .nav-menu{width:100%;justify-content:space-around}
+      .comparison-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav-container">
+    <div class="brand">
+      <div class="logo">KO</div><div class="brand-name">Knit Out</div>
+    </div>
+    <div class="nav-menu">
+      <a href="https://causalzap.github.io/knitout.net/index.html"    class="nav-link">Home</a>
+      <a href="https://causalzap.github.io/knitout.net/levels.html"   class="nav-link">Levels</a>
+      <a href="https://causalzap.github.io/knitout.net/download.html" class="nav-link">Download</a>
+      <a href="https://causalzap.github.io/knitout.net/blog.html"     class="nav-link active">Blog</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <h1>Knit Out vs Knit Match Puzzle Game Comparison</h1>
+      <p class="date"><i class="far fa-calendar"></i> Aug&nbsp;24,&nbsp;2025</p>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div class="container">
+    <main>
+      <article>
+        <section class="intro">
+          <p>The Knit Out vs Knit Match puzzle game comparison is one of the most common questions for players seeking stress-relieving, knitting-inspired puzzles. Both games use arithmetic-based mechanics, but their approach to challenge, accessibility, and flow creates very different experiences.</p>
+          <p>If you're looking for puzzle games that combine knitting themes, arithmetic sequences, and stress relief, these two titles stand out. While they share similar mechanics, their design choices create very different player experiences. Below is a breakdown to help players, especially those seeking casual relaxation or challenging flow states, decide which game best fits their needs.</p>
+        </section>
+
+        <section>
+          <h2>Who This Guide Helps</h2>
+          <div class="benefit-grid">
+            <div class="benefit-card">
+              <i class="fas fa-user-friends benefit-icon"></i>
+              <h3 class="benefit-title">Casual Gamers</h3>
+              <p>Looking for stress relief after work with relaxing gameplay</p>
+            </div>
+            <div class="benefit-card">
+              <i class="fas fa-glasses benefit-icon"></i>
+              <h3 class="benefit-title">Older Players</h3>
+              <p>Who prefer simpler mechanics and larger interfaces</p>
+            </div>
+            <div class="benefit-card">
+              <i class="fas fa-puzzle-piece benefit-icon"></i>
+              <h3 class="benefit-title">Puzzle Enthusiasts</h3>
+              <p>Seeking flow-state gameplay and progressive challenges</p>
+            </div>
+            <div class="benefit-card">
+              <i class="fas fa-mobile-alt benefit-icon"></i>
+              <h3 class="benefit-title">Mobile Players</h3>
+              <p>Deciding which knitting-inspired puzzle game to try</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Stress Relief Comparison</h2>
+          
+          <div class="highlight">
+            <h3>Knit Out</h3>
+            <ul>
+              <li>First 20 levels designed to be calming with gradual rule introduction</li>
+              <li>Strong flow state creates immersive stress relief</li>
+              <li>Red "danger" alerts heighten focus when only one slot remains</li>
+            </ul>
+          </div>
+          
+          <div class="highlight">
+            <h3>Knit Match</h3>
+            <ul>
+              <li>Equally soothing but with fewer tension mechanics early on</li>
+              <li>Slower pace feels more relaxed for casual play</li>
+              <li>Tension mechanics appear only after Level 24 in updates</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Accessibility & UI Comparison</h2>
+          
+          <div class="highlight">
+            <h3>Knit Match</h3>
+            <ul>
+              <li>Best for seniors or beginners</li>
+              <li>Larger tiles reduce eye strain</li>
+              <li>Simpler mechanics lower cognitive load</li>
+              <li>Intuitive layouts for effortless navigation</li>
+            </ul>
+          </div>
+          
+          <div class="highlight">
+            <h3>Knit Out</h3>
+            <ul>
+              <li>Sleeker interface with modern design</li>
+              <li>Requires more precision for gameplay</li>
+              <li>Better for players who enjoy sharper focus</li>
+              <li>More complex mechanics for engaged players</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Goal Design & Player Retention</h2>
+          
+          <div class="highlight">
+            <h3>Knit Out</h3>
+            <ul>
+              <li>Clear short-term and mid-term goals keep motivation high</li>
+              <li>Progressive structure boosts retention rates</li>
+              <li>Tangible achievements throughout gameplay</li>
+            </ul>
+          </div>
+          
+          <div class="highlight">
+            <h3>Knit Match</h3>
+            <ul>
+              <li>Long-term goals dominate gameplay</li>
+              <li>Objectives may feel too distant for some players</li>
+              <li>Can reduce mid-game engagement for achievement-focused players</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Advertising Experience</h2>
+          
+          <div class="highlight">
+            <h3>Knit Out</h3>
+            <ul>
+              <li>Frequent, aggressive ad prompts</li>
+              <li>Easy to misclick buttons that disrupt flow</li>
+              <li>More interruptions during gameplay</li>
+            </ul>
+          </div>
+          
+          <div class="highlight">
+            <h3>Knit Match</h3>
+            <ul>
+              <li>Ads are subtle and minimally invasive</li>
+              <li>Better for uninterrupted relaxation</li>
+              <li>Less disruptive to gameplay experience</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Detailed Feature Comparison</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Knit Out</th>
+                <th>Knit Match</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tension Mechanics</td>
+                <td>
+                  <i class="fas fa-exclamation-triangle feature-icon"></i>
+                  Red "danger" alerts when one slot remains
+                  <span class="winner-badge">Best for Focus</span>
+                </td>
+                <td>
+                  <i class="fas fa-spa feature-icon"></i>
+                  Calmer early gameplay, tension after Level 24
+                </td>
+              </tr>
+              <tr>
+                <td>Tutorials & Learning</td>
+                <td>
+                  <i class="fas fa-film feature-icon"></i>
+                  Animated demos with instant practice
+                  <span class="winner-badge">Easier Learning</span>
+                </td>
+                <td>
+                  <i class="fas fa-image feature-icon"></i>
+                  Static images only - potentially confusing
+                </td>
+              </tr>
+              <tr>
+                <td>Visual Feedback</td>
+                <td>
+                  <i class="fas fa-cut feature-icon"></i>
+                  Tool icons match function (scissors for cutting)
+                </td>
+                <td>
+                  <i class="fas fa-expand feature-icon"></i>
+                  Larger tiles improve readability
+                  <span class="winner-badge">Better Visibility</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Difficulty Scaling</td>
+                <td>
+                  <i class="fas fa-moon feature-icon"></i>
+                  Dramatic visual transitions (light → dark)
+                  <span class="winner-badge">Clear Progression</span>
+                </td>
+                <td>
+                  <i class="fas fa-palette feature-icon"></i>
+                  Subtler design shifts (brown backgrounds)
+                </td>
+              </tr>
+              <tr>
+                <td>Target Audience</td>
+                <td>
+                  <i class="fas fa-bolt feature-icon"></i>
+                  Players seeking challenge and immersion
+                </td>
+                <td>
+                  <i class="fas fa-couch feature-icon"></i>
+                  Casual players valuing relaxation
+                  <span class="winner-badge">More Accessible</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="conclusion">
+          <h2>Which Game Should You Play?</h2>
+          
+          <div class="highlight">
+            <h3>Choose Knit Out If You Want:</h3>
+            <ul>
+              <li>Strong flow state and immersion</li>
+              <li>Progressive goals that sustain motivation</li>
+              <li>A more challenging, dynamic puzzle loop</li>
+              <li>Dramatic tension mechanics for focused play</li>
+            </ul>
+          </div>
+          
+          <div class="highlight">
+            <h3>Choose Knit Match If You Want:</h3>
+            <ul>
+              <li>A senior-friendly, stress-free experience</li>
+              <li>Larger UI and slower pacing</li>
+              <li>Fewer ad interruptions and a calmer vibe</li>
+              <li>Gentler learning curve for casual play</li>
+            </ul>
+          </div>
+          
+          <h3>Bottom Line:</h3>
+          <p>Knit Out is the superior choice for players seeking deep engagement and challenge, while Knit Match is ideal for casual or older audiences who value accessibility and relaxation.</p>
+          
+          <div class="highlight">
+            <p>✅ <strong>Tip:</strong> If you enjoy these, keep an eye out for Knit Out-inspired clones on app stores—many mimic its mechanics, though not all capture the same flow-state magic.</p>
+          </div>
+        </section>
+
+        <section class="featured-section">
+          <h2>Featured Levels</h2>
+          <p>Explore these specially selected levels that showcase the best of Knit Out's puzzle design:</p>
+          
+          <div class="featured-grid">
+            <!-- Level 414 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-puzzle-piece level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 414: The Weaver's Challenge</h3>
+                <p class="level-description">A complex pattern that requires careful planning and strategic moves.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=414" class="level-button">Level 414 Guide</a>
+              </div>
+            </div>
+            
+            <!-- Level 360 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-yin-yang level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 360: Symmetry Puzzle</h3>
+                <p class="level-description">Master the art of symmetrical yarn wrapping in this elegant challenge.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star"></i>
+                  <i class="fas fa-star level-star"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=360" class="level-button">Level 360 Guide</a>
+              </div>
+            </div>
+            
+            <!-- Level 403 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-chess-knight level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 403: Chess Master</h3>
+                <p class="level-description">For chess enthusiasts - requires thinking several moves ahead.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=403" class="level-button">Level 403 Guide</a>
+              </div>
+            </div>
+
+            <!-- Level 371 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-chess-knight level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 371: Mind Bender</h3>
+                <p class="level-description">Challenge your spatial reasoning with this complex pattern.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=371" class="level-button">Level 371 Guide</a>
+              </div>
+            </div>
+            
+            <!-- Level 131 -->
+            <div class="featured-card">
+              <div class="level-image">
+                <i class="fas fa-infinity level-icon"></i>
+              </div>
+              <div class="level-content">
+                <h3 class="level-title">Level 131: Endless Loop</h3>
+                <p class="level-description">A relaxing level perfect for beginners with looping patterns.</p>
+                <div class="level-stars">
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star filled"></i>
+                  <i class="fas fa-star level-star"></i>
+                  <i class="fas fa-star level-star"></i>
+                  <i class="fas fa-star level-star"></i>
+                </div>
+                <a href="https://www.knitout.net/level-detail.html?id=131" class="level-button">Level 131 Guide</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+      </article>
+    </main>
+  </div>
+
+  <!-- JS：滚动淡入 + 导航激活 -->
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const sections=document.querySelectorAll('section, .conclusion');
+      const io=new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.style.opacity=1;
+            e.target.style.transform='translateY(0)'
+          }
+        })
+      },{threshold:0.1});
+      sections.forEach(s=>{
+        s.style.opacity=0;
+        s.style.transform='translateY(20px)';
+        s.style.transition='opacity .6s ease, transform .6s ease';
+        io.observe(s);
+      });
+
+      const links=document.querySelectorAll('.nav-link');
+      links.forEach(l=>{
+        l.addEventListener('click',function(){
+          links.forEach(x=>x.classList.remove('active'));
+          this.classList.add('active')
+        })
+      })
+    });
+  </script>
+</body>
+</html>
