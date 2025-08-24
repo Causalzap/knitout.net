@@ -1,10 +1,25 @@
-、<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover the latest strategies, in-depth reviews, and analysis on Knit Out and other successful hybrid-casual games. Learn about monetization, UA, and game design.">
     <title>Knit Out Blog - Article List</title>
+    <meta name="description" content="Deep-dive analyses of Knit Out and hybrid-casual puzzle games: level design, monetization, and UA breakdowns.">
+    <link rel="canonical" href="https://www.knitout.net/blog.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Knit Out Blog – Strategy, Monetization & UA">
+    <meta property="og:description" content="Level breakdowns, monetization blueprints, and UA creatives for hybrid-casual puzzle games.">
+    <meta property="og:url" content="https://www.knitout.net/blog.html">
+    <meta property="og:image" content="https://www.knitout.net/images/og-blog.jpg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Knit Out Blog – Strategy, Monetization & UA">
+    <meta name="twitter:description" content="Deep-dive analyses, level spikes, ad–IAP balance, and creative insights.">
+    <meta name="twitter:image" content="https://www.knitout.net/images/og-blog.jpg">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -29,14 +44,13 @@
             color: #333;
             line-height: 1.6;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 30px 20px;
         }
-        
-        /* 导航栏 */
+
         .nav-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -49,13 +63,13 @@
             top: 0;
             z-index: 1000;
         }
-        
+
         .brand {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .logo {
             width: 48px;
             height: 48px;
@@ -68,18 +82,18 @@
             font-weight: bold;
             font-size: 22px;
         }
-        
+
         .brand-name {
             font-size: 24px;
             font-weight: 600;
             color: var(--knit-dark);
         }
-        
+
         .nav-menu {
             display: flex;
             gap: 35px;
         }
-        
+
         .nav-link {
             position: relative;
             padding: 8px 0;
@@ -89,16 +103,16 @@
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .nav-link:hover {
             color: var(--knit-dark);
         }
-        
+
         .nav-link.active {
             color: var(--knit-dark);
             font-weight: 600;
         }
-        
+
         .nav-link.active:after {
             content: '';
             position: absolute;
@@ -109,8 +123,7 @@
             background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
             border-radius: 3px;
         }
-        
-        /* 博客页面头部 */
+
         .blog-header {
             text-align: center;
             padding: 80px 0 50px;
@@ -118,206 +131,94 @@
             margin-bottom: 50px;
             border-radius: 0 0 20px 20px;
         }
-        
+
         .blog-title {
             font-size: 3.5rem;
             font-weight: 800;
             color: var(--knit-dark);
             margin-bottom: 20px;
         }
-        
+
         .blog-subtitle {
             font-size: 1.4rem;
             color: var(--text-light);
             max-width: 700px;
             margin: 0 auto;
         }
-        
-        /* 博客文章网格 */
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
-            margin: 50px 0;
-        }
-        
-        .blog-card {
-            background: white;
+
+        .seo-intro {
+            background: #fff;
             border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            cursor: pointer;
-            position: relative;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            margin-top: -20px;
+            margin-bottom: 30px;
         }
-        
-        .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* 新增覆盖整个卡片的链接层 */
-        .card-link-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 5;
-            cursor: pointer;
-        }
-        
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        
-        .blog-card:hover .card-image {
-            transform: scale(1.03);
-        }
-        
-        .card-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 10; /* 确保内容在覆盖层之上 */
-        }
-        
-        .card-category {
-            display: inline-block;
-            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .card-title {
+
+        .seo-intro h2 {
             font-size: 1.6rem;
-            font-weight: 700;
             color: var(--knit-dark);
-            margin-bottom: 15px;
-            line-height: 1.3;
+            margin-bottom: 10px;
         }
-        
-        .card-excerpt {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            flex-grow: 1;
+
+        .seo-intro p {
+            color: #475569;
+            margin: 10px 0;
         }
-        
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            padding-top: 15px;
+
+        .faq {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            margin: 30px 0 10px;
+        }
+
+        .faq h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--knit-dark);
+        }
+
+        .faq details {
             border-top: 1px solid #eee;
+            padding: 12px 0;
         }
-        
-        .card-date {
+
+        .faq details:first-of-type {
+            border-top: none;
+        }
+
+        .faq summary {
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .faq p {
+            color: #475569;
+            margin-top: 8px;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: #546e7a;
+            line-height: 1.8;
+            margin-top: 6px;
+        }
+
+        .card-readtime {
             font-size: 0.9rem;
             color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .read-more {
-            color: var(--knit-blue);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 20; /* 确保Read more在覆盖层之上 */
-        }
-        
-        .read-more:hover {
-            color: var(--knit-dark);
-            gap: 8px;
-        }
-        
-        /* 新增点击反馈效果 */
-        .card-click-indicator {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(52, 152, 219, 0.05);
-            border-radius: 16px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 1;
-        }
-        
-        .blog-card:active .card-click-indicator {
-            opacity: 1;
-        }
-        
-        /* 新增触摸屏设备优化 */
-        @media (hover: none) {
-            .blog-card {
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
-            }
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 15px 20px;
-            }
-            
-            .nav-menu {
-                gap: 15px;
-            }
-            
-            .nav-link {
-                font-size: 16px;
-            }
-            
-            .blog-header {
-                padding: 60px 20px 40px;
-            }
-            
-            .blog-title {
-                font-size: 2.8rem;
-            }
-            
-            .blog-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .blog-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
     <nav class="nav-container">
         <div class="brand">
             <div class="logo">KO</div>
             <div class="brand-name">Knit Out</div>
         </div>
-        
+
         <div class="nav-menu">
             <a href="index.html" class="nav-link">Home</a>
             <a href="levels.html" class="nav-link">Levels</a>
@@ -326,7 +227,6 @@
         </div>
     </nav>
     
-    <!-- 博客头部 -->
     <header class="blog-header">
         <div class="container">
             <h1 class="blog-title">Knit Out Blog</h1>
@@ -335,16 +235,47 @@
             </p>
         </div>
     </header>
-    
+
+    <!-- 主题导语 -->
+    <section class="seo-intro" aria-labelledby="intro">
+        <h2 id="intro">About Knit Out Blog</h2>
+        <p>
+            Knit Out Blog curates deep-dive analyses of hybrid-casual puzzle games, level design breakdowns, monetization patterns,
+            and user acquisition creatives. From yarn-wrapping loop design to ad–IAP balance, our articles explain how seemingly cozy
+            mechanics scale into repeatable retention systems.
+        </p>
+        <p>
+            You’ll also find teardown notes on studios like Rollic, Lion Studios, and emerging teams building merge, sort, and
+            unscrew-style loops. For practitioners, we link to <a href="articles/knit-out-hybrid-casual.html">gameplay & monetization breakdowns</a>,
+            <a href="articles/rollic-game-strategy-innovation-skin-swaps-ip.html">strategy case studies</a>, and
+            <a href="articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html">revenue blueprints</a>.
+        </p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" aria-labelledby="faq">
+        <h2 id="faq">FAQ</h2>
+        <details>
+            <summary>What makes Knit Out a hybrid-casual puzzle game?</summary>
+            <p>It combines simple, tactile wrapping mechanics with midcore-like progression, meta goals, ad–IAP balance, and UA creatives tailored for broad reach.</p>
+        </details>
+        <details>
+            <summary>How do you design difficulty around level spikes?</summary>
+            <p>We recommend introducing novel blockers in controlled batches, using preview affordances and reversible steps to keep failure instructional rather than punishing.</p>
+        </details>
+        <details>
+            <summary>Which monetization levers work best?</summary>
+            <p>Time-savers (skip, scissors, extra slots), cosmetic bundles that reinforce core fantasy, and low-friction rewarded ad loops tend to perform well.</p>
+        </details>
+    </section>
+
     <div class="container">
-        <!-- 文章列表 -->
         <div class="blog-grid" id="blogGrid">
             <!-- 博客文章将通过JavaScript动态加载 -->
         </div>
     </div>
-    
+
     <script>
-        // 博客文章数据（带独立文章URL）
         const blogPosts = [
             {
                 id: 1,
@@ -353,7 +284,7 @@
                 excerpt: "Explore Rollic’s game strategy, including skin-swaps and successful titles like Color Block Jam and Barbie™ Merge Mystery.",
                 category: "Game Strategies",
                 date: "2025-07-20",
-                image: "https://causalzap.github.io/knitout.net/images/rollic-games-gecko-rush-slither-blast-blasty-stacks-puzzle.jpeg" ,
+                image: "https://causalzap.github.io/knitout.net/images/rollic-games-gecko-rush-slither-blast-blasty-stacks-puzzle.jpeg",
                 imageAlt: "Screenshot showcasing Rollic's skin-changing mechanics with a colorful game interface.",
                 readTime: "8 min read",
                 url: "articles/rollic-game-strategy-innovation-skin-swaps-ip.html"
@@ -365,66 +296,66 @@
                 excerpt: "Knit Out blends relaxing yarn-wrapping puzzles with chess-like strategy. Discover its clean UI, engaging feedback loops, and peak challenge at level 24.",
                 category: "Game Review",
                 date: "2025-07-10",
-                image: "https://www.knitout.net/images/2025-best-yarn-themed-puzzle-game-knit-out-deep-review.jpeg", 
+                image: "https://www.knitout.net/images/2025-best-yarn-themed-puzzle-game-knit-out-deep-review.jpeg",
                 imageAlt: "Knit Out game screen, showcasing yarn-themed puzzle elements",
                 readTime: "5 min read",
                 url: "articles/knit-out-unbeatable-yarn-themed-game-2025.html"
             },
             {
-               id: 3,
-               title: "Knit Out: Hybrid-Casual Breakdown of Gameplay, Monetization & UA",
-               description: "A concise teardown of Knit Out’s unscrew-style loop, ¥15 M+ monthly IAP, rewarded-ad economy, and life-element UA creatives that signal 2025’s next hit.",
-               excerpt: "See how Rollic turns cozy yarn-wrapping into a money-making hybrid-casual loop: design hook, scissors monetization, IQ-test ads, and why revenue spiked after May.",
-               category: "Game Analysis",
-               date: "2025-08-08",
-               image: "/images/knit-out-hybrid-casual-breakdown.jpeg",
-               imageAlt: "Knit Out gameplay showing yarn rings, holding slots and cleared woven piece",
-               readTime: "4 min read",
-               url: "articles/knit-out-hybrid-casual.html"
-             },
+                id: 3,
+                title: "Knit Out: Hybrid-Casual Breakdown of Gameplay, Monetization & UA",
+                description: "A concise teardown of Knit Out’s unscrew-style loop, ¥15 M+ monthly IAP, rewarded-ad economy, and life-element UA creatives that signal 2025’s next hit.",
+                excerpt: "See how Rollic turns cozy yarn-wrapping into a money-making hybrid-casual loop: design hook, scissors monetization, IQ-test ads, and why revenue spiked after May.",
+                category: "Game Analysis",
+                date: "2025-08-08",
+                image: "/images/knit-out-hybrid-casual-breakdown.jpeg",
+                imageAlt: "Knit Out gameplay showing yarn rings, holding slots and cleared woven piece",
+                readTime: "4 min read",
+                url: "articles/knit-out-hybrid-casual.html"
+            },
             {
-               "id": 4,
-               "title": "Hybrid-Casual Monetization: Coin Sort's $1.5M/Month Blueprint",
-               "description": "A deep dive into Coin Sort's hybrid-casual mechanics, including coin merging, space constraints, and flexible ad monetization, and how it achieved $1.5M/month.",
-               "excerpt": "Explore how Coin Sort builds on Hexa Sort’s success with relatable coin-themed mechanics, strategic monetization, and ad-IAP balance to capture $1.5M/month in revenue.",
-               "category": "Game Analysis",
-               "date": "2025-08-15",
-               "image": "/images/hexa-sort-lion-studios-core-gameplay-live-ops.jpeg",
-               "imageAlt": "Hexa Sort gameplay showing stacked coins, merge button, and gameplay grid",
-               "readTime": "12 min read",
-                "url": "articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html"
-             },
+                id: 4,
+                title: "Hybrid-Casual Monetization: Coin Sort's $1.5M/Month Blueprint",
+                description: "A deep dive into Coin Sort's hybrid-casual mechanics, including coin merging, space constraints, and flexible ad monetization, and how it achieved $1.5M/month.",
+                excerpt: "Explore how Coin Sort builds on Hexa Sort’s success with relatable coin-themed mechanics, strategic monetization, and ad-IAP balance to capture $1.5M/month in revenue.",
+                category: "Game Analysis",
+                date: "2025-08-15",
+                image: "/images/hexa-sort-lion-studios-core-gameplay-live-ops.jpeg",
+                imageAlt: "Hexa Sort gameplay showing stacked coins, merge button, and gameplay grid",
+                readTime: "12 min read",
+                url: "articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html"
+            },
         ];
-        
-        // 初始化页面
+
         function initBlogPage() {
             renderBlogPosts();
             addCardClickHandlers();
         }
-        
-        // 渲染博客文章
+
         function renderBlogPosts() {
             const blogGrid = document.getElementById('blogGrid');
             blogGrid.innerHTML = '';
-            
+
             blogPosts.forEach(post => {
                 const blogCard = document.createElement('div');
                 blogCard.className = 'blog-card';
                 blogCard.dataset.url = post.url;
-                
+
                 blogCard.innerHTML = `
                     <div class="card-link-overlay" tabindex="0" role="link" aria-label="Read ${post.title}"></div>
                     <div class="card-click-indicator"></div>
-                    
-                    <img src="${post.image}" alt="${post.title}" class="card-image">
+
+                    <img src="${post.image}" alt="${post.imageAlt || post.title}" class="card-image" loading="lazy">
                     <div class="card-content">
                         <span class="card-category">${post.category}</span>
                         <h2 class="card-title">${post.title}</h2>
                         <p class="card-excerpt">${post.excerpt}</p>
+                        <p class="card-desc">${post.description}</p>
                         <div class="card-meta">
                             <span class="card-date">
                                 <i class="far fa-calendar"></i> ${formatDate(post.date)}
                             </span>
+                            <span class="card-readtime">${post.readTime}</span>
                             <a href="${post.url}" class="read-more">
                                 Read more <i class="fas fa-arrow-right"></i>
                             </a>
@@ -434,13 +365,11 @@
                 blogGrid.appendChild(blogCard);
             });
         }
-        
-        // 为卡片添加点击事件处理程序
+
         function addCardClickHandlers() {
             const cards = document.querySelectorAll('.blog-card');
             
             cards.forEach(card => {
-                // 添加键盘支持
                 card.querySelector('.card-link-overlay').addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -448,32 +377,24 @@
                     }
                 });
                 
-                // 添加点击事件
                 card.addEventListener('click', function(e) {
-                    // 如果点击的是read more链接，则直接跳转（不阻止默认行为）
                     if (e.target.closest('.read-more')) {
                         return;
                     }
-                    
-                    // 否则导航到文章
                     navigateToArticle(card.dataset.url);
                 });
             });
         }
-        
-        // 导航到文章页 - 直接跳转
+
         function navigateToArticle(articleUrl) {
-            // 在实际应用中直接跳转到文章
             window.location.href = articleUrl;
         }
-        
-        // 格式化日期
+
         function formatDate(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(dateString).toLocaleDateString('en-US', options);
         }
-        
-        // 页面加载完成后初始化
+
         document.addEventListener('DOMContentLoaded', initBlogPage);
     </script>
 </body>
