@@ -440,6 +440,29 @@
         .comparison-table tr:hover {
             background-color: rgba(52, 152, 219, 0.1);
         }
+
+         /* ────  FEATURED LEVELS  ──── */
+    .featured-section{}
+    .featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;margin-top:25px}
+    .featured-card{
+      border-radius:var(--border-radius);overflow:hidden;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.08);
+      transition:.3s
+    }
+    .featured-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.15)}
+    .level-image{height:160px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--primary-color),var(--secondary-color))}
+    .level-icon{color:#fff;font-size:3.5rem}
+    .level-content{padding:25px}
+    .level-title{font-size:1.2rem;font-weight:700;margin-bottom:10px;color:var(--dark-text)}
+    .level-description{font-size:.95rem;color:#555;margin-bottom:15px;min-height:55px}
+    .level-stars{display:flex;gap:4px;margin-bottom:15px}
+    .level-star{color:#ddd;font-size:1.1rem}
+    .level-star.filled{color:#f1c40f}
+    .level-button{display:block;text-align:center;text-decoration:none;color:#fff;font-weight:600;
+      background:linear-gradient(135deg,var(--primary-color),var(--secondary-color));
+      padding:10px 20px;border-radius:6px}
+    .level-button:hover{background:linear-gradient(135deg,var(--secondary-color),var(--primary-color))}
+
         
         /* 响应式设计 */
         @media (max-width: 768px) {
