@@ -340,6 +340,15 @@
             gap: 8px;
         }
         
+        /* 页脚 */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
         /* 新增点击反馈效果 */
         .card-click-indicator {
             position: absolute;
@@ -415,6 +424,7 @@
         <div class="nav-menu">
             <a href="index.html" class="nav-link">Home</a>
             <a href="levels.html" class="nav-link">Levels</a>
+            <a href="hot-games.html" class="nav-link">Hot Games</a>
             <a href="download.html" class="nav-link">Download</a>
             <a href="blog.html" class="nav-link active">Blog</a>
         </div>
@@ -592,6 +602,7 @@
             });
         }
         
+
         // 为卡片添加点击事件处理程序
         function addCardClickHandlers() {
             const cards = document.querySelectorAll('.blog-card');
@@ -659,5 +670,10 @@
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', initBlogPage);
     </script>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2025 Knit Out. All rights reserved.</p>
+    </footer>
 </body>
 </html>

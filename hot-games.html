@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Games - Knit Out Solutions</title>
+    <meta name="description" content="Play the hottest puzzle games on Knit Out. Enjoy Knit Out, Color Match, Block Blast and more with detailed guides.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.knitout.net/hot-games.html">
+    
+    <!-- Schema.org ItemList markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Hot Games on Knit Out",
+        "description": "A list of the most popular puzzle games available on Knit Out",
+        "url": "https://www.knitout.net/hot-games.html",
+        "numberOfItems": 3,
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "url": "https://www.knitout.net/games/sand-blast-block-game",
+                "name": "Knit Out"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "url": "https://www.knitout.net/games/color-block-jam",
+                "name": "Color Match"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "url": "https://www.knitout.net/games/block-blast",
+                "name": "Block Blast"
+            }
+        ]
+    }
+    </script>
+    
+    <style>
+        :root {
+            --knit-blue: #3498db;
+            --knit-green: #2ecc71;
+            --knit-purple: #9b59b6;
+            --knit-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f9f9f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--knit-blue) 0%, var(--knit-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--knit-dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--knit-dark);
+        }
+        
+        .nav-link.active {
+            color: var(--knit-dark);
+            font-weight: 600;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
+            border-radius: 3px;
+        }
+        
+        /* 页面头部 */
+        .page-header {
+            text-align: center;
+            padding: 80px 0 50px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
+            margin-bottom: 50px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--knit-dark);
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 游戏卡片 */
+        .games-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .games-title {
+            font-size: 1.8rem;
+            color: var(--knit-dark);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .game-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-link-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            cursor: pointer;
+        }
+        
+        .card-click-indicator {
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: rgba(52, 152, 219, 0.05);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        
+        .game-card:active .card-click-indicator {
+            opacity: 1;
+        }
+        
+        .game-thumb {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .game-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-name {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--knit-dark);
+            margin-bottom: 10px;
+        }
+        
+        .game-desc {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .game-category {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* 页脚 */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .play-button {
+            color: var(--knit-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .play-button:hover {
+            color: var(--knit-dark);
+            gap: 8px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                gap: 20px;
+            }
+            
+            .nav-link {
+                font-size: 16px;
+            }
+            
+            .page-title {
+                font-size: 2.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="levels.html" class="nav-link">Levels</a>
+            <a href="hot-games.html" class="nav-link active">Hot Games</a>
+            <a href="download.html" class="nav-link">Download</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+        </div>
+    </nav>
+    
+    <!-- 页面头部 -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Hot Games</h1>
+            <p class="page-subtitle">
+                Discover and play the most popular puzzle games on Knit Out. 
+                Enjoy unique mechanics, challenging levels, and engaging gameplay.
+            </p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- 游戏选择区域 -->
+        <section class="games-container">
+            <h2 class="games-title">Select a Game to Play</h2>
+            <div class="games-grid" id="gamesGrid">
+                <!-- 游戏卡片将通过JavaScript动态加载 -->
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // 游戏数据
+        const games = [
+            {
+              id: 1,
+              key: 'color-block-jam',
+              code: 'CBJ',
+              name: 'Color Block Jam',
+              desc: 'A colorful and strategic block puzzle game with sliding mechanics and challenging obstacles.',
+              category: 'Puzzle',
+              url: 'games/color-block-jam/index.html', // 明确的路径
+              bg: 'linear-gradient(135deg, #e67e22, #f1c40f)'
+
+            },
+            {
+              id: 2,
+              key: 'sand-blast-block-game',
+              code: 'SBG',
+              name: 'Sand Blast Block Game',
+              desc: 'Blast sand-filled blocks, trigger chain reactions, and clear the board with satisfying combos.',
+              category: 'Puzzle',
+              url: 'games/sand-blast-block-game/index.html',
+              bg: 'linear-gradient(135deg, #f4d03f, #e67e22)'
+            },
+            {
+                id: 3,
+                key: 'stickhole-io',
+                code: 'SH',
+                name: 'Stickhole.io',
+                desc: 'Control a black hole, swallow stickmen and objects, and out-collect rivals in fast-paced single or two-player modes.',
+                category: 'Puzzle',
+                url: 'games/stickhole-io/index.html',
+                bg: 'linear-gradient(135deg, #2c3e50, #8e44ad)'
+            }
+        ];
+        
+        // 渲染游戏卡片
+        function renderGames() {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+            
+            games.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.dataset.url = game.url;
+                card.dataset.key = game.key;
+                
+                card.innerHTML = `
+                    <div class="card-link-overlay" tabindex="0" role="link" aria-label="Play ${game.name}"></div>
+                    <div class="card-click-indicator"></div>
+                    
+                    <div class="game-thumb" style="background:${game.bg}">
+                        ${game.code}
+                    </div>
+                    
+                    <div class="game-info">
+                        <span class="game-category">${game.category}</span>
+                        <h3 class="game-name">${game.name}</h3>
+                        <p class="game-desc">${game.desc}</p>
+                        
+                        <div class="game-meta">
+                            <span class="game-category">${game.category}</span>
+                            <a href="${game.url}" class="play-button">
+                                Play Now <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+
+        // 添加卡片事件处理
+        function addCardHandlers() {
+            const cards = document.querySelectorAll('.game-card');
+            
+            cards.forEach(card => {
+                // 点击整卡跳转
+                card.addEventListener('click', (e) => {
+                    const url = card.dataset.url;
+                    const key = card.dataset.key;
+                    
+                    // 在跳转前检查文件是否存在
+                    checkFileAccessibility(url, key);
+                });
+                
+                // 键盘可访问
+                card.querySelector('.card-link-overlay').addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const url = card.dataset.url;
+                        const key = card.dataset.key;
+                        checkFileAccessibility(url, key);
+                    }
+                });
+            });
+        }
+        
+        // 检查文件可访问性
+        function checkFileAccessibility(url, key) {
+            // 创建一个隐藏的iframe来测试URL
+            const testFrame = document.createElement('iframe');
+            testFrame.style.display = 'none';
+            testFrame.src = url;
+            
+            testFrame.onload = function() {
+                // 页面加载成功，直接导航
+                window.location.href = url;
+            };
+            
+            testFrame.onerror = function() {
+                // 页面加载失败，显示错误
+                showError(`Unable to access ${key} at ${url}. This may be due to server configuration issues.`);
+            };
+            
+            document.body.appendChild(testFrame);
+            
+            // 设置超时，防止无限等待
+            setTimeout(() => {
+                if (!testFrame.contentWindow || !testFrame.contentWindow.document) {
+                    showError(`Timeout trying to access ${key}. The server may not be responding or the file may not be accessible.`);
+                }
+                document.body.removeChild(testFrame);
+            }, 3000);
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            alert(`Error: ${message}\n\nPlease check your server configuration and file paths.`);
+        }
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGames();
+            addCardHandlers();
+            
+            // 添加控制台诊断信息
+            console.log('=== Knit Out Hot Games Diagnostics ===');
+            console.log('Current URL:', window.location.href);
+            console.log('Game file paths are relative to current page');
+            console.log('Expected game URLs:');
+            games.forEach(game => {
+                console.log(`- ${game.url}`);
+            });
+            console.log('==============================');
+        });
+    </script>
+
+    
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <p>© 2025 Knit Out. All rights reserved.</p>
+    </footer>
+
+  </body>
+</html>

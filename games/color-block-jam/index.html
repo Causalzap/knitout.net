@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Block Jam – Free Puzzle Game | Knit Out</title>
+    <meta name="description" content="Play Color Block Jam, the vibrant block puzzle by Rollic Games. Solve 400+ levels, master tricky obstacles, and enjoy offline play anytime. Tips & FAQ included.">
+    <link rel="canonical" href="https://www.knitout.net/games/color-block-jam">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Color Block Jam",
+        "description": "A vibrant puzzle game where players slide colored blocks to matching doors",
+        "gamePlatform": "Web, iOS, Android",
+        "applicationCategory": "PuzzleGame",
+        "author": {
+            "@type": "Organization",
+            "name": "Rollic Games"
+        },
+        "datePublished": "2024-06-01",
+        "operatingSystem": "All",
+        "screenshot": "https://www.knitout.net/images/color-block-jam-screenshot.jpg"
+    }
+    </script>
+    
+    <style>
+        :root {
+            --knit-blue: #3498db;
+            --knit-green: #2ecc71;
+            --knit-purple: #9b59b6;
+            --knit-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f9f9f9;
+            --knit-orange: #e67e22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-light);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* 导航栏 */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--knit-blue) 0%, var(--knit-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--knit-dark);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--knit-dark);
+        }
+        
+        .nav-link.active {
+            color: var(--knit-dark);
+            font-weight: 600;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--knit-blue), var(--knit-green));
+            border-radius: 3px;
+        }
+        
+        /* 游戏iframe容器 */
+        .game-frame-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        
+        .game-frame-title {
+            font-size: 1.8rem;
+            color: var(--knit-dark);
+            margin-bottom: 20px;
+        }
+        
+        .game-frame {
+            width: 100%;
+            height: 720px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        
+        .game-frame-alt {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        /* 页面头部 */
+        .article-header {
+            text-align: center;
+            padding: 30px 0 40px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
+            margin-bottom: 30px;
+            border-radius: 16px;
+        }
+        
+        .article-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--knit-dark);
+            margin-bottom: 15px;
+        }
+        
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 内容区域 */
+        .article-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .content-section {
+            margin-bottom: 40px;
+        }
+        
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .content-section h2 {
+            font-size: 2rem;
+            color: var(--knit-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f1f1;
+        }
+        
+        .content-section h3 {
+            font-size: 1.5rem;
+            color: var(--knit-dark);
+            margin-bottom: 15px;
+        }
+        
+        .content-section p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .content-section ul, .content-section ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .content-section li {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        .content-section strong {
+            color: var(--knit-dark);
+        }
+        
+        /* 特性卡片 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--knit-blue);
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--knit-dark);
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* FAQ部分 */
+        .faq-item {
+            border-top: 1px solid #eee;
+            padding: 15px 0;
+        }
+        
+        .faq-item:first-child {
+            border-top: none;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--knit-dark);
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+        
+        /* 游戏截图 */
+        .game-screenshot {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        /* 页脚 */
+        .footer {
+            background-color: #f5f7fa;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .footer-app-download {
+            margin-bottom: 30px;
+        }
+        
+        .footer-app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--knit-dark);
+            margin-bottom: 20px;
+        }
+        
+        .footer-platforms {
+          display: flex;
+          justify-content: center;   /* 居中对齐 */
+          gap: 30px;                 /* 卡片之间的间距 */
+          flex-wrap: nowrap;         /* 不换行，保持横向排列 */
+        }
+
+        .footer-platform {
+          flex: 0 0 300px;            /* 固定宽度的卡片 */
+          background: white;
+          border-radius: 12px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+          text-align: center;
+        }
+        
+        .platform-title {
+            font-weight: 600;
+            color: var(--knit-dark);
+            margin-bottom: 10px;
+        }
+        
+        .platform-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--knit-blue), var(--knit-green));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--knit-dark);
+        }
+        
+        .footer-copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 20px;
+            }
+            
+            .nav-link {
+                font-size: 16px;
+            }
+            
+            .article-title {
+                font-size: 2.5rem;
+            }
+            
+            .article-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-platforms {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-platform {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .game-frame {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            .game-frame {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="/index.html" class="nav-link">Home</a>
+            <a href="/levels.html" class="nav-link">Levels</a>
+            <a href="/hot-games.html" class="nav-link active">Hot Games</a>
+            <a href="/download.html" class="nav-link">Download</a>
+            <a href="/blog.html" class="nav-link">Blog</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        
+        
+        <!-- 文章头部 -->
+        <header class="article-header">
+            <h1 class="article-title">Color Block Jam</h1>
+            <p class="article-subtitle">
+                Slide and outsmart all puzzles! An exciting brain-teaser game that keeps your mind sharp and your fingers moving.
+            </p>
+        </header>
+
+        <!-- 游戏iframe容器 -->
+        <section class="game-frame-container">
+            <h2 class="game-frame-title">Play Color Block Jam</h2>
+            <iframe src="https://1games.io/game/color-block-jam/" width="100%" height="720" scrolling="no" frameBorder="0" class="game-frame" title="Color Block Jam Online Game"></iframe>
+            <p class="game-frame-alt">If the game doesn't load, please check your browser settings or try a different browser.</p>
+        </section>
+        
+        <article class="article-content">
+            <!-- 游戏概述 -->
+            <section class="content-section">
+                <h2 id="section-overview">Game Overview</h2>
+                <p><strong>Color Block Jam</strong> is a vibrant puzzle game developed by <strong>Rollic Games</strong>. Players slide colored blocks within a grid to guide them to their matching doors. With over 400 levels, unique obstacles like ice blocks, chains, and crates, and time-limited challenges, it combines casual mechanics with strategic planning.</p>
+                
+                <h3>Developer / History / Background</h3>
+                <ul>
+                    <li><strong>Developer:</strong> Rollic Games (Turkey, known for casual and hybrid-casual titles)</li>
+                    <li><strong>Release:</strong> Mid-2024</li>
+                    <li><strong>Style:</strong> Casual puzzle with strategy elements</li>
+                    <li><strong>Updates:</strong> New levels and features added regularly</li>
+                </ul>
+            </section>
+            
+            <!-- 如何玩 -->
+            <section class="content-section">
+                <h2 id="section-how-to-play">How to Play Color Block Jam?</h2>
+                <ul>
+                    <li><strong>Controls:</strong> On desktop, drag blocks with mouse/trackpad. On mobile, swipe with touch gestures.</li>
+                    <li><strong>Goal:</strong> Slide blocks into their same-colored doors to clear puzzles.</li>
+                    <li><strong>Strategy:</strong> Clear crates and ice early to free space, avoid blocking paths, and plan ahead.</li>
+                    <li><strong>Power-ups:</strong> Use shuffle and block-clearing boosters wisely when stuck.</li>
+                    <li><strong>Time Challenge:</strong> Complete puzzles before the timer runs out.</li>
+                </ul>
+            </section>
+            
+            <!-- 特性 -->
+            <section class="content-section">
+                <h2 id="section-features">Key Features of Color Block Jam 🧩✨</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3 class="feature-title">Colorful Visuals</h3>
+                        <p class="feature-desc">Smooth animations and bright puzzle design with polished graphics.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔓</div>
+                        <h3 class="feature-title">1000+ Levels</h3>
+                        <p class="feature-desc">Progressive challenges with unique designs and increasing difficulty.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">❄️</div>
+                        <h3 class="feature-title">Challenging Obstacles</h3>
+                        <p class="feature-desc">Ice blocks, chains, crates, and moving door locks to test your skills.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h3 class="feature-title">Time Challenges</h3>
+                        <p class="feature-desc">Adds urgency and excitement to the gameplay with countdown timers.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🛠️</div>
+                        <h3 class="feature-title">Helpful Boosters</h3>
+                        <p class="feature-desc">Use shuffle and clearing power-ups in tough levels to progress.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 技巧 -->
+            <section class="content-section">
+                <h2 id="section-tips">Tips & Tricks for Winning 🎯</h2>
+                <ul>
+                    <li><strong>Clear obstacles first:</strong> Free space by breaking crates and ice blocks quickly.</li>
+                    <li><strong>Plan multiple moves:</strong> Think 2–3 steps ahead to avoid stuck blocks.</li>
+                    <li><strong>Save boosters:</strong> Keep shuffle and clearing power-ups for the hardest levels.</li>
+                    <li><strong>Balance speed and accuracy:</strong> Manage the timer carefully for efficient play.</li>
+                </ul>
+            </section>
+            
+            <!-- 平台兼容性 -->
+            <section class="content-section">
+                <h2 id="section-platform">Platform Compatibility & Unblocked Access 🌍</h2>
+                <ul>
+                    <li><strong>Mobile:</strong> Available on iOS and Android with offline play support.</li>
+                    <li><strong>Desktop:</strong> Playable on browser-based platforms.</li>
+                    <li><strong>Unblocked:</strong> Versions available on gaming websites for school or office play.</li>
+                    <li><strong>Cross-platform:</strong> Seamless experience across phones, tablets, and desktops.</li>
+                </ul>
+            </section>
+            
+            <!-- 为什么在这里玩 -->
+            <section class="content-section">
+                <h2 id="section-why-play-here">Why Play Color Block Jam on Knit Out? 🎮</h2>
+                <ul>
+                    <li>🚀 Curated selection of high-quality casual puzzle games.</li>
+                    <li>🆓 Free to play with minimal or no ads for a smoother experience.</li>
+                    <li>🔓 Guaranteed <strong>Unblocked Access</strong> for unrestricted gameplay.</li>
+                    <li>🏆 Frequent updates and recommendations for similar games.</li>
+                </ul>
+            </section>
+            
+            <!-- FAQ -->
+            <section class="content-section">
+                <h2 id="section-faq">Color Block Jam FAQ ❓</h2>
+                <div itemscope itemtype="https://schema.org/FAQPage">
+                    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                        <div class="faq-question" itemprop="name">Is Color Block Jam free to play?</div>
+                        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text">Yes, it is free with optional in-app purchases for boosters and extras.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                        <div class="faq-question" itemprop="name">How do ice and chain obstacles work?</div>
+                        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text">Ice freezes blocks until adjacent ones are cleared. Chains lock blocks until unlocked with keys or special moves.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                        <div class="faq-question" itemprop="name">Can I play offline?</div>
+                        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text">Yes, offline play is supported on mobile devices.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                        <div class="faq-question" itemprop="name">What happens if I run out of time?</div>
+                        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text">You lose one life. Lives regenerate over time or can be restored via rewards.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                        <div class="faq-question" itemprop="name">Are power-ups required to progress?</div>
+                        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text">Not necessarily. With careful planning, most levels can be completed without power-ups.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-app-download">
+            <h3 class="footer-app-title">Play More Puzzle Games</h3>
+      
+            <div class="footer-platforms">
+              <!-- 游戏 1：Sand Blast - Block Game -->
+              <div class="footer-platform">
+                <div class="platform-title">Sand Blast - Block Game</div>
+                <div class="platform-desc">Blast sand blocks with strategy and physics-based puzzles across 100+ levels.</div>
+                <a href="/games/sand-blast-block-game/index.html" class="download-btn" aria-label="Play Sand Blast Block Game">
+                  Play Now
+                </a>
+              </div>
+      
+              <!-- 游戏 2：Stickhole.io -->
+              <div class="footer-platform">
+                <div class="platform-title">Stickhole.io</div>
+                <div class="platform-desc">Control a black hole, swallow stickmen, grow stronger, and battle rivals in multiplayer mode.</div>
+                <a href="/games/stickhole-io/index.html" class="download-btn" aria-label="Play Stickhole.io">
+                  Play Now
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="footer-copyright">
+            © 2025 Knit Out. All rights reserved.
+          </div>
+        </div>
+    </footer>
+      
+  
+    <script>
+        // 初始化FAQ交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isVisible = answer.style.display === 'block';
+                    
+                    // 隐藏所有FAQ答案
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        ans.style.display = 'none';
+                    });
+                    
+                    // 如果当前答案未显示，则显示它
+                    if (!isVisible) {
+                        answer.style.display = 'block';
+                    }
+                });
+            });
+            
+            // 默认隐藏所有FAQ答案
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

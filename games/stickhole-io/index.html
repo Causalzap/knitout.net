@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stickhole.io – Free Multiplayer IO Game | Knit Out</title>
+  <meta name="description" content="Stickhole.io – Free IO game by Byte Blaster. Move your black hole, eat stickmen, grow stronger, and challenge rivals in single or two-player multiplayer battles">
+  <link rel="canonical" href="https://www.knitout.net/games/stickhole-io/"/>
+
+  <!-- Schema.org: VideoGame -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Stickhole.io",
+    "description": "An addictive io game where you control a black hole that grows by swallowing stickmen and objects.",
+    "applicationCategory": "ActionGame",
+    "gamePlatform": "Web Browser",
+    "operatingSystem": "All",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Byte Blaster"
+    },
+    "datePublished": "2024-05-01",
+    "url": "https://www.knitout.net/games/stickhole-io/",
+    "screenshot": "https://www.knitout.net/images/stickhole-io-screenshot.jpg",
+    "genre": ["IO", "Action", "Multiplayer"]
+  }
+  </script>
+
+  <style>
+    :root{
+      --knit-blue:#3498db;
+      --knit-green:#2ecc71;
+      --knit-purple:#9b59b6;
+      --knit-dark:#2c3e50;
+      --text-light:#7f8c8d;
+      --background-light:#f9f9f9;
+      --knit-orange:#e67e22;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    body{background-color:var(--background-light);color:#333;line-height:1.6}
+    .container{max-width:1200px;margin:0 auto;padding:30px 20px}
+
+    /* NAV */
+    .nav-container{
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(10px);
+      box-shadow:0 4px 20px rgba(0,0,0,0.08);
+      padding:15px 40px;
+      display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:1000
+    }
+    .brand{display:flex;align-items:center;gap:15px}
+    .logo{
+      width:48px;height:48px;border-radius:50%;
+      background:linear-gradient(135deg,var(--knit-blue) 0%,var(--knit-green) 100%);
+      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px
+    }
+    .brand-name{font-size:24px;font-weight:600;color:var(--knit-dark)}
+    .nav-menu{display:flex;gap:35px}
+    .nav-link{
+      position:relative;padding:8px 0;font-size:18px;font-weight:500;
+      color:var(--text-light);text-decoration:none;transition:color .3s
+    }
+    .nav-link:hover{color:var(--knit-dark)}
+    .nav-link.active{color:var(--knit-dark);font-weight:600}
+    .nav-link.active::after{
+      content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;
+      background:linear-gradient(90deg,var(--knit-blue),var(--knit-green));border-radius:3px
+    }
+
+    /* Header */
+    .article-header{
+      text-align:center;padding:30px 0 40px;
+      background:linear-gradient(135deg,rgba(52,152,219,0.1) 0%,rgba(46,204,113,0.1) 100%);
+      margin-bottom:30px;border-radius:16px
+    }
+    .article-title{font-size:3rem;font-weight:800;color:var(--knit-dark);margin-bottom:15px}
+    .article-subtitle{font-size:1.2rem;color:var(--text-light);max-width:700px;margin:0 auto}
+
+    /* Game frame */
+    .game-frame-container{
+      background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      padding:20px;margin:30px 0 40px;text-align:center
+    }
+    .game-frame-title{font-size:1.8rem;color:var(--knit-dark);margin-bottom:20px}
+    .game-frame{
+      width:100%;height:720px;border:none;border-radius:12px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);background:#fff
+    }
+    .game-frame-alt{font-size:.9rem;color:var(--text-light);margin-top:15px;font-style:italic}
+
+    /* Article content */
+    .article-content{
+      background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      padding:40px;margin-bottom:40px
+    }
+    .content-section{margin-bottom:40px}
+    .content-section:last-child{margin-bottom:0}
+    .content-section h2{
+      font-size:2rem;color:var(--knit-dark);margin-bottom:20px;
+      padding-bottom:10px;border-bottom:2px solid #f1f1f1
+    }
+    .content-section h3{font-size:1.5rem;color:var(--knit-dark);margin-bottom:15px}
+    .content-section p{font-size:1.1rem;color:var(--text-light);line-height:1.7;margin-bottom:20px}
+    .content-section ul,.content-section ol{padding-left:25px;margin-bottom:20px}
+    .content-section li{font-size:1.1rem;color:var(--text-light);line-height:1.7;margin-bottom:10px}
+    .content-section strong{color:var(--knit-dark)}
+
+    /* Features */
+    .features-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;margin:30px 0
+    }
+    .feature-card{
+      background:#f8f9fa;border-radius:12px;padding:25px;text-align:center;
+      box-shadow:0 4px 8px rgba(0,0,0,0.05);transition:transform .3s, box-shadow .3s
+    }
+    .feature-card:hover{transform:translateY(-5px);box-shadow:0 8px 16px rgba(0,0,0,0.1)}
+    .feature-icon{font-size:2.5rem;color:var(--knit-blue);margin-bottom:15px}
+    .feature-title{font-size:1.3rem;font-weight:600;color:var(--knit-dark);margin-bottom:10px}
+    .feature-desc{font-size:1rem;color:var(--text-light);line-height:1.6}
+
+    /* FAQ */
+    .faq-item{border-top:1px solid #eee;padding:15px 0}
+    .faq-item:first-child{border-top:none}
+    .faq-question{
+      font-weight:600;font-size:1.1rem;color:var(--knit-dark);
+      margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center
+    }
+    .faq-answer{font-size:1rem;color:var(--text-light);line-height:1.6;margin-top:8px}
+
+    /* Screenshot (optional) */
+    .game-screenshot{
+      width:100%;max-width:400px;border-radius:12px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);margin:20px 0
+    }
+
+    /* Footer */
+    .footer{
+      background-color:#f5f7fa;padding:40px 20px;text-align:center;
+      margin-top:60px;border-top:1px solid #eaeaea
+    }
+    .footer-content{max-width:1000px;margin:0 auto}
+    .footer-app-download{margin-bottom:30px}
+    .footer-app-title{font-size:1.5rem;font-weight:600;color:var(--knit-dark);margin-bottom:20px}
+    .footer-platforms {
+      display: flex;
+      justify-content: center;   /* 居中对齐 */
+      gap: 30px;                 /* 卡片之间的间距 */
+      flex-wrap: nowrap;         /* 不换行，保持横向排列 */
+    }
+    
+    .footer-platform {
+      flex: 0 0 300px;            /* 固定宽度的卡片 */
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    .platform-title{font-weight:600;color:var(--knit-dark);margin-bottom:10px}
+    .platform-desc{font-size:.9rem;color:var(--text-light);margin-bottom:15px}
+    .download-btn{
+      background:linear-gradient(135deg,var(--knit-blue),var(--knit-green));
+      color:#fff;padding:10px 20px;border-radius:50px;text-decoration:none;font-weight:600;
+      display:inline-block;transition:all .3s
+    }
+    .download-btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(52,152,219,0.3)}
+    .footer-links{display:flex;justify-content:center;gap:25px;margin-bottom:20px;flex-wrap:wrap}
+    .footer-link{color:var(--text-light);text-decoration:none;font-size:.9rem;transition:color .3s}
+    .footer-link:hover{color:var(--knit-dark)}
+    .footer-copyright{color:var(--text-light);font-size:.9rem}
+
+    /* Responsive */
+    @media (max-width:768px){
+      .nav-menu{gap:20px}
+      .nav-link{font-size:16px}
+      .article-title{font-size:2.5rem}
+      .article-subtitle{font-size:1.1rem}
+      .article-content{padding:25px}
+      .features-grid{grid-template-columns:1fr}
+      .footer-platforms{flex-direction:column;align-items:center}
+      .footer-platform{width:100%;max-width:300px}
+      .game-frame{height:500px}
+    }
+    @media (max-width:480px){
+      .nav-container{padding:15px 20px}
+      .nav-menu{gap:15px}
+      .article-title{font-size:2rem}
+      .article-content{padding:20px 15px}
+      .game-frame{height:400px}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav-container">
+    <div class="brand">
+      <div class="logo">KO</div>
+      <div class="brand-name">Knit Out</div>
+    </div>
+    <div class="nav-menu">
+      <a href="/index.html" class="nav-link">Home</a>
+      <a href="/levels.html" class="nav-link">Levels</a>
+      <a href="/hot-games.html" class="nav-link active">Hot Games</a>
+      <a href="/download.html" class="nav-link">Download</a>
+      <a href="/blog.html" class="nav-link">Blog</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="article-header">
+      <h1 class="article-title">Stickhole.io</h1>
+      <p class="article-subtitle">
+        An addictive io game where you control a black hole that grows by swallowing stickmen and objects.
+        Developed by Byte Blaster, the game blends skill, strategy, and fast-paced action with colorful 3D graphics.
+      </p>
+    </header>
+
+    <!-- Game iframe -->
+    <section class="game-frame-container">
+      <h2 class="game-frame-title">Play Stickhole.io</h2>
+      <iframe
+        src="https://1games.io/stickhole-io"
+        width="100%" height="720" scrolling="no" frameborder="0"
+        class="game-frame" title="Stickhole.io Online Game">
+      </iframe>
+      <p class="game-frame-alt">If the game doesn't load, please check your browser settings or try a different browser.</p>
+    </section>
+
+    <article class="article-content">
+      <!-- Overview -->
+      <section class="content-section">
+        <h2 id="section-overview">Game Overview</h2>
+        <p><strong>Stickhole.io</strong> is an addictive io game where you control a black hole that grows by swallowing stickmen and objects. Developed by <strong>Byte Blaster</strong> in May 2024, the game blends skill, strategy, and fast-paced action with colorful 3D graphics.</p>
+
+        <h3>Developer / History / Background</h3>
+        <ul>
+          <li><strong>Developer:</strong> Byte Blaster</li>
+          <li><strong>Release:</strong> May 2024</li>
+          <li><strong>Style:</strong> Multiplayer io game with action–strategy elements</li>
+          <li><strong>Updates:</strong> New features and optimizations added regularly</li>
+        </ul>
+      </section>
+
+      <!-- How to Play -->
+      <section class="content-section">
+        <h2 id="section-how-to-play">How to Play Stickhole.io?</h2>
+        <ul>
+          <li><strong>Controls:</strong> Use WASD keys (Player 1) or arrow keys (Player 2) to move the hole around the map.</li>
+          <li><strong>Goal:</strong> Swallow stickmen and objects to increase the hole size and defeat opponents.</li>
+          <li><strong>Single-player:</strong> Collect enough units to challenge and defeat the boss.</li>
+          <li><strong>Two-player:</strong> Out-collect your opponent before time runs out.</li>
+          <li><strong>Strategy:</strong> Avoid obstacles and plan paths strategically for maximum collection.</li>
+          <li><strong>Customization:</strong> Collect coins and gems to unlock upgrades and new skins.</li>
+        </ul>
+      </section>
+
+      <!-- Features -->
+      <section class="content-section">
+        <h2 id="section-features">Key Features of Stickhole.io 🧩✨</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Fast-Paced Gameplay</h3>
+            <p class="feature-desc">Colorful 3D graphics and sound effects for an immersive experience.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎮</div>
+            <h3 class="feature-title">Multiple Modes</h3>
+            <p class="feature-desc">Single-player and two-player competitive modes for varied gameplay.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🛠️</div>
+            <h3 class="feature-title">Strategic Mechanics</h3>
+            <p class="feature-desc">Strategic collection and battle mechanics for depth and replayability.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⬆️</div>
+            <h3 class="feature-title">Multiple Upgrades</h3>
+            <p class="feature-desc">Upgrade hole size, speed, and combat power for better performance.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">Customization</h3>
+            <p class="feature-desc">Unlockable skins for personalizing your gaming experience.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3 class="feature-title">Instant Play</h3>
+            <p class="feature-desc">No sign-ups required; play instantly online without registration.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips -->
+      <section class="content-section">
+        <h2 id="section-tips">Tips &amp; Tricks for Winning 🎯</h2>
+        <ul>
+          <li><strong>Collect small stickmen early:</strong> Grow faster by targeting smaller targets first.</li>
+          <li><strong>Focus on free resources:</strong> Gather available resources before chasing opponents.</li>
+          <li><strong>Use your size advantage:</strong> Larger holes can consume bigger objects and rivals.</li>
+          <li><strong>Predict movements:</strong> Anticipate boss and opponent movements for strategic positioning.</li>
+          <li><strong>Track opponents:</strong> In multiplayer, keep track of your opponent's position and collection progress.</li>
+        </ul>
+      </section>
+
+      <!-- Platform -->
+      <section class="content-section">
+        <h2 id="section-platform">Platform Compatibility &amp; Unblocked Access 🌍</h2>
+        <ul>
+          <li><strong>Desktop:</strong> Playable on desktop browsers with smooth performance.</li>
+          <li><strong>Mobile:</strong> Currently not available on mobile devices.</li>
+          <li><strong>Unblocked:</strong> Versions available on gaming websites for school or office play.</li>
+          <li><strong>No downloads:</strong> Requires no downloads or installation.</li>
+        </ul>
+      </section>
+
+      <!-- Why here -->
+      <section class="content-section">
+        <h2 id="section-why-play-here">Why Play Stickhole.io on Knit Out? 🎮</h2>
+        <ul>
+          <li>🚀 Curated selection of high-quality io and multiplayer games.</li>
+          <li>🆓 Free to play with minimal or no ads for a smoother experience.</li>
+          <li>🔓 Guaranteed <strong>Unblocked Access</strong> for unrestricted gameplay.</li>
+          <li>🏆 Frequent updates and recommendations for similar games.</li>
+        </ul>
+      </section>
+
+      <!-- FAQ (microdata) -->
+      <section class="content-section">
+        <h2 id="section-faq">Stickhole.io FAQ ❓</h2>
+        <div itemscope itemtype="https://schema.org/FAQPage">
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Is Stickhole.io free to play?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Yes, it is free with no in-game purchases.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Can I play Stickhole.io on mobile?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Currently, it supports desktop browsers only; mobile versions are not available.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">How many players can play?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Supports single-player and two-player local multiplayer modes.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">How do I increase the size of my hole?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Swallow stickmen and objects to grow larger and consume bigger targets.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Are there upgrades or customization?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Yes, players can unlock upgrades and skins using collected coins and gems.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">What is the objective in single-player mode?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Collect enough units to defeat the boss within a time limit.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Is registration required?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">No sign-ups or personal information are necessary to play.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-app-download">
+        <h3 class="footer-app-title">Play More Puzzle Games</h3>
+        <div class="footer-platforms">
+          <div class="footer-platform">
+            <div class="platform-title">Color Block Jam</div>
+            <div class="platform-desc">A colorful puzzle game where you slide blocks to match doors and clear obstacles.</div>
+            <a href="/games/color-block-jam/index.html" class="download-btn" aria-label="Play Color Block Jam">Play Now</a>
+          </div>
+          <div class="footer-platform">
+            <div class="platform-title">Sand Blast - Block Game</div>
+            <div class="platform-desc">Blast sand blocks with strategy and physics-based puzzles across 1000+ levels.</div>
+            <a href="/games/sand-blast-block-game/index.html" class="download-btn" aria-label="Play Sand Blast Block Game">Play Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-links" style="display:none"></div>
+      <div class="footer-copyright">
+        © 2025 Knit Out. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ toggle
+    document.addEventListener('DOMContentLoaded', function(){
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      const answers = document.querySelectorAll('.faq-answer');
+      answers.forEach(a => a.style.display = 'none');
+      faqQuestions.forEach(q => {
+        q.addEventListener('click', function(){
+          const ans = this.nextElementSibling;
+          const show = ans.style.display !== 'block';
+          answers.forEach(a => a.style.display = 'none');
+          if (show) ans.style.display = 'block';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

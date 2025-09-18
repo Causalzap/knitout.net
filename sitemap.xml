@@ -6401,6 +6401,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
+
   <url>
     <loc>https://www.knitout.net/level-detail.html?id=1062</loc>
     <lastmod>2025-09-14T00:00:00Z</lastmod>
@@ -6408,5 +6409,32 @@
     <priority>0.5</priority>
   </url>
 
-    
+    <url>
+  <loc>https://www.knitout.net/hot-games</loc>
+  <lastmod>2025-09-14T00:00:00Z</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://www.knitout.net/color-block-jam</loc>
+  <lastmod>2025-09-14T00:00:00Z</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+
+<url>
+  <loc>https://www.knitout.net/sand-blast-block-game</loc>
+  <lastmod>2025-09-14T00:00:00Z</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+
+<url>
+  <loc>https://www.knitout.net/stickhole-io</loc>
+  <lastmod>2025-09-14T00:00:00Z</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>
+
     </urlset>
