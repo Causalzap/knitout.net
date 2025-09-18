@@ -9,5 +9,22 @@
         }
       ]
     }
-  ]
+  ],
+  "redirects": [
+    { "source": "/games/color-block-jam", "destination": "/color-block-jam/", "permanent": true },
+    { "source": "/games/color-block-jam/", "destination": "/color-block-jam/", "permanent": true },
+    { "source": "/games/color-block-jam/index.html", "destination": "/color-block-jam/", "permanent": true },
+    { "source": "/color-block-jam/index.html", "destination": "/color-block-jam/", "permanent": true },
+
+    { "source": "/games/sand-blast-block-game", "destination": "/sand-blast-block-game/", "permanent": true },
+    { "source": "/games/sand-blast-block-game/", "destination": "/sand-blast-block-game/", "permanent": true },
+    { "source": "/games/sand-blast-block-game/index.html", "destination": "/sand-blast-block-game/", "permanent": true },
+    { "source": "/sand-blast-block-game/index.html", "destination": "/sand-blast-block-game/", "permanent": true },
+
+    { "source": "/games/stickhole-io", "destination": "/stickhole-io/", "permanent": true },
+    { "source": "/games/stickhole-io/", "destination": "/stickhole-io/", "permanent": true },
+    { "source": "/games/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true },
+    { "source": "/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true }
+]
+  
 }
