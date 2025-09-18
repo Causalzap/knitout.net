@@ -24,7 +24,9 @@
     { "source": "/games/stickhole-io", "destination": "/stickhole-io/", "permanent": true },
     { "source": "/games/stickhole-io/", "destination": "/stickhole-io/", "permanent": true },
     { "source": "/games/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true },
-    { "source": "/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true }
+    { "source": "/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true },
+
+    { "source": "/index.html", "destination": "/", "permanent": true }
 ],
 "rewrites": [
   { "source": "/color-block-jam/", "destination": "/games/color-block-jam/index.html" },
