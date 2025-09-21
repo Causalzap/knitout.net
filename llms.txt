@@ -1,15 +1,33 @@
-*Note: This is an incomplete result, please enable full generation by entering a Firecrawl key.
+# Core Pages
+https://www.knitout.net/ - Knit Out Home: Puzzle game with strategic gameplay and immersive experience.
+https://www.knitout.net/levels.html - Knit Out Level Guide: Explore Knit Out levels from 1 to 1859.
+https://www.knitout.net/download.html - Knit Out App Download: Download Knit Out on iOS/Android for an exciting puzzle adventure.
 
-# http://knitout.net llms.txt
+# Market & Analysis Articles
+https://www.knitout.net/articles/hybrid-casual-games-market-trends-2025-part1.html - Hybrid Casual Games Market Trends 2025 (Part 1): A comprehensive look at hybrid casual gaming trends.
+https://www.knitout.net/articles/hybrid-casual-games-market-trends-2025-part2.html - Hybrid Casual Games Market Trends 2025 (Part 2): Continuation of the gaming market analysis for 2025.
+https://www.knitout.net/articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html - Hybrid Casual Monetization: Understanding coin-sort revenue models for mobile games.
+https://www.knitout.net/articles/knit-out-hybrid-casual.html - Knit Out Hybrid Casual: The integration of hybrid casual mechanics in Knit Out.
+https://www.knitout.net/articles/knit-out-unbeatable-yarn-themed-game-2025.html - Knit Out Unbeatable Yarn-Themed Game 2025: Insight into Knit Out's innovative yarn puzzle design.
+https://www.knitout.net/articles/rollic-game-strategy-innovation-skin-swaps-ip.html - Rollic Game Strategy: Strategy innovations, skin-swaps, and IP utilization in mobile gaming.
+https://www.knitout.net/articles/wool-craze-vs-knit-out-yarn-puzzle-games-2025.html - Wool Craze vs Knit Out: Comparison of yarn-themed puzzle games in 2025.
 
-- [Knit Out Puzzle Game](https://www.knitout.net/): Engaging puzzle adventure with strategic gameplay and immersive feedback.
-- [Knitout Level Guide](https://www.knitout.net/levels.html): Explore various knitting levels from 1 to 1859.
-- [Knit Out App Download](https://www.knitout.net/download.html): Download the Knit Out app for iOS and Android.
-- [Knit Out Blog](https://www.knitout.net/blog.html): Explore a variety of knitting articles and tutorials.
-- [Knit Out Puzzle Game](https://www.knitout.net/articles/knit-out-unbeatable-yarn-themed-game-2025.html): Knit Out offers a relaxing, strategic puzzle game experience.
-- [Knit Out Puzzle Game](https://www.knitout.net/articles/rollic-game-strategy-innovation-skin-swaps-ip.html): Explore Rollic's innovative game strategy including skin-swaps, IP utilization, and gameplay innovations that generated millions in revenue.
-- [Knit Out Level 414](https://www.knitout.net/level-detail.html?id=414): Clear colorful knots and match bobbins in this puzzle.
-- [Knit Out Level 360](https://www.knitout.net/level-detail.html?id=360): Clear colorful knots and match bobbins in this puzzle.
-- [Knit Out Level 403](https://www.knitout.net/level-detail.html?id=403): Clear colorful knots and match ropes to bobbins.
-- [Knit Out Level 131](https://www.knitout.net/level-detail.html?id=131): Complete walkthrough for Knit Out level 131 puzzle strategy.
-- [Knit Out Level 371](https://www.knitout.net/level-detail.html?id=371): Complete walkthrough and strategy for Knit Out Level 371.
+# Level Walkthroughs
+https://www.knitout.net/level-detail.html?id=1104 - Knit Out Level 1104: Strategic Knot Planning - Advanced rope path puzzle with strategy elements.
+https://www.knitout.net/level-detail.html?id=1120 - Knit Out Level 1120: Obstacle Weaving Labyrinth - Navigate through challenging maze puzzles.
+https://www.knitout.net/level-detail.html?id=131 - Knit Out Level 131: Detailed walkthrough and strategy for Level 131 puzzle.
+https://www.knitout.net/level-detail.html?id=360 - Knit Out Level 360: A colorful and strategic knot puzzle.
+https://www.knitout.net/level-detail.html?id=414 - Knit Out Level 414: Match bobbins with colorful knots and advanced mechanics.
+https://www.knitout.net/level-detail.html?id=371 - Knit Out Level 371: Solve rope path puzzles with higher complexity.
+
+# Comparison & Strategy Guides
+https://www.knitout.net/articles/knit-out-vs-knit-match-comparison.html - Knit Out vs Knit Match Comparison: Feature-by-feature breakdown of Knit Out vs Knit Match.
+https://www.knitout.net/articles/rollic-game-strategy-innovation-skin-swaps-ip.html - Rollic Game Strategy & Innovation: Analysis of strategy innovations and monetization techniques in Rollic games.
+
+# Hot Games
+https://www.knitout.net/color-block-jam/ - Color Block Jam: Slide and outsmart all puzzles in this exciting brain-teaser game.
+https://www.knitout.net/sand-blast-block-game/ - Sand Blast Block: Blast through colorful sand blocks in this exciting puzzle adventure.
+https://www.knitout.net/stickhole-io/ - Stickhole.io: Control a black hole, swallow stickmen, grow stronger, and battle rivals in multiplayer mode.
+
+# Featured Levels
+https://www.knitout.net/level-detail.html?id=94 - Knit Out Level 94: An intricate puzzle involving multiple knot combinations, requiring strategic planning to complete.

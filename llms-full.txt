@@ -8,8 +8,6 @@ Knitout was created to revolutionize the puzzle game genre by providing in-depth
 
 ### # Content Categories
 
-### # [Daily Challenge Guides](https://www.knitout.net/daily-challenges.html)  
-Professional solutions updated daily with expert techniques for challenge levels
 
 ### # [Popular Game Reviews](https://www.knitout.net/blog.html)  
 In-depth evaluations analyzing game design and user experience
@@ -42,8 +40,14 @@ Knitout provides unique benefits for different user groups:
 
 ### # Latest Content Updates
 
-### # [Complete Guide and Mechanism Analysis of "Weaving Puzzle"](https://www.knitout.net/blog/articles/knit-out-unbeatable-yarn-themed-game-2025.html)  
+### # [Complete Guide and Mechanism Analysis of "Weaving Puzzle"](https://www.knitout.net/levels.html)  
 In-depth analysis of game mechanics with clearance strategies for levels 1-300
 
-### # [Ad Monetization Strategies Study](https://www.knitout.net/blog/articles/rollic-game-strategy-innovation-skin-swaps-ip.html)  
+### # [Ad Monetization Strategies Study](https://www.knitout.net/articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html)  
 Analysis of game reskin models showing best practices and common pitfalls
+
+
+### # Hot Games
+- [Color Block Jam](https://www.knitout.net/color-block-jam/) - A highly engaging color-block puzzle game with fast-paced mechanics.
+- [Sand Blast Block Game](https://www.knitout.net/sand-blast-block-game/) - Fun and challenging block removal puzzle game with a relaxing vibe.
+- [Stickhole.io](https://www.knitout.net/stickhole-io/) - An online competitive game with exciting multiplayer mechanics.
