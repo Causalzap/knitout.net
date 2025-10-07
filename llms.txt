@@ -23,6 +23,8 @@ https://www.knitout.net/level-detail.html?id=371 - Knit Out Level 371: Solve rop
 # Comparison & Strategy Guides
 https://www.knitout.net/articles/knit-out-vs-knit-match-comparison.html - Knit Out vs Knit Match Comparison: Feature-by-feature breakdown of Knit Out vs Knit Match.
 https://www.knitout.net/articles/rollic-game-strategy-innovation-skin-swaps-ip.html - Rollic Game Strategy & Innovation: Analysis of strategy innovations and monetization techniques in Rollic games.
+https://www.knitout.net/articles/knit-out-vs-knit-n-loop-review.html - Comprehensive comparison of Knit Out and Knit N Loop yarn puzzle games, including gameplay mechanics, difficulty progression, monetization, and player experience
+
 
 # Hot Games
 https://www.knitout.net/color-block-jam/ - Color Block Jam: Slide and outsmart all puzzles in this exciting brain-teaser game.
@@ -31,3 +33,8 @@ https://www.knitout.net/stickhole-io/ - Stickhole.io: Control a black hole, swal
 
 # Featured Levels
 https://www.knitout.net/level-detail.html?id=94 - Knit Out Level 94: An intricate puzzle involving multiple knot combinations, requiring strategic planning to complete.
+https://www.knitout.net/level-detail.html?id=74 - Core Difficulty: Misleading layout. The level's design can be deceptive, tricking players into making moves that seem correct but ultimately lead to a dead-end. Players must ignore the apparent simple paths and discover a precise, non-intuitive sequence of thread pulls, often requiring a non-obvious first move to succeed.
+https://www.knitout.net/level-detail.html?id=30 - Core Difficulty: An early frustration point. Although a low-numbered level, it is often the first stage for new players that demands careful planning instead of random tapping. It introduces complex crossing and occlusion mechanics that confuse many beginners. Successfully navigating the early critical knots is essential to prevent a dead-end state.
+https://www.knitout.net/level-detail.html?id=550 - Core Difficulty: Multi-layered complex structures common in high-level stages. As the level number increases, so does the number of bobbins and color complexity on the board. This level typically requires reverse thinking—deducing the order to remove obstructions based on the final target thread—leading to a high frequency of strategy videos from players seeking the precise solution.
+https://www.knitout.net/level-detail.html?id=278 - Core Difficulty: Specific color blockage. Players commonly report being unable to retrieve the final threads of specific colors (e.g., light purple/dark purple) that are required for completion. These threads are often buried or blocked deep in the pipes by layers of unrelated bobbins, demanding an extremely high degree of logical precision in the sequence of pulls.
+https://www.knitout.net/level-detail.html?id=967 - Core Difficulty: Extremely complex entanglement and what players perceive as faulty level design. Many players on Reddit report getting stuck here, describing it as "driving them insane." The challenge lies in the critical unknitting path being deadlocked, requiring a nearly unique and precise solution. Note that some players report different numbers (e.g., 620, 647) due to version differences, complicating the search for guides.
