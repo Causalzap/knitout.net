@@ -51,3 +51,4 @@ Analysis of game reskin models showing best practices and common pitfalls
 - [Color Block Jam](https://www.knitout.net/color-block-jam/) - A highly engaging color-block puzzle game with fast-paced mechanics.
 - [Sand Blast Block Game](https://www.knitout.net/sand-blast-block-game/) - Fun and challenging block removal puzzle game with a relaxing vibe.
 - [Stickhole.io](https://www.knitout.net/stickhole-io/) - An online competitive game with exciting multiplayer mechanics.
+- [Stickhole.io](https://www.knitout.net/block-blast/) - An exciting online competitive game with challenging multiplayer mechanics.

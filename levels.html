@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Levels - Knit Out Solutions</title>
-
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9769427406770321"
      crossorigin="anonymous"></script>
      
@@ -24,30 +24,15 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Knit Out Levels - Complete Level Selection">
     <meta name="twitter:description" content="Access all 800+ Knit Out levels organized by categories. Find any level quickly.">
-
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-      tailwind.config = {
-          theme: {
-              extend: {
-                  colors: {
-                      knitBlue: '#3498db',
-                      knitGreen: '#2ecc71',
-                      knitPurple: '#9b59b6',
-                      knitPink: '#e84393',
-                      knitYellow: '#f1c40f',
-                      knitDark: '#2c3e50',
-                      knitLight: '#f5f7fa'
-                  }
-              }
-          }
-      }
-   </script>
     <style>
         :root {
             --knit-blue: #3498db;
             --knit-green: #2ecc71;
+            --knit-purple: #9b59b6;
+            --knit-pink: #e84393;
+            --knit-yellow: #f1c40f;
             --knit-dark: #2c3e50;
             --knit-light: #f5f7fa;
         }
@@ -63,16 +48,6 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             min-height: 100vh;
             color: #333;
-        }
-        
-        .knit-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 15px 40px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
         
         /* 导航栏 */
@@ -111,7 +86,7 @@
         .brand-name {
             font-size: 24px;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--knit-dark);
         }
         
         .nav-menu {
@@ -124,17 +99,17 @@
             padding: 8px 0;
             font-size: 18px;
             font-weight: 500;
-            color: var(--text-light);
+            color: #666;
             text-decoration: none;
             transition: color 0.3s;
         }
         
         .nav-link:hover {
-            color: var(--text-dark);
+            color: var(--knit-dark);
         }
         
         .nav-link.active {
-            color: var(--text-dark);
+            color: var(--knit-dark);
             font-weight: 600;
         }
         
@@ -150,82 +125,13 @@
         
         .lang-selector {
             font-size: 16px;
-            color: var(--text-light);
+            color: #666;
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
         }
 
-        
-        .brand-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-circle {
-            width: 48px;
-            height: 48px;
-            background-color: #28a745;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 22px;
-        }
-        
-        .brand-name {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 35px;
-        }
-        
-        .nav-item {
-            position: relative;
-            padding: 8px 0;
-            font-size: 18px;
-            font-weight: 500;
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .nav-item:hover {
-            color: #333;
-        }
-        
-        .nav-item.active {
-            color: #000;
-            font-weight: 600;
-        }
-        
-        .nav-item.active:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: #28a745;
-        }
-        
-        .nav-lang {
-            font-size: 16px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -240,14 +146,16 @@
             padding-bottom: 15px;
             border-bottom: 2px solid #eaeaea;
         }
+        
         /* 页脚 */
         .footer {
             padding: 20px;
             text-align: center;
-            color: var(--text-light);
+            color: #666;
             font-size: 0.9rem;
             border-top: 1px solid rgba(0,0,0,0.05);
         }
+        
         /* 关卡分组导航 */
         .level-groups-container {
             background: white;
@@ -298,7 +206,7 @@
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         }
         
-        /* 关卡网格 */
+        /* 关卡网格 - 带缩略图 */
         .level-grid-container {
             background: white;
             border-radius: 16px;
@@ -315,35 +223,94 @@
         
         .level-grid {
             display: grid;
-            grid-template-columns: repeat(14, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
         }
         
         .level-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 50px;
-            background-color: #3498db;
-            color: white;
-            border-radius: 8px;
-            font-weight: bold;
             text-decoration: none;
-            font-size: 1.1rem;
             transition: all 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f8f9fa;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
+        .level-thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+        }
+        
+        .level-number {
+            width: 100%;
+            padding: 8px 5px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--knit-dark);
+            background: white;
+        }
+        
         .level-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            background-color: #2980b9;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .level-item:hover .level-thumbnail {
+            filter: brightness(1.1);
+        }
+        
+        /* 搜索框 */
+        .level-search {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-left: 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
         }
         
         /* 响应式设计 */
         @media (max-width: 1200px) {
             .level-grid {
-                grid-template-columns: repeat(10, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 15px;
+            }
+            
+            .level-thumbnail {
+                height: 90px;
             }
         }
         
@@ -352,7 +319,7 @@
                 display: none;
             }
             
-            .nav-lang {
+            .lang-selector {
                 display: none;
             }
             
@@ -362,19 +329,28 @@
             }
             
             .level-grid {
-                grid-template-columns: repeat(7, 1fr);
-                gap: 8px;
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 12px;
             }
             
-            .level-item {
-                height: 45px;
-                font-size: 1rem;
+            .level-thumbnail {
+                height: 80px;
             }
         }
         
         @media (max-width: 480px) {
             .level-grid {
-                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                gap: 10px;
+            }
+            
+            .level-thumbnail {
+                height: 70px;
+            }
+            
+            .level-number {
+                font-size: 14px;
+                padding: 6px 3px;
             }
         }
     </style>
@@ -382,23 +358,31 @@
 <body>
     <!-- 导航栏 -->
     <nav class="nav-container">
-      <div class="brand">
-          <div class="logo">KO</div>
-          <div class="brand-name">Knit Out</div>
-      </div>
-      
-      <div class="nav-menu">
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="levels.html" class="nav-link active">Levels</a>
-          <a href="hot-games.html" class="nav-link">Hot Games</a>
-          <a href="download.html" class="nav-link ">Download</a>
-          <a href="blog.html" class="nav-link">Blog</a>
-      </div>
-  </nav>
+        <div class="brand">
+            <div class="logo">KO</div>
+            <div class="brand-name">Knit Out</div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="levels.html" class="nav-link active">Levels</a>
+            <a href="hot-games.html" class="nav-link">Hot Games</a>
+            <a href="download.html" class="nav-link">Download</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+        </div>
+    </nav>
 
     <!-- 主要内容 -->
     <div class="container">
         <h1 class="page-title">All Levels</h1>
+        
+        <!-- 关卡搜索 -->
+        <div class="level-search">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search level by number..." id="levelSearch">
+            </div>
+        </div>
         
         <!-- 关卡分组 -->
         <div class="level-groups-container">
@@ -417,8 +401,13 @@
         </div>
     </div>
     
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2025 Knit Out. All rights reserved.</p>
+    </footer>
+    
     <script>
-        // 定义所有关卡分组（与图片完全一致）
+        // 定义所有关卡分组
         const levelGroups = [
             {id: '1-50', start: 1, end: 50},
             {id: '51-100', start: 51, end: 100},
@@ -487,12 +476,12 @@
             levelGroupsContainer.appendChild(btn);
         });
         
-        // 更新关卡网格显示（去除行号）
+        // 更新关卡网格显示（带缩略图）
         function updateLevelGrid(group) {
             const levelGrid = document.getElementById('levelGrid');
             const levelGridTitle = document.getElementById('levelGridTitle');
             
-            // 更新标题（与图片显示方式一致）
+            // 更新标题
             levelGridTitle.textContent = `Levels ${group.start}-${group.end}`;
             
             // 清空现有网格
@@ -501,47 +490,92 @@
             // 生成关卡按钮（50个）
             const levelCount = group.end - group.start + 1;
             for (let i = 1; i <= levelCount; i++) {
+                const levelNum = group.start + i - 1;
+                
                 const levelItem = document.createElement('a');
                 levelItem.className = 'level-item';
-                levelItem.textContent = group.start + i - 1;
-                levelItem.href = `level-detail.html?id=${group.start + i - 1}`;
+                levelItem.href = `level-detail.html?id=${levelNum}`;
+                
+                // 创建缩略图元素
+                const thumbnail = document.createElement('img');
+                thumbnail.className = 'level-thumbnail';
+                
+                // 根据图片中的文件名格式调整：knit-out-game-level-{关卡编号}-solution.webp
+                // 注意：这里假设您有封面图而不是解决方案图，所以去掉"-solution"
+                thumbnail.src = `/images/levels/knit-out-game-level-${levelNum}-solution.webp`;
+                thumbnail.alt = `Knit Out Level ${levelNum} walkthrough`;
+                
+                // 添加加载错误处理
+                thumbnail.onerror = function() {
+                    // 如果图片加载失败，使用占位背景
+                    this.style.background = 'linear-gradient(135deg, #3498db, #9b59b6)';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.innerHTML = `<span style="color: white; font-weight: bold;">Level ${levelNum}</span>`;
+                };
+                
+                // 创建关卡数字显示
+                const levelNumber = document.createElement('div');
+                levelNumber.className = 'level-number';
+                levelNumber.textContent = levelNum;
+                
+                // 添加到关卡项
+                levelItem.appendChild(thumbnail);
+                levelItem.appendChild(levelNumber);
+                
+                // 添加到网格
                 levelGrid.appendChild(levelItem);
             }
         }
         
-        // 初始化页面：默认显示101-150的关卡（与图片一致）
+        // 初始化页面：默认显示101-150的关卡
         updateLevelGrid({start: 101, end: 150});
         
-        // 关卡项悬停效果增强
-        function applyLevelItemHover() {
-            const levelItems = document.querySelectorAll('.level-item');
-            levelItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 8px 15px rgba(0,0,0,0.2)';
+        // 搜索功能
+        const levelSearch = document.getElementById('levelSearch');
+        levelSearch.addEventListener('input', function() {
+            const searchValue = this.value.trim();
+            if (!searchValue) return;
+            
+            const levelNum = parseInt(searchValue);
+            if (isNaN(levelNum) || levelNum < 1 || levelNum > 1859) return;
+            
+            // 找到包含该关卡的分组
+            const targetGroup = levelGroups.find(group => 
+                levelNum >= group.start && levelNum <= group.end
+            );
+            
+            if (targetGroup) {
+                // 更新分组选择
+                document.querySelectorAll('.group-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.id === targetGroup.id) {
+                        btn.classList.add('active');
+                    }
                 });
                 
-                item.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                // 更新关卡网格
+                updateLevelGrid({
+                    start: targetGroup.start,
+                    end: targetGroup.end
                 });
-            });
-        }
-        
-        // 应用悬停效果
-        applyLevelItemHover();
-        
-        // 监听网格变化并重新应用悬停效果
-        const observer = new MutationObserver(applyLevelItemHover);
-        observer.observe(document.getElementById('levelGrid'), {
-            childList: true,
-            subtree: true
+                
+                // 滚动到该关卡
+                setTimeout(() => {
+                    const levelElements = document.querySelectorAll('.level-number');
+                    for (const element of levelElements) {
+                        if (element.textContent == levelNum) {
+                            element.closest('.level-item').scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                            break;
+                        }
+                    }
+                }, 300);
+            }
         });
     </script>
-
-     <!-- 页脚 -->
-     <footer class="footer">
-        <p>© 2025 Knit Out. All rights reserved.</p>
-    </footer>
 </body>
 </html>

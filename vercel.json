@@ -26,12 +26,20 @@
     { "source": "/games/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true },
     { "source": "/stickhole-io/index.html", "destination": "/stickhole-io/", "permanent": true },
 
+
+    { "source": "/games/block-blast", "destination": "/block-blast/", "permanent": true },
+    { "source": "/games/block-blast/", "destination": "/block-blast/", "permanent": true },
+    { "source": "/games/block-blast/index.html", "destination": "/block-blast/", "permanent": true },
+    { "source": "/block-blast/index.html", "destination": "/block-blast/", "permanent": true },
+
     { "source": "/index.html", "destination": "/", "permanent": true }
 ],
 "rewrites": [
   { "source": "/color-block-jam/", "destination": "/games/color-block-jam/index.html" },
   { "source": "/sand-blast-block-game/", "destination": "/games/sand-blast-block-game/index.html" },
-  { "source": "/stickhole-io/", "destination": "/games/stickhole-io/index.html" }
+  { "source": "/stickhole-io/", "destination": "/games/stickhole-io/index.html" },
+  { "source": "/block-blast/", "destination": "/games/block-blast/index.html" }
+
 ]
   
 }

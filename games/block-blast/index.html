@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Block Blast: Classic Cube Logic Puzzle Game | Play Online</title>
+  <meta name="description" content="Block Blast is an addictive, free online cube puzzle game. Master logic and strategy in this no-timer challenge that tests your spatial reasoning skills.">
+  <meta name="keywords" content="Block Blast, puzzle game, logic game, block puzzle, brain training, strategy game">
+  <link rel="canonical" href="https://www.knitout.net/block-blast/"/>
+
+  <!-- Schema.org: VideoGame -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Block Blast Classic Puzzle Game",
+    "description": "The highly addictive logic puzzle where you arrange colored blocks to clear lines. Enjoy a relaxing, no-timer challenge perfect for training your brain.",
+    "applicationCategory": "PuzzleGame",
+    "gamePlatform": "Web Browser",
+    "operatingSystem": "All",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Block Blast Developers"
+    },
+    "datePublished": "2024-01-15",
+    "url": "https://www.knitout.net/block-blast/",
+    "genre": ["Puzzle", "Logic", "Casual"]
+  }
+  </script>
+
+  <style>
+    :root{
+      --knit-blue:#3498db;
+      --knit-green:#2ecc71;
+      --knit-purple:#9b59b6;
+      --knit-dark:#2c3e50;
+      --text-light:#7f8c8d;
+      --background-light:#f9f9f9;
+      --knit-orange:#e67e22;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+    body{background-color:var(--background-light);color:#333;line-height:1.6}
+    .container{max-width:1200px;margin:0 auto;padding:30px 20px}
+
+    /* NAV */
+    .nav-container{
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(10px);
+      box-shadow:0 4px 20px rgba(0,0,0,0.08);
+      padding:15px 40px;
+      display:flex;justify-content:space-between;align-items:center;
+      position:sticky;top:0;z-index:1000
+    }
+    .brand{display:flex;align-items:center;gap:15px}
+    .logo{
+      width:48px;height:48px;border-radius:50%;
+      background:linear-gradient(135deg,var(--knit-blue) 0%,var(--knit-green) 100%);
+      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px
+    }
+    .brand-name{font-size:24px;font-weight:600;color:var(--knit-dark)}
+    .nav-menu{display:flex;gap:35px}
+    .nav-link{
+      position:relative;padding:8px 0;font-size:18px;font-weight:500;
+      color:var(--text-light);text-decoration:none;transition:color .3s
+    }
+    .nav-link:hover{color:var(--knit-dark)}
+    .nav-link.active{color:var(--knit-dark);font-weight:600}
+    .nav-link.active::after{
+      content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;
+      background:linear-gradient(90deg,var(--knit-blue),var(--knit-green));border-radius:3px
+    }
+
+    /* Header */
+    .article-header{
+      text-align:center;padding:30px 0 40px;
+      background:linear-gradient(135deg,rgba(52,152,219,0.1) 0%,rgba(46,204,113,0.1) 100%);
+      margin-bottom:30px;border-radius:16px
+    }
+    .article-title{font-size:3rem;font-weight:800;color:var(--knit-dark);margin-bottom:15px}
+    .article-subtitle{font-size:1.2rem;color:var(--text-light);max-width:700px;margin:0 auto}
+
+    /* Game frame */
+    .game-frame-container{
+      background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      padding:20px;margin:30px 0 40px;text-align:center
+    }
+    .game-frame-title{font-size:1.8rem;color:var(--knit-dark);margin-bottom:20px}
+    .game-frame{
+      width:100%;height:720px;border:none;border-radius:12px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);background:#fff
+    }
+    .game-frame-alt{font-size:.9rem;color:var(--text-light);margin-top:15px;font-style:italic}
+
+    /* Article content */
+    .article-content{
+      background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      padding:40px;margin-bottom:40px
+    }
+    .content-section{margin-bottom:40px}
+    .content-section:last-child{margin-bottom:0}
+    .content-section h2{
+      font-size:2rem;color:var(--knit-dark);margin-bottom:20px;
+      padding-bottom:10px;border-bottom:2px solid #f1f1f1
+    }
+    .content-section h3{font-size:1.5rem;color:var(--knit-dark);margin-bottom:15px}
+    .content-section p{font-size:1.1rem;color:var(--text-light);line-height:1.7;margin-bottom:20px}
+    .content-section ul,.content-section ol{padding-left:25px;margin-bottom:20px}
+    .content-section li{font-size:1.1rem;color:var(--text-light);line-height:1.7;margin-bottom:10px}
+    .content-section strong{color:var(--knit-dark)}
+
+    /* Features */
+    .features-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;margin:30px 0
+    }
+    .feature-card{
+      background:#f8f9fa;border-radius:12px;padding:25px;text-align:center;
+      box-shadow:0 4px 8px rgba(0,0,0,0.05);transition:transform .3s, box-shadow .3s
+    }
+    .feature-card:hover{transform:translateY(-5px);box-shadow:0 8px 16px rgba(0,0,0,0.1)}
+    .feature-icon{font-size:2.5rem;color:var(--knit-blue);margin-bottom:15px}
+    .feature-title{font-size:1.3rem;font-weight:600;color:var(--knit-dark);margin-bottom:10px}
+    .feature-desc{font-size:1rem;color:var(--text-light);line-height:1.6}
+
+    /* FAQ */
+    .faq-item{border-top:1px solid #eee;padding:15px 0}
+    .faq-item:first-child{border-top:none}
+    .faq-question{
+      font-weight:600;font-size:1.1rem;color:var(--knit-dark);
+      margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center
+    }
+    .faq-answer{font-size:1rem;color:var(--text-light);line-height:1.6;margin-top:8px}
+
+    /* Screenshot (optional) */
+    .game-screenshot{
+      width:100%;max-width:400px;border-radius:12px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);margin:20px 0
+    }
+
+    /* Footer */
+    .footer{
+      background-color:#f5f7fa;padding:40px 20px;text-align:center;
+      margin-top:60px;border-top:1px solid #eaeaea
+    }
+    .footer-content{max-width:1000px;margin:0 auto}
+    .footer-app-download{margin-bottom:30px}
+    .footer-app-title{font-size:1.5rem;font-weight:600;color:var(--knit-dark);margin-bottom:20px}
+    .footer-platforms {
+      display: flex;
+      justify-content: center;   /* 居中对齐 */
+      gap: 30px;                 /* 卡片之间的间距 */
+      flex-wrap: nowrap;         /* 不换行，保持横向排列 */
+    }
+    
+    .footer-platform {
+      flex: 0 0 300px;            /* 固定宽度的卡片 */
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    .platform-title{font-weight:600;color:var(--knit-dark);margin-bottom:10px}
+    .platform-desc{font-size:.9rem;color:var(--text-light);margin-bottom:15px}
+    .download-btn{
+      background:linear-gradient(135deg,var(--knit-blue),var(--knit-green));
+      color:#fff;padding:10px 20px;border-radius:50px;text-decoration:none;font-weight:600;
+      display:inline-block;transition:all .3s
+    }
+    .download-btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(52,152,219,0.3)}
+    .footer-links{display:flex;justify-content:center;gap:25px;margin-bottom:20px;flex-wrap:wrap}
+    .footer-link{color:var(--text-light);text-decoration:none;font-size:.9rem;transition:color .3s}
+    .footer-link:hover{color:var(--knit-dark)}
+    .footer-copyright{color:var(--text-light);font-size:.9rem}
+
+    /* Responsive */
+    @media (max-width:768px){
+      .nav-menu{gap:20px}
+      .nav-link{font-size:16px}
+      .article-title{font-size:2.5rem}
+      .article-subtitle{font-size:1.1rem}
+      .article-content{padding:25px}
+      .features-grid{grid-template-columns:1fr}
+      .footer-platforms{flex-direction:column;align-items:center}
+      .footer-platform{width:100%;max-width:300px}
+      .game-frame{height:500px}
+    }
+    @media (max-width:480px){
+      .nav-container{padding:15px 20px}
+      .nav-menu{gap:15px}
+      .article-title{font-size:2rem}
+      .article-content{padding:20px 15px}
+      .game-frame{height:400px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="nav-container">
+    <div class="brand">
+      <div class="logo">KO</div>
+      <div class="brand-name">Knit Out</div>
+    </div>
+    <div class="nav-menu">
+      <a href="/index.html" class="nav-link">Home</a>
+      <a href="/levels.html" class="nav-link">Levels</a>
+      <a href="/hot-games.html" class="nav-link active">Hot Games</a>
+      <a href="/download.html" class="nav-link">Download</a>
+      <a href="/blog.html" class="nav-link">Blog</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="article-header">
+      <h1 class="article-title">Block Blast: Classic Cube Puzzle Game</h1>
+      <p class="article-subtitle">
+        <strong>Beyond Tetris – Master Logic, Not Gravity.</strong> The ultimate brain exercise that tests your spatial reasoning and strategic planning skills in a no-timer challenge.
+      </p>
+    </header>
+
+    <!-- Game iframe -->
+    <section class="game-frame-container">
+      <h2 class="game-frame-title">Play Block Blast</h2>
+      <iframe
+        src="https://blockblastonline.com/1.embed"
+        width="100%" height="720" scrolling="no" frameborder="0"
+        class="game-frame" title="Block Blast! Classic Brick & Cube Puzzle Game">
+      </iframe>
+      <p class="game-frame-alt">If the game doesn't load, please check your browser settings or try a different browser.</p>
+    </section>
+
+    <article class="article-content">
+      <!-- Overview -->
+      <section class="content-section">
+        <h2 id="section-overview">Game Overview</h2>
+        <p><strong>Block Blast</strong> is the ultimate brain exercise, inspired by the timeless geometry of classic block games but elevated by a fresh, color-matching strategic core. Unlike traditional falling-block challenges, Block Blast requires pure logical thinking and calculated pre-planning.</p>
+        <p>It's easy to pick up, but reaching the master level demands precision, observation, and a true high-score strategy. Are you ready to sharpen your spatial reasoning and become a Block Blast grandmaster?</p>
+
+        <h3>🎯 Who Should Play?</h3>
+        <ul>
+          <li><strong>Strategy Enthusiasts:</strong> Players who thrive on calculated moves and long-term planning.</li>
+          <li><strong>Logic Trainers:</strong> Anyone seeking to improve their logical thinking and spatial awareness.</li>
+          <li><strong>Puzzle Veterans:</strong> Those looking for a deep, score-maximizing challenge beyond simple matching games.</li>
+        </ul>
+      </section>
+
+      <!-- How to Play -->
+      <section class="content-section">
+        <h2 id="section-how-to-play">How to Play Block Blast?</h2>
+        <ul>
+          <li><strong>Goal:</strong> Arrange blocks of the same color to form complete horizontal lines or vertical columns to eliminate them from the board.</li>
+          <li><strong>Pure Strategy:</strong> This game strips away the chaos of gravity to focus entirely on calculated placement.</li>
+          <li><strong>Logical Requirement:</strong> Elimination is achieved only when the small squares are completely filled in the row or column—forcing players to be precise and strategic with every placement.</li>
+          <li><strong>Three-Block System:</strong> The blocks ready for use are displayed at the bottom of the screen—always showing three randomly generated blocks. You must calculate the optimal placement for all three before placing the first one.</li>
+          <li><strong>Score Maximization:</strong> Every successful column or row destroyed grants you additional points. Balance clearing space with achieving multi-line destruction for the highest score potential.</li>
+        </ul>
+      </section>
+
+      <!-- Features -->
+      <section class="content-section">
+        <h2 id="section-features">⭐ Core Features: Precision, Strategy, and Depth</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3 class="feature-title">Pure Strategy Core</h3>
+            <p class="feature-desc">Focus entirely on calculated placement without time pressure. Eliminate blocks by forming complete lines or columns.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3 class="feature-title">Score Maximization</h3>
+            <p class="feature-desc">Achieve high scores through smart elimination. Bonus points for multi-line destruction and strategic planning.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">👁️</div>
+            <h3 class="feature-title">Three-Block Pre-Planning</h3>
+            <p class="feature-desc">Master the art of observing three upcoming blocks and calculating optimal placements before your first move.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">No-Timer Challenge</h3>
+            <p class="feature-desc">Enjoy a relaxing, thoughtful experience that tests your pure logic skills without the pressure of a countdown.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3 class="feature-title">Increasing Difficulty</h3>
+            <p class="feature-desc">As you progress, the game introduces more complex block shapes, demanding superior spatial reasoning.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3 class="feature-title">Instant Play</h3>
+            <p class="feature-desc">No sign-ups required; play instantly online without registration. Perfect for quick brain training sessions.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips -->
+      <section class="content-section">
+        <h2 id="section-tips">💡 Strategy Guide: Becoming a Master</h2>
+        
+        <h3>🧠 Strategic Thinking & High Score Maximization</h3>
+        <ul>
+          <li><strong>Keep the screen empty:</strong> The highest scores come from maintaining as much empty space as possible while setting up multi-line eliminations.</li>
+          <li><strong>Plan in sets of three:</strong> Always calculate the optimal placement order for all three upcoming blocks to minimize permanent fragments.</li>
+          <li><strong>Create elimination channels:</strong> Focus on creating vertical and horizontal open lines that can be easily filled for future eliminations.</li>
+          <li><strong>Balance priorities:</strong> When the screen gets crowded, shift from high-score strategies to immediate space-clearing tactics.</li>
+        </ul>
+        
+        <h3>🏆 Appeal and Competition</h3>
+        <ul>
+          <li><strong>For Tetris veterans:</strong> Block Blast offers a deeper, more cerebral challenge that substitutes time pressure with pure strategic complexity.</li>
+          <li><strong>Global competition:</strong> The pursuit of the highest score drives the core competition. Aim to dominate the leaderboards!</li>
+        </ul>
+      </section>
+
+      <!-- Platform -->
+      <section class="content-section">
+        <h2 id="section-platform">🌍 Platform Compatibility</h2>
+        <ul>
+          <li><strong>Desktop:</strong> Optimized for desktop browsers with smooth performance and precise controls.</li>
+          <li><strong>Mobile:</strong> Currently best experienced on desktop devices for optimal strategic planning.</li>
+          <li><strong>No downloads:</strong> Requires no downloads or installation - play directly in your browser.</li>
+          <li><strong>Free to play:</strong> Complete access to all game features without any cost.</li>
+        </ul>
+      </section>
+
+      <!-- Why here -->
+      <section class="content-section">
+        <h2 id="section-why-play-here">🎮 Why Play Block Blast on Knit Out?</h2>
+        <ul>
+          <li>🚀 Curated selection of high-quality logic and puzzle games</li>
+          <li>🆓 Free to play with minimal interruptions for a focused experience</li>
+          <li>🔓 Guaranteed <strong>Unblocked Access</strong> for uninterrupted gameplay</li>
+          <li>🏆 Regular updates and recommendations for similar brain-training games</li>
+          <li>📊 Score tracking to monitor your improvement over time</li>
+        </ul>
+      </section>
+
+      <!-- FAQ (microdata) -->
+      <section class="content-section">
+        <h2 id="section-faq">❓ Block Blast FAQ</h2>
+        <div itemscope itemtype="https://schema.org/FAQPage">
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Is Block Blast free to play?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Yes, Block Blast is completely free with no in-game purchases or hidden costs.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">What's the main difference between Block Blast and Tetris?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Block Blast focuses on pure strategy without time pressure. Instead of falling blocks, you strategically place blocks to form complete lines, with three blocks visible for pre-planning.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">How do I achieve the highest scores?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Focus on multi-line eliminations, keep the board as empty as possible, and always plan three moves ahead using the block preview system.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">What happens when the game gets harder?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">As you achieve higher scores, the game introduces more complex block shapes that require superior spatial reasoning and strategic planning.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Is there a time limit in Block Blast?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">No, Block Blast is a no-timer challenge that allows you to think through each move carefully, making it perfect for strategic thinkers.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">Can I play Block Blast on mobile devices?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">While the game is accessible on mobile browsers, it's optimized for desktop play where strategic planning is easier with precise mouse controls.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq-question" itemprop="name">What's the best strategy for beginners?</div>
+            <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">Start by focusing on keeping the board organized, create elimination channels, and always look at all three upcoming blocks before making your first move.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Call -->
+      <section class="content-section">
+        <h2 id="section-final-call">⬇️ Final Call: Your Brain's Next Challenge Awaits</h2>
+        <p>Block Blast is more than a puzzle—it's a rigorous workout for your mind, built on pure strategy and calculation. Practice your way to mastery and unlock the rewarding feeling of high-score perfection.</p>
+        <p><strong>Don't just play blocks. Master the logic.</strong></p>
+        <p>Play Block Blast now and prove your strategic genius!</p>
+      </section>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-app-download">
+        <h3 class="footer-app-title">Play More Puzzle Games</h3>
+        <div class="footer-platforms">
+          <div class="footer-platform">
+            <div class="platform-title">Color Block Jam</div>
+            <div class="platform-desc">A colorful puzzle game where you slide blocks to match doors and clear obstacles.</div>
+            <a href="/color-block-jam/" class="download-btn" aria-label="Play Color Block Jam">Play Now</a>
+          </div>
+          <div class="footer-platform">
+            <div class="platform-title">Sand Blast - Block Game</div>
+            <div class="platform-desc">Blast sand blocks with strategy and physics-based puzzles across 1000+ levels.</div>
+            <a href="/sand-blast-block-game/" class="download-btn" aria-label="Play Sand Blast Block Game">Play Now</a>
+          </div>
+          <div class="footer-platform">
+            <div class="platform-title">Stickhole.io</div>
+            <div class="platform-desc">Control a black hole, swallow stickmen, grow stronger, and battle rivals in multiplayer mode.</div>
+            <a href="/stickhole-io/" class="download-btn" aria-label="Play Sand Blast Block Game">Play Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-links" style="display:none"></div>
+      <div class="footer-copyright">
+        © 2025 Knit Out. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ toggle
+    document.addEventListener('DOMContentLoaded', function(){
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      const answers = document.querySelectorAll('.faq-answer');
+      
+      // 初始隐藏所有答案
+      answers.forEach(a => a.style.display = 'none');
+      
+      // 为每个问题添加点击事件
+      faqQuestions.forEach(q => {
+        q.addEventListener('click', function(){
+          const ans = this.nextElementSibling;
+          const show = ans.style.display !== 'block';
+          
+          // 隐藏所有其他答案
+          answers.forEach(a => a.style.display = 'none');
+          
+          // 显示或隐藏当前答案
+          if (show) ans.style.display = 'block';
+        });
+      });
+    });
+</script>
