@@ -6,6 +6,7 @@
     <title>Hot Games - Knit Out Solutions</title>
     <meta name="description" content="Play the hottest puzzle games on Knit Out. Enjoy Knit Out, Color Match, Block Blast and more with detailed guides.">
     
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.knitout.net/hot-games.html">
@@ -80,7 +81,29 @@
             margin: 0 auto;
             padding: 30px 20px;
         }
+        /* 页脚 */
+        .knit-footer {
+            background: linear-gradient(to right, #2c3e50, #1a2530);
+            position: relative;
+            overflow: hidden;
+        }
         
+        .knit-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.1) 0%, transparent 20%);
+            z-index: 1;
+        }
+
+        .knit-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         /* 导航栏 */
         .nav-container {
             background: rgba(255, 255, 255, 0.95);
@@ -552,8 +575,73 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- 页脚 -->
-    <footer class="footer">
-      <p>© 2025 Knit Out. All rights reserved.</p>
+    <footer class="knit-footer py-16 text-white">
+        <div class="knit-pattern"></div>
+        <div class="knit-container relative z-10">
+      
+          <!-- 改成单层网格：小屏1列 / 中屏2列 / 大屏4列 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 items-start">
+      
+            <!-- 1) 品牌简介 -->
+            <div>
+              <div class="flex items-center mb-6">
+                <div class="w-16 h-16 knit-logo flex items-center justify-center text-white font-bold text-2xl mr-4">KO</div>
+                <span class="text-2xl font-bold">Knit Out Solutions</span>
+              </div>
+              <p class="text-gray-300 max-w-md text-lg">
+                Your ultimate resource for Knit Out game guides, walkthroughs, and strategies.
+                Find solutions for every level and become a master knitter!
+              </p>
+            </div>
+      
+            <!-- 2) About -->
+            <div>
+              <h3 class="text-xl font-bold mb-6">About</h3>
+              <ul class="space-y-4">
+                <!-- 如有 about.html，这里建议把 terms.html 改为 about.html -->
+                <li><a href="terms.html" class="text-gray-300 hover:text-white transition text-lg">About Us</a></li>
+                <li><a href="privacy-policy.html" class="text-gray-300 hover:text-white transition text-lg">Privacy Policy</a></li>
+              </ul>
+            </div>
+      
+            <!-- 3) More Guides -->
+            <div>
+              <h3 class="text-xl font-bold mb-6">More Guides</h3>
+              <ul class="space-y-4">
+                <li>
+                  <a href="https://www.drop-the-cat.com/" target="_blank" rel="noopener"
+                     class="text-gray-300 hover:text-white transition text-lg">Drop the Cat – Guide</a>
+                </li>
+                <li>
+                  <a href="https://www.holepeoplelevel.com" target="_blank" rel="noopener"
+                     class="text-gray-300 hover:text-white transition text-lg">Hole People Level – Walkthroughs</a>
+                </li>
+                <li>
+                  <a href="https://causalzap.com/en" target="_blank" rel="noopener"
+                     class="text-gray-300 hover:text-white transition text-lg">Causalzap – Casual Games Online</a>
+                </li>
+                <li>
+                  <a href="https://www.braintestguide.com/" target="_blank" rel="noopener"
+                     class="text-gray-300 hover:text-white transition text-lg">Brain Test Guide – Answers</a>
+                </li>
+              </ul>
+            </div>
+      
+            <!-- 4) 联系方式 -->
+            <div>
+              <h3 class="text-xl font-bold mb-6">Contact Us</h3>
+              <ul class="space-y-4">
+                <li><a href="mailto:support@causalzap.com" class="text-gray-300 hover:text-white transition text-lg">support@causalzap.com</a></li>
+              </ul>
+            </div>
+      
+          </div>
+      
+          <div class="border-t border-gray-700 mt-16 pt-8 text-center text-gray-400">
+            <p class="text-lg">© 2025 Knit Out Solutions. All rights reserved.</p>
+            <p class="mt-2 text-gray-300 text-md">This is an unofficial fan site. Knit Out is a registered trademark of its respective owners.</p>
+          </div>
+        </div>
     </footer>
 
   </body>
