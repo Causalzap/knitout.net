@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knit Out Level 1 Solution</title>
+    <title>Cookingdom Recipe Guide & Walkthrough</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9769427406770321"
@@ -18,17 +18,17 @@
         }
         
         body {
-            background-color: #f0f2f5;
+            background-color: #fff5f0; /* 暖色调背景 */
             color: #333;
             line-height: 1.6;
             min-height: 100vh;
             padding: 0;
-            background-image: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            background-image: linear-gradient(to bottom, #fffbf0, #fff5e6);
         }
         
         .nav-container {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             padding: 15px 40px;
             display: flex;
             justify-content: space-between;
@@ -36,7 +36,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 3px solid #ff7e5f; /* 橙色边框 */
         }
         
         .brand {
@@ -50,20 +50,22 @@
         .logo {
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, #5C4B9B, #3F88C5);
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); /* 美食暖色渐变 */
+            border-radius: 50%; /* 圆形看起来更像盘子 */
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
             font-size: 20px;
+            box-shadow: 0 2px 5px rgba(255, 126, 95, 0.3);
         }
         
         .brand-name {
             font-size: 24px;
             font-weight: 700;
-            color: #2c3e50;
+            color: #4a4a4a;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif; /* 稍微可爱的字体 */
         }
         
         .nav-menu {
@@ -73,8 +75,8 @@
         
         .nav-link {
             font-size: 18px;
-            font-weight: 500;
-            color: #6c757d;
+            font-weight: 600;
+            color: #888;
             text-decoration: none;
             transition: all 0.3s;
             position: relative;
@@ -82,7 +84,7 @@
         }
         
         .nav-link:hover, .nav-link.active {
-            color: #5C4B9B;
+            color: #ff7e5f;
         }
         
         .nav-link.active::after {
@@ -92,7 +94,7 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: linear-gradient(to right, #5C4B9B, #3F88C5);
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             border-radius: 2px;
         }
         
@@ -114,14 +116,15 @@
             color: #2c3e50;
             margin-bottom: 10px;
             position: relative;
-            background: linear-gradient(to right, #5C4B9B, #3F88C5);
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.1);
         }
         
         .page-subtitle {
             font-size: 1.2rem;
-            color: #6c757d;
+            color: #7f8c8d;
             font-weight: 500;
             margin-bottom: 30px;
         }
@@ -134,21 +137,26 @@
             margin-bottom: 30px;
             background: white;
             padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(255, 126, 95, 0.1);
             max-width: 500px;
             margin: 0 auto 30px;
+            border: 1px solid #ffe0d0;
         }
         
         .level-display {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #5C4B9B;
-            background: rgba(92, 75, 155, 0.1);
-            padding: 8px 30px;
+            color: #ff7e5f;
+            background: rgba(255, 126, 95, 0.1);
+            padding: 8px 25px;
             border-radius: 30px;
-            min-width: 120px;
+            min-width: 140px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .level-selector {
@@ -160,26 +168,26 @@
         .level-input {
             padding: 12px 20px;
             font-size: 1.1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border: 2px solid #ffe0d0;
+            border-radius: 12px;
             text-align: center;
             font-weight: 600;
-            color: #2c3e50;
-            width: 120px;
+            color: #4a4a4a;
+            width: 100px;
         }
         
         .level-input:focus {
             outline: none;
-            border-color: #5C4B9B;
-            box-shadow: 0 0 0 3px rgba(92, 75, 155, 0.2);
+            border-color: #ff7e5f;
+            box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.2);
         }
         
         .level-go-btn {
             padding: 12px 25px;
-            background: #5C4B9B;
+            background: #ff7e5f;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -187,9 +195,9 @@
         }
         
         .level-go-btn:hover {
-            background: #4c3d82;
+            background: #ff6b4a;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(255, 107, 74, 0.2);
         }
         
         .content-container {
@@ -200,7 +208,7 @@
         
         .video-container {
             flex: 1;
-            background: white;
+            background: black;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -219,19 +227,21 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
-            background-color: #f8f9fa;
+            background-color: #333;
+            background-image: url('https://via.placeholder.com/800x450/ff7e5f/ffffff?text=Cookingdom+Gameplay'); /* 占位符 */
+            background-size: cover;
             position: relative;
         }
         
         .play-button {
             width: 80px;
             height: 80px;
-            background: rgba(92, 75, 155, 0.9);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #ff7e5f;
             font-size: 32px;
             cursor: pointer;
             transition: all 0.3s;
@@ -241,7 +251,8 @@
         
         .play-button:hover {
             transform: scale(1.1);
-            background: rgba(76, 61, 130, 0.9);
+            background: #fff;
+            color: #ff6b4a;
         }
         
         .video-info {
@@ -251,6 +262,7 @@
             color: white;
             font-weight: 500;
             z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         
         .video-title {
@@ -271,24 +283,28 @@
         
         .description-container {
             flex: 1;
-            padding: 25px;
+            padding: 30px;
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #ff7e5f;
         }
         
         .section-title {
             font-size: 1.8rem;
-            color: #5C4B9B;
+            color: #4a4a4a;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid #ffe0d0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .description-text {
             font-size: 1.1rem;
             line-height: 1.7;
-            color: #495057;
+            color: #555;
             margin-bottom: 25px;
         }
         
@@ -302,26 +318,25 @@
         }
         
         .feature-item {
-            padding: 10px 0;
+            padding: 12px 0;
             font-size: 1.1rem;
-            color: #495057;
+            color: #555;
             position: relative;
             display: flex;
             align-items: center;
         }
         
-        .feature-item:before {
-            content: "✓";
+        .feature-item i {
             color: #2ecc71;
-            font-weight: bold;
-            margin-right: 10px;
-            width: 25px;
-            height: 25px;
+            margin-right: 15px;
+            font-size: 1.2rem;
             background: rgba(46, 204, 113, 0.1);
-            border-radius: 50%;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
         }
         
         .level-actions {
@@ -334,7 +349,7 @@
         
         .nav-btn {
             padding: 16px 36px;
-            border-radius: 8px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
@@ -349,20 +364,21 @@
         }
         
         .prev-btn {
-            background: #6f42c1;
+            background: #95a5a6; /* 灰色 */
         }
         
         .all-btn {
-            background: #3F88C5;
+            background: #f39c12; /* 黄色 */
         }
         
         .next-btn {
-            background: #5C4B9B;
+            background: #ff7e5f; /* 主橙色 */
         }
         
         .nav-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            filter: brightness(1.05);
         }
         
         .notification {
@@ -370,8 +386,8 @@
             top: 20px;
             right: 20px;
             padding: 15px 25px;
-            border-radius: 8px;
-            background: #e74c3c;
+            border-radius: 12px;
+            background: #ff7e5f;
             color: white;
             font-weight: 600;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -397,21 +413,23 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #5C4B9B;
+            color: #ff7e5f;
             font-size: 1.2rem;
             display: none;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #6c757d;
+            padding: 30px;
+            color: #888;
             font-size: 0.9rem;
-            border-top: 1px solid #eaeaea;
+            border-top: 1px solid #ffe0d0;
             margin-top: 30px;
+            background: #fff;
         }
         
         @media (max-width: 1000px) {
@@ -429,38 +447,18 @@
             
             .nav-menu {
                 gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .page-title {
                 font-size: 2.2rem;
             }
             
-            .level-display {
-                font-size: 1.4rem;
-                padding: 6px 20px;
-            }
-            
             .current-level-container {
                 flex-direction: column;
                 gap: 15px;
                 padding: 15px;
-            }
-            
-            .nav-link {
-                font-size: 16px;
-            }
-            
-            .brand-name {
-                font-size: 20px;
-            }
-            
-            .nav-btn {
-                padding: 14px 25px;
-                font-size: 1rem;
-            }
-            
-            .description-container {
-                padding: 20px;
             }
             
             .level-selector {
@@ -472,37 +470,20 @@
                 width: 100%;
             }
         }
-        
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-            
-            .level-actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 10px;
-            }
-            
-            .nav-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
     </style>
 </head>
 <body>
     <nav class="nav-container">
         <a href="index.html" class="brand">
             <div class="logo">KO</div>
-            <div class="brand-name">Knit Out</div>
+            <div class="brand-name">Cookingdom</div>
         </a>
         
         <div class="nav-menu">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="levels.html" class="nav-link active">Levels</a>
+            <a href="levels.html" class="nav-link active">Recipes</a>
             <a href="hot-games.html" class="nav-link">Hot Games</a>
-            <a href="cookingdom.html" class="nav-link">Cookingdom Level</a>
+            <a href="cookingdom.html" class="nav-link">Decorations</a>
             <a href="download.html" class="nav-link">Download</a>
             <a href="blog.html" class="nav-link">Blog</a>
         </div>
@@ -511,19 +492,19 @@
     <div class="main-container">
         <div class="page-header">
             <h1 class="page-title">
-                Knit Out Level <span id="levelNumber">1</span> Solution
+                Cookingdom Level <span id="levelNumber">1</span> Guide
             </h1>
-            <div class="page-subtitle">Complete Walkthrough & Strategy</div>
+            <div class="page-subtitle">3-Star Plating Strategy & Recipe Walkthrough</div>
             
             <div class="current-level-container">
                 <div class="level-display">
-                    Level <span id="displayLevel">1</span>
+                    <i class="fas fa-utensils"></i> Level <span id="displayLevel">1</span>
                 </div>
                 
                 <div class="level-selector">
-                    <input type="number" min="1" max="1858" placeholder="1" class="level-input" id="levelInput" value="1">
+                    <input type="number" min="1" max="500" placeholder="1" class="level-input" id="levelInput" value="1">
                     <button class="level-go-btn" id="goToLevelBtn">
-                        <i class="fas fa-arrow-right"></i> Go to Level
+                        <i class="fas fa-search"></i> Find Recipe
                     </button>
                 </div>
             </div>
@@ -533,8 +514,8 @@
             <div class="video-container" id="videoContainer">
                 <div class="video-backdrop" id="videoBackdrop">
                     <div class="video-info">
-                        <div class="video-title">Never Gonna Give You Up</div>
-                        <div class="video-artist">Rick Ashley</div>
+                        <div class="video-title">Perfect Pancakes 3-Star Guide</div>
+                        <div class="video-artist">Cookingdom Master Chef</div>
                     </div>
                     <div class="play-button" id="playButton">
                         <i class="fas fa-play"></i>
@@ -542,26 +523,26 @@
                 </div>
                 <iframe class="video-frame" id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <div class="video-loading" id="videoLoading">
-                    <i class="fas fa-spinner fa-spin"></i> Loading video...
+                    <i class="fas fa-cookie-bite fa-spin"></i> Loading Recipe...
                 </div>
             </div>
             
             <div class="description-container">
-                <h2 class="section-title">Challenge Description</h2>
+                <h2 class="section-title"><i class="fas fa-book-open"></i> Recipe Description</h2>
                 <p class="description-text">
-                    Your challenge is to clear lines of colorful knots from the top, 
-                    releasing ropes that need to find their matching bobbins below. 
-                    Strategically choose the right bobbins from the grid to collect 
-                    the ropes and complete each level.
+                    <strong>Level Goal:</strong> Prepare the ingredients with rhythm, cook them to perfection without burning, and arrange the final dish to match the customer's request!
+                </p>
+                <p class="description-text">
+                    In this level, focus on the timing of your flips and the precise placement of garnishes to achieve that coveted <strong>3-Star Rating</strong>. Watch out for the bubbling visual cues!
                 </p>
                 
                 <div class="features-container">
-                    <h2 class="section-title">Game Features</h2>
+                    <h2 class="section-title"><i class="fas fa-star"></i> Key Features</h2>
                     <ul class="feature-list">
-                        <li class="feature-item">Hundreds of intricate puzzles to solve</li>
-                        <li class="feature-item">A vibrant palette of colors to keep your mind sharp</li>
-                        <li class="feature-item">Relaxing gameplay with no timers - perfect for unwinding</li>
-                        <li class="feature-item">Satisfying animations and delightful sound effects</li>
+                        <li class="feature-item"><i class="fas fa-check"></i> Relaxing, no-timer gameplay</li>
+                        <li class="feature-item"><i class="fas fa-check"></i> Satisfying ASMR chopping & frying sounds</li>
+                        <li class="feature-item"><i class="fas fa-check"></i> Global cuisines: From Ramen to BBQ</li>
+                        <li class="feature-item"><i class="fas fa-check"></i> Decorate your cozy kitchen with rewards</li>
                     </ul>
                 </div>
             </div>
@@ -569,24 +550,24 @@
         
         <div class="level-actions">
             <button id="prevBtn" class="nav-btn prev-btn">
-                <i class="fas fa-arrow-left"></i> Previous Level
+                <i class="fas fa-chevron-left"></i> Prev Dish
             </button>
-            <a href="levels.html" class="nav-btn all-btn">
-                <i class="fas fa-list"></i> All Levels
+            <a href="cookingdom.html" class="nav-btn all-btn">
+                <i class="fas fa-book"></i> All Recipes
             </a>
             <button id="nextBtn" class="nav-btn next-btn">
-                Next Level <i class="fas fa-arrow-right"></i>
+                Next Dish <i class="fas fa-chevron-right"></i>
             </button>
         </div>
     </div>
     
     <div class="footer">
-        © 2025 Knit Out Solutions. All rights reserved.
+        © 2025 Cookingdom Guide. Your Cozy Culinary Escape.
     </div>
     
     <div class="notification" id="notification">
-        <i class="fas fa-info-circle"></i>
-        <span id="notificationMessage">Level 1 loaded successfully!</span>
+        <i class="fas fa-bell"></i>
+        <span id="notificationMessage">Recipe loaded successfully!</span>
     </div>
     
     <script>
@@ -608,6 +589,7 @@
         // State variables
         let videoData = {};
         let currentLevel = 1;
+        const MAX_LEVELS = 500; // Adjusted for Cookingdom
         
         // Initialize page
         async function initPage() {
@@ -616,7 +598,7 @@
             currentLevel = parseInt(urlParams.get('id') || '1');
             
             // Validate level
-            if (currentLevel < 1 || currentLevel > 1858) currentLevel = 1;
+            if (currentLevel < 1 || currentLevel > MAX_LEVELS) currentLevel = 1;
             
             // Load video data
             await loadVideoData();
@@ -634,42 +616,37 @@
             setupEventListeners();
             
             // Show notification
-            showNotification(`Level ${currentLevel} loaded successfully!`, 'success');
+            showNotification(`Recipe #${currentLevel} ready to cook!`, 'success');
         }
         
         // Load video data from test.json
         async function loadVideoData() {
             try {
                 // Show loading message
-                showNotification('Loading video data...');
+                // showNotification('Fetching recipe data...');
                 
-                const response = await fetch('./test.json');
+                const response = await fetch('./cookingdom-videos.json');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();
-                
-                // Store video data
                 videoData = data;
-                
-                console.log('Successfully loaded video data:', videoData);
-                showNotification('Video data loaded successfully!', 'success');
                 return data;
             } catch (error) {
                 console.error('Error loading video data:', error);
                 
-                // Fallback data
+                // Fallback data (Generic cooking videos for demo)
                 videoData = {
-                    1: "dQw4w9WgXcQ",
-                    2: "rymW4r3lH8w",
-                    3: "QH2-TGUlwu4",
-                    4: "9U6ULRW5E_4",
-                    5: "8SbUC-UaAxE"
+                    1: "OA66L57ZDO4", // Placeholder ID
+                    2: "OA66L57ZDO4",
+                    3: "OA66L57ZDO4",
+                    4: "OA66L57ZDO4",
+                    5: "OA66L57ZDO4"
                 };
                 
-                showNotification('Using fallback video data', 'error');
+                // showNotification('Using local recipe database', 'error');
                 return videoData;
             }
         }
@@ -677,51 +654,43 @@
         // Update video content
         function updateVideoContent() {
             if (!videoData || Object.keys(videoData).length === 0) {
-                showNotification('No video data available', 'error');
                 return;
             }
             
             // Get video ID for current level
-            const videoId = videoData[currentLevel];
-            
-            if (!videoId) {
-                showNotification(`No video for level ${currentLevel}`, 'error');
-                return;
-            }
+            // In a real app, this would map level ID to specific Cookingdom video
+            const videoId = videoData[currentLevel] || "OA66L57ZDO4"; 
             
             // Show loading
             videoLoading.style.display = 'flex';
             
             // Update the video frame
-            videoFrame.src = `https://www.youtube.com/embed/${videoId}`;
+            // Using Google Play Game video as placeholder or YouTube
+            videoFrame.src = `https://www.youtube.com/embed/${videoId}`; 
             videoBackdrop.style.display = 'flex';
             videoFrame.style.display = 'none';
             
-            // Hide loading after a short delay to simulate loading time
+            // Update video title text based on level (Simulation)
+            const titleEl = document.querySelector('.video-title');
+            titleEl.textContent = `Level ${currentLevel}: 3-Star Walkthrough`;
+            
+            // Hide loading after a short delay
             setTimeout(() => {
                 videoLoading.style.display = 'none';
-                showNotification(`Video for Level ${currentLevel} ready`, 'success');
-            }, 1000);
+            }, 800);
         }
         
         // Play video
         function playVideo() {
-            // Hide the backdrop and play button
             videoBackdrop.style.display = 'none';
-            
-            // Show and play the video
             videoFrame.style.display = 'block';
             
-            // Add autoplay parameter to the URL
             const currentSrc = videoFrame.src;
             if (!currentSrc.includes('autoplay=1')) {
                 videoFrame.src = currentSrc.includes('?') 
                     ? `${currentSrc}&autoplay=1`
                     : `${currentSrc}?autoplay=1`;
             }
-            
-            // Show status
-            showNotification(`Playing Level ${currentLevel} solution`);
         }
         
         // Update level display
@@ -741,7 +710,7 @@
                 prevBtn.style.opacity = "1";
             }
             
-            if (currentLevel >= 1858) {
+            if (currentLevel >= MAX_LEVELS) {
                 nextBtn.disabled = true;
                 nextBtn.style.opacity = "0.6";
             } else {
@@ -756,11 +725,11 @@
             notification.className = 'notification show';
             
             if (type === 'success') {
-                notification.style.background = '#2ecc71';
+                notification.style.background = '#2ecc71'; // Green
             } else if (type === 'error') {
-                notification.style.background = '#e74c3c';
+                notification.style.background = '#e74c3c'; // Red
             } else {
-                notification.style.background = '#3498db';
+                notification.style.background = '#ff7e5f'; // Orange
             }
             
             setTimeout(() => {
@@ -770,27 +739,23 @@
         
         // Setup event listeners
         function setupEventListeners() {
-            // Play button
             playButton.addEventListener('click', playVideo);
             
-            // Go to level button
             goToLevelBtn.addEventListener('click', () => {
                 const level = parseInt(levelInputEl.value);
-                if (level >= 1 && level <= 1858) {
+                if (level >= 1 && level <= MAX_LEVELS) {
                     navigateToLevel(level);
                 } else {
-                    showNotification('Please enter a level between 1 and 1858', 'error');
+                    showNotification(`Please enter a level between 1 and ${MAX_LEVELS}`, 'error');
                 }
             });
             
-            // Input enter key
             levelInputEl.addEventListener('keyup', (e) => {
                 if (e.key === 'Enter') {
                     goToLevelBtn.click();
                 }
             });
             
-            // Navigation buttons
             prevBtn.addEventListener('click', () => {
                 if (currentLevel > 1) {
                     navigateToLevel(currentLevel - 1);
@@ -798,12 +763,11 @@
             });
             
             nextBtn.addEventListener('click', () => {
-                if (currentLevel < 1858) {
+                if (currentLevel < MAX_LEVELS) {
                     navigateToLevel(currentLevel + 1);
                 }
             });
             
-            // Reset video when frame loads
             videoFrame.addEventListener('load', () => {
                 videoLoading.style.display = 'none';
             });
@@ -811,19 +775,12 @@
         
         // Navigate to level
         function navigateToLevel(level) {
-            // Update URL without reloading the page
             window.history.pushState(null, null, `?id=${level}`);
-            
-            // Update current level
             currentLevel = level;
-            
-            // Update UI
             updateLevelDisplay();
             updateNavigationButtons();
             updateVideoContent();
-            
-            // Show notification
-            showNotification(`Level ${level} loaded`, 'success');
+            showNotification(`Recipe #${level} loaded`, 'success');
         }
         
         // Handle back/forward navigation
@@ -837,7 +794,6 @@
                 updateLevelDisplay();
                 updateNavigationButtons();
                 updateVideoContent();
-                showNotification(`Level ${level} loaded from history`, 'success');
             }
         });
         
