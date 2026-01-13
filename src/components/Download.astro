@@ -1,0 +1,310 @@
+---
+// Download / How-to-Play 组件（不需要 JS）
+---
+
+<section class="how-to-play-section">
+    <div class="container">
+        <div class="header">
+            <h2 class="title">How to Play Cookingdom on Mobile</h2>
+
+            <p class="description">
+                Cookingdom is available on official app stores. This is an independent, fan-made walkthrough website created by puzzle game players. We provide level solutions and strategy guides only.
+            </p>
+
+            <div class="download-grid">
+                <!-- iOS -->
+                <div class="download-card">
+                    <div class="icon-circle apple">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3 class="platform-title">iOS Version</h3>
+                    <p class="platform-description">Cookingdom for iPhone and iPad</p>
+                    <a
+                        href="https://apps.apple.com/us/app/cookingdom/id6742222069"
+                        target="_blank"
+                        rel="nofollow noopener noreferrer"
+                        class="download-button"
+                    >
+                        Play on App Store
+                    </a>
+                </div>
+
+                <!-- Android -->
+                <div class="download-card">
+                    <div class="icon-circle android">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <h3 class="platform-title">Android Version</h3>
+                    <p class="platform-description">Cookingdom for Android devices</p>
+                    <a
+                        href="https://play.google.com/store/apps/details?id=com.abi.cook.chill"
+                        target="_blank"
+                        rel="nofollow noopener noreferrer"
+                        class="download-button"
+                    >
+                        Play on Play Store
+                    </a>
+                </div>
+            </div>
+
+            <p class="disclaimer">
+                Cookingdom is a trademark of its respective owner. All game names and images are used for identification purposes only.
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* CSS变量 - 使用烹饪主题色 */
+    :root {
+        --section-bg: #fef9f3;
+        --card-bg: #ffffff;
+        --text-dark: #2c3e50;
+        --text-gray: #6b7280;
+        --text-light: #9ca3af;
+        --cooking-orange: #f97316;
+        --cooking-red: #dc2626;
+        --cooking-gradient: linear-gradient(135deg, var(--cooking-orange), var(--cooking-red));
+        --apple-blue: #3498db;
+        --android-green: #2ecc71;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 整体区域 */
+    .how-to-play-section {
+        padding: 5rem 0;
+        background: var(--section-bg);
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(254, 215, 170, 0.1) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(253, 186, 116, 0.1) 0%, transparent 20%);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* 标题区域 */
+    .header {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: var(--cooking-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.2;
+    }
+
+    .description {
+        font-size: 1.25rem;
+        color: var(--text-gray);
+        max-width: 48rem;
+        margin: 0 auto 3rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .title {
+            font-size: 2rem;
+        }
+        
+        .description {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    /* 下载网格 */
+    .download-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .download-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 下载卡片 */
+    .download-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem 2rem;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        border: 2px solid rgba(249, 115, 22, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .download-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--cooking-orange);
+    }
+
+    /* 图标圆圈 */
+    .icon-circle {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 2.5rem;
+        transition: var(--transition);
+    }
+
+    .icon-circle.apple {
+        background: rgba(52, 152, 219, 0.1);
+        color: var(--apple-blue);
+    }
+
+    .icon-circle.android {
+        background: rgba(46, 204, 113, 0.1);
+        color: var(--android-green);
+    }
+
+    .download-card:hover .icon-circle {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .download-card:hover .icon-circle.apple {
+        background: var(--apple-blue);
+        color: white;
+    }
+
+    .download-card:hover .icon-circle.android {
+        background: var(--android-green);
+        color: white;
+    }
+
+    /* 平台信息 */
+    .platform-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .platform-description {
+        color: var(--text-gray);
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    /* 下载按钮 */
+    .download-button {
+        display: inline-block;
+        padding: 0.875rem 2rem;
+        border-radius: 50px;
+        background: var(--cooking-gradient);
+        color: white;
+        font-weight: 600;
+        font-size: 1.125rem;
+        text-decoration: none;
+        transition: var(--transition);
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+        border: none;
+        cursor: pointer;
+    }
+
+    .download-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    /* 免责声明 */
+    .disclaimer {
+        font-size: 0.875rem;
+        color: var(--text-light);
+        max-width: 48rem;
+        margin: 3rem auto 0;
+        line-height: 1.6;
+        text-align: center;
+        padding: 1rem;
+        border-top: 1px solid rgba(249, 115, 22, 0.1);
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 767px) {
+        .how-to-play-section {
+            padding: 3rem 0;
+        }
+        
+        .download-card {
+            padding: 2rem 1.5rem;
+        }
+        
+        .icon-circle {
+            width: 5rem;
+            height: 5rem;
+            font-size: 2rem;
+        }
+        
+        .platform-title {
+            font-size: 1.5rem;
+        }
+        
+        .platform-description {
+            font-size: 1rem;
+        }
+        
+        .download-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .disclaimer {
+            font-size: 0.75rem;
+            margin-top: 2rem;
+        }
+    }
+
+    /* 动画效果 */
+    .download-card {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .download-card:nth-child(1) { animation-delay: 0.1s; }
+    .download-card:nth-child(2) { animation-delay: 0.2s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Font Awesome 品牌图标 */
+    .fa-apple:before { content: "\f179"; }
+    .fa-android:before { content: "\f17b"; }
+    
+    .fab {
+        font-family: "Font Awesome 6 Brands";
+        font-weight: 400;
+    }
+</style>

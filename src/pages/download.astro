@@ -1,0 +1,380 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const seoTitle = 'Knit Out Download (iOS & Android) – Official App Links';
+const seoDesc =
+  'Download Knit Out safely on iOS and Android. Learn how to play, beginner tips, and find complete Knit Out level walkthroughs and solutions.';
+const canonical = 'https://www.knitout.net/download';
+---
+
+<Layout title={seoTitle} description={seoDesc} canonical={canonical}>
+  <main class="bg-knitLight">
+    <div class="knit-container py-20">
+
+      <!-- H1 -->
+      <header class="page-header">
+        <h1 class="page-title">Download Knit Out on iOS & Android (Official App Stores)
+        </h1>
+        <p class="page-description">
+          Knit Out is a popular mobile puzzle game where players untangle yarn and solve increasingly complex knitting challenges.
+          This website is an independent, fan-made walkthrough platform. We do not host game files or APKs — instead, we help players
+          complete difficult levels after downloading the official game.
+        </p>
+      </header>
+
+      <!-- Download Section -->
+      <section class="download-section">
+        <h2 class="section-title">Where to Download Knit Out Safely</h2>
+        <p class="section-description">
+          To ensure security and the best gameplay experience, always download Knit Out from official app stores.
+        </p>
+
+        <div class="download-cards">
+          <!-- iOS -->
+          <div class="download-card">
+            <div class="download-icon bg-blue-100 text-knitBlue">
+              <i class="fab fa-apple"></i>
+            </div>
+            <h3 class="download-title">iOS Version</h3>
+            <p class="download-desc">Official Knit Out app for iPhone and iPad.</p>
+            <a
+              href="https://apps.apple.com/us/app/knit-out/id6740406762"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              class="download-button"
+            >
+              Download on App Store
+            </a>
+          </div>
+
+          <!-- Android -->
+          <div class="download-card">
+            <div class="download-icon bg-green-100 text-knitGreen">
+              <i class="fab fa-android"></i>
+            </div>
+            <h3 class="download-title">Android Version</h3>
+            <p class="download-desc">Official Knit Out app for Android devices.</p>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.sbg.knitout"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              class="download-button"
+            >
+              Download on Google Play
+            </a>
+          </div>
+        </div>
+
+        <p class="download-warning">
+          ⚠️ We do not recommend downloading Knit Out from third-party APK websites, as they may contain outdated or unsafe versions.
+        </p>
+      </section>
+
+      <!-- Beginner Guide -->
+      <section class="content-section">
+        <h2 class="content-title">Getting Started After Downloading Knit Out</h2>
+        <p class="content-paragraph">
+          Once installed, Knit Out can be played immediately without account registration.
+          Each level challenges you to untangle yarn by interacting with pins, tools, and obstacles in the correct order.
+        </p>
+        <ul class="content-list">
+          <li>Early levels introduce basic yarn movement and puzzle logic.</li>
+          <li>Later stages require planning several steps ahead.</li>
+          <li>Three-star completion depends on efficiency and avoiding unnecessary moves.</li>
+        </ul>
+      </section>
+
+      <!-- Tips -->
+      <section class="content-section">
+        <h2 class="content-title">Tips Before Playing Knit Out</h2>
+        <ul class="content-list">
+          <li>Always observe the full yarn structure before making your first move.</li>
+          <li>Unlock blocking tools early to prevent irreversible mistakes.</li>
+          <li>If you get stuck repeatedly, checking a walkthrough can save time and frustration.</li>
+        </ul>
+      </section>
+
+      <!-- FAQ -->
+      <section class="content-section">
+        <h2 class="content-title">Knit Out Download FAQ</h2>
+
+        <div class="faq-item">
+          <h3 class="faq-question">Is Knit Out free to download?</h3>
+          <p class="faq-answer">Yes. Knit Out is free to download, with optional in-app purchases available.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">Is this the official Knit Out website?</h3>
+          <p class="faq-answer">
+            No. This is an independent fan-made walkthrough website created by puzzle game players.
+            We are not affiliated with the game developer.
+          </p>
+        </div>
+
+        <div class="faq-item">
+            <h3 class="faq-question">Why don’t you provide APK or IPA files?</h3>
+            <p class="faq-answer">
+              For security and reliability reasons, we only recommend downloading Knit Out from official app stores.
+              Third-party files may be unsafe or outdated.
+            </p>
+        </div>
+
+        <div class="faq-item">
+          <h3 class="faq-question">Do I need to install the app to use these walkthroughs?</h3>
+          <p class="faq-answer">
+            Yes. Our walkthroughs and strategies are designed to help you complete levels inside the official Knit Out mobile game.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* 全局样式 */
+  .bg-knitLight { 
+    background: #f5f7fa; 
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f4f8 100%);
+  }
+
+  .knit-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* 页面标题 */
+  .page-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.2;
+  }
+
+  .page-description {
+    font-size: 1.125rem;
+    color: #4b5563;
+    line-height: 1.7;
+  }
+
+  /* 下载区域 */
+  .download-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+  }
+
+  .section-description {
+    text-align: center;
+    color: #4b5563;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .download-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .download-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .download-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(52, 152, 219, 0.1);
+  }
+
+  .download-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .download-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .download-desc {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .download-button {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(52, 152, 219, 0.3);
+  }
+
+  .download-warning {
+    text-align: center;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 0.875rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(249, 115, 22, 0.05);
+  }
+
+  /* 内容区域 */
+  .content-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+
+  .content-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    padding-left: 1rem;
+    border-left: 4px solid #3498db;
+  }
+
+  .content-paragraph {
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .content-list {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .content-list li {
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+
+  /* 高亮部分 */
+  .highlight-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(52, 152, 219, 0.1);
+  }
+
+  .cta-link {
+    display: inline-block;
+    font-weight: 600;
+    color: #3498db;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .cta-link:hover {
+    color: #2980b9;
+    border-bottom: 2px solid #3498db;
+  }
+
+  /* FAQ */
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-question {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-answer {
+    color: #4b5563;
+    line-height: 1.7;
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .py-20 {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+    }
+    
+    .page-description {
+      font-size: 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.75rem;
+    }
+    
+    .download-card {
+      padding: 2rem 1.5rem;
+    }
+    
+    .highlight-section {
+      padding: 2rem 1.5rem;
+    }
+    
+    .content-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

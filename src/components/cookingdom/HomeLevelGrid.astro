@@ -1,0 +1,289 @@
+---
+// 导入烹饪游戏视频数据
+import cookingdomVideos from '../../data/cookingdom-videos1.json';
+
+// 处理数据 - 您的JSON是数组格式，不是键值对对象
+// 获取总关卡数
+const totalLevels = cookingdomVideos.length;
+
+// 直接使用数组，不需要Object.entries
+// 按ID排序并取前48个关卡
+const levels = [...cookingdomVideos]
+  .sort((a, b) => a.id - b.id) // 按ID排序
+  .slice(0, 48); // 显示前48关
+
+// 计算显示的关卡范围
+const startLevel = levels.length > 0 ? levels[0].id : 0;
+const endLevel = levels.length > 0 ? levels[levels.length - 1].id : 0;
+
+// 调试信息
+console.log("Total levels:", totalLevels);
+console.log("Levels to display:", levels.length);
+console.log("First level data:", levels[0]);
+---
+
+<section class="levels-section">
+    <div class="levels-container">
+        <div class="section-header">
+            <h2 class="section-title">Cookingdom Walkthrough & Solutions</h2>
+            <p class="section-description">Select a level below to watch the full 3-star solution video. Showing levels {startLevel} to {endLevel}.</p>
+        </div>
+
+        {levels.length > 0 ? (
+            <>
+                <div class="levels-grid">
+                    {levels.map((lvl) => (
+                        <a href={`/cookingdom/level/${lvl.id}`} class="level-item" title={`Walkthrough for Level ${lvl.id} Solution`}>
+                            <div class="level-number">{lvl.id}</div>
+                            <div class="level-label">Level {lvl.id}</div>
+                        </a>
+                    ))}
+                </div>
+                
+                <div class="view-all-container">
+                    <a href="/cookingdom/levels" class="view-all-button">
+                        View All {totalLevels}+ Cookingdom Recipes
+                    </a>
+                </div>
+            </>
+        ) : (
+            <div class="no-data-message">
+                <p>No level data available. Please check your data source.</p>
+            </div>
+        )}
+    </div>
+</section>
+
+<style>
+    /* 使用与烹饪主题一致的CSS变量 */
+    :root {
+        --section-bg: #fff9f5;
+        --level-bg: #fef3e8;
+        --level-hover-bg: #f97316;
+        --text-dark: #2c3e50;
+        --text-light: #6b7280;
+        --border-color: #fed7aa;
+        --cooking-orange: #f97316;
+        --cooking-red: #dc2626;
+        --cooking-amber: #d97706;
+        --cooking-rose: #e11d48;
+        --accent-gradient: linear-gradient(135deg, var(--cooking-orange), var(--cooking-red));
+        --shadow-sm: 0 1px 3px rgba(249, 115, 22, 0.1);
+        --shadow-md: 0 4px 6px -1px rgba(249, 115, 22, 0.1);
+        --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.15);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 整体区域 */
+    .levels-section {
+        padding: 5rem 0;
+        background: var(--section-bg);
+        border-top: 1px solid rgba(249, 115, 22, 0.1);
+    }
+
+    .levels-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* 标题区域 */
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 0.75rem;
+        background: linear-gradient(90deg, var(--cooking-orange), var(--cooking-red));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -0.025em;
+    }
+
+    .section-description {
+        font-size: 1.125rem;
+        color: var(--text-light);
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* 无数据提示 */
+    .no-data-message {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-light);
+        font-size: 1.25rem;
+        background: rgba(249, 115, 22, 0.05);
+        border-radius: var(--radius-md);
+        border: 1px dashed rgba(249, 115, 22, 0.2);
+    }
+
+    @media (min-width: 768px) {
+        .section-title {
+            font-size: 3rem;
+        }
+        
+        .section-description {
+            font-size: 1.25rem;
+        }
+    }
+
+    /* 关卡网格 - 使用网格布局实现多行横向排列 */
+    .levels-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    @media (min-width: 480px) {
+        .levels-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (min-width: 640px) {
+        .levels-grid {
+            grid-template-columns: repeat(6, 1fr);
+        }
+    }
+
+    @media (min-width: 768px) {
+        .levels-grid {
+            grid-template-columns: repeat(8, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .levels-grid {
+            grid-template-columns: repeat(12, 1fr);
+        }
+    }
+
+    /* 关卡项 */
+    .level-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        padding: 1rem 0.5rem;
+        transition: var(--transition);
+        border-radius: var(--radius-md);
+    }
+
+    .level-item:hover {
+        transform: translateY(-4px);
+        background: rgba(249, 115, 22, 0.05);
+    }
+
+    .level-number {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: var(--radius-md);
+        background-color: var(--level-bg);
+        color: var(--cooking-orange);
+        font-weight: 700;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        border: 2px solid rgba(249, 115, 22, 0.2);
+    }
+
+    .level-item:hover .level-number {
+        background: var(--accent-gradient);
+        color: white;
+        border-color: var(--cooking-orange);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+        transform: scale(1.1);
+    }
+
+    .level-label {
+        color: var(--text-light);
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        transition: var(--transition);
+        font-weight: 500;
+    }
+
+    .level-item:hover .level-label {
+        color: var(--cooking-orange);
+        font-weight: 600;
+    }
+
+    /* 查看所有按钮 */
+    .view-all-container {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(249, 115, 22, 0.1);
+    }
+
+    .view-all-button {
+        display: inline-block;
+        padding: 0.875rem 2rem;
+        border-radius: 9999px;
+        border: 2px solid var(--cooking-orange);
+        color: var(--cooking-orange);
+        font-weight: 700;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: var(--transition);
+        background: white;
+    }
+
+    .view-all-button:hover {
+        background: var(--accent-gradient);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 479px) {
+        .level-number {
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.125rem;
+        }
+        
+        .level-label {
+            font-size: 0.6875rem;
+        }
+        
+        .levels-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 767px) {
+        .levels-section {
+            padding: 3rem 0;
+        }
+        
+        .section-header {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .view-all-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9375rem;
+        }
+    }
+</style>

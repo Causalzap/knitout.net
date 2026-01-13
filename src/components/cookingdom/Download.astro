@@ -1,0 +1,206 @@
+---
+// 这里不需要服务端 JS
+---
+
+<section class="download-section">
+    <div class="knit-container">
+        <div class="download-header">
+            <h2 class="download-title">Start Your Culinary Journey</h2>
+            <p class="download-subtitle">
+                Download <strong>Cookingdom</strong> today and turn your device into a portable, stress-free kitchen sanctuary.
+            </p>
+        </div>
+
+        <div class="download-grid">
+            <div class="download-card">
+                <div class="download-card-content">
+                    <div class="download-icon bg-blue-100 text-knitBlue">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3 class="download-platform">App Store</h3>
+                    <p class="download-desc">Experience the ASMR cooking magic on iPhone & iPad</p>
+                    <a href="https://apps.apple.com/us/app/cookingdom/id6742222069" target="_blank" rel="noopener noreferrer" class="download-btn">
+                        Download on App Store
+                    </a>
+                </div>
+            </div>
+
+            <div class="download-card">
+                <div class="download-card-content">
+                    <div class="download-icon bg-green-100 text-knitGreen">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <h3 class="download-platform">Google Play</h3>
+                    <p class="download-desc">Cook delightful global dishes on your Android device</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.abi.cook.chill&hl=en" target="_blank" rel="noopener noreferrer" class="download-btn">
+                        Download on Play Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* 下载区域样式 */
+    .download-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, rgba(254, 247, 240, 1) 0%, rgba(253, 242, 232, 1) 100%);
+    }
+
+    .knit-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* 标题区域样式 */
+    .download-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .download-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, var(--cooking-orange), var(--cooking-red));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.2;
+    }
+
+    .download-subtitle {
+        font-size: 1.25rem;
+        color: var(--knit-gray);
+        max-width: 768px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .download-subtitle strong {
+        color: var(--cooking-orange);
+    }
+
+    @media (max-width: 768px) {
+        .download-title {
+            font-size: 2rem;
+        }
+        
+        .download-subtitle {
+            font-size: 1.125rem;
+        }
+    }
+
+    /* 下载卡片网格 */
+    .download-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .download-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* 下载卡片样式 */
+    .download-card {
+        background: white;
+        border-radius: var(--radius-large);
+        box-shadow: var(--shadow-medium);
+        transition: var(--transition);
+        border: 1px solid rgba(249, 115, 22, 0.1);
+        overflow: hidden;
+    }
+
+    .download-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .download-card-content {
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* 图标样式 */
+    .download-icon {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        transition: var(--transition);
+    }
+
+    .download-card:hover .download-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* 平台标题 */
+    .download-platform {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--knit-dark);
+        margin-bottom: 0.75rem;
+    }
+
+    /* 描述文字 */
+    .download-desc {
+        color: var(--knit-gray);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+        flex: 1;
+    }
+
+    /* 下载按钮 */
+    .download-btn {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--cooking-orange), var(--cooking-red));
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.125rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: var(--shadow-medium);
+        white-space: nowrap;
+    }
+
+    .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+        color: white;
+    }
+
+    /* 图标背景色 */
+    .bg-blue-100 { background-color: rgba(52, 152, 219, 0.1); }
+    .bg-green-100 { background-color: rgba(46, 204, 113, 0.1); }
+
+    /* 图标颜色 */
+    .text-knitBlue { color: var(--knit-blue); }
+    .text-knitGreen { color: var(--knit-green); }
+
+    /* Font Awesome 品牌图标 */
+    .fa-apple:before { content: "\f179"; }
+    .fa-android:before { content: "\f17b"; }
+    
+    .fab {
+        font-family: "Font Awesome 6 Brands";
+        font-weight: 400;
+    }
+</style>

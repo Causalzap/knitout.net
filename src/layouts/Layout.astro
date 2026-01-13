@@ -1,0 +1,58 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const {
+  title = "Knit Out Solutions",
+  description = "Master every level",
+  canonical,
+  wide = false,
+} = Astro.props;
+
+const canonicalURL =
+  canonical ||
+  new URL(Astro.url.pathname, Astro.site || "https://www.knitout.net").href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9769427406770321"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 antialiased">
+    <Navbar />
+
+    <!-- ✅ 核心改动在这里 -->
+    <main
+      class={
+        wide
+          ? "w-full"
+          : "max-w-5xl mx-auto px-4 sm:px-6"
+      }
+    >
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

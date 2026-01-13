@@ -1,0 +1,807 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { blogPosts, type BlogPost } from "../../data/blogPosts";
+
+// 读取所有 markdown
+const mdPosts = await Astro.glob("../../content/blog/*.md");
+
+// 获取相关文章
+function getRelatedPosts(currentPost: BlogPost, allPosts: BlogPost[], limit: number = 3) {
+  return allPosts
+    .filter(post => post.id !== currentPost.id) // 排除当前文章
+    .map(post => {
+      let score = 0;
+      
+      // 1. 类别匹配
+      if (post.category === currentPost.category) score += 3;
+      
+      // 2. 标签匹配
+      if (post.tags && currentPost.tags) {
+        const commonTags = post.tags.filter((tag: string) => 
+          currentPost.tags!.includes(tag)
+        ).length;
+        score += commonTags * 2;
+      }
+      
+      // 3. 标题关键词匹配
+      const currentKeywords = currentPost.title.toLowerCase().split(/[\s\-]+/);
+      const postKeywords = post.title.toLowerCase().split(/[\s\-]+/);
+      const commonKeywords = currentKeywords.filter(kw => 
+        postKeywords.includes(kw)
+      ).length;
+      score += commonKeywords;
+      
+      return { ...post, score };
+    })
+    .filter(post => post.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit);
+}
+
+export async function getStaticPaths() {
+  return blogPosts.map((post: BlogPost) => ({
+    params: { slug: post.url.replace("/blog/", "") },
+  }));
+}
+
+const slug = Astro.params.slug;
+
+// 1) 从 blogPosts.ts 找元信息
+const meta = blogPosts.find((p) => p.url.replace("/blog/", "") === slug);
+if (!meta) throw new Error(`Blog post meta not found: ${slug}`);
+
+// 2) 从 markdown 文件找正文
+const md = mdPosts.find((p) => p.file.endsWith(`/${slug}.md`));
+if (!md) throw new Error(`Markdown file not found for slug: ${slug}`);
+
+const { Content, frontmatter } = md;
+
+// 使用 Astro 自带方法获取标题
+const allHeadings = await md.getHeadings();
+
+// 过滤并格式化，保持和你原来的结构一致
+// 注意：只保留这一处 headings 定义
+const headings = allHeadings
+  .filter(h => h.depth === 2) // 只提取 h2
+  .map(h => ({
+    text: h.text,
+    id: h.slug, // 关键点：这里直接用 Astro 提供的 slug，保证和页面 ID 100% 匹配
+    level: h.depth
+  }));
+
+// 获取相关文章
+const relatedPosts = getRelatedPosts(meta, blogPosts);
+
+// 格式化日期
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+};
+---
+
+<Layout title={meta.title} description={meta.description}>
+  <main class="blog-article-page">
+    
+    <header class="article-header">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">Home</a> / 
+          <a href="/blog">Blog</a> / 
+          <span>{meta.category}</span>
+        </div>
+        
+        <h1 class="article-title">{meta.title}</h1>
+        
+        <div class="article-meta">
+          <div class="meta-left">
+            <span class="publish-date">
+              <i class="far fa-calendar"></i> Published: {formatDate(meta.date)}
+            </span>
+            <span class="read-time">
+              <i class="far fa-clock"></i> {meta.readTime}
+            </span>
+            <span class="category-badge">
+              {meta.category}
+            </span>
+          </div>
+          <div class="meta-right">
+            <span class="share-label">Share:</span>
+            <div class="share-buttons">
+              <button class="share-btn twitter" title="Share on Twitter">
+                <i class="fab fa-twitter"></i>
+              </button>
+              <button class="share-btn facebook" title="Share on Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button class="share-btn linkedin" title="Share on LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="article-excerpt">
+          <p>{meta.description}</p>
+        </div>
+      </div>
+    </header>
+    
+    <div class="article-container">
+      <div class="container">
+        <div class="article-layout">
+          <article class="article-content">
+            {meta.image && (
+              <div class="featured-image">
+                <img 
+                  src={meta.image} 
+                  alt={meta.imageAlt || meta.title}
+                  loading="lazy"
+                />
+                {meta.imageAlt && (
+                  <p class="image-caption">{meta.imageAlt}</p>
+                )}
+              </div>
+            )}
+            
+            <div class="markdown-content">
+              <Content />
+            </div>
+            
+            {meta.tags && meta.tags.length > 0 && (
+                <div class="article-tags">
+                  <span class="tags-label">Tags:</span>
+                  {(meta.tags as string[]).map((tag) => (
+                    <a href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">
+                      {tag}
+                    </a>
+                  ))}
+                </div>
+              )}
+            
+            <div class="author-info">
+              <div class="author-avatar">
+                <img src="/images/authors/knit-out-team.png" alt="Knit Out Team" />
+              </div>
+              <div class="author-details">
+                <h4 class="author-name">Knit Out Team</h4>
+                <p class="author-bio">Expert analysts covering hybrid casual games, market trends, and monetization strategies. We provide in-depth analysis to help developers and players navigate the evolving mobile gaming landscape.</p>
+              </div>
+            </div>
+          </article>
+          
+          <aside class="article-sidebar">
+            {headings.length > 0 && (
+                <div class="toc-section">
+                  <h3 class="sidebar-title">Table of Contents</h3>
+                  <nav class="toc">
+                    {headings.map((heading) => (
+                      <a href={`#${heading.id}`} class="toc-link" title={`Jump to ${heading.text}`}>
+                        {heading.text}
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+            )}
+            
+            {relatedPosts.length > 0 && (
+              <div class="related-posts">
+                <h3 class="sidebar-title">Related Articles</h3>
+                {relatedPosts.map((post) => (
+                  <div class="related-post">
+                    <a href={post.url} class="related-title" title={`Read: ${post.title}`}>
+                      {post.title}
+                    </a>
+                    <span class="related-date">{formatDate(post.date)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </aside>
+        </div>
+      </div>
+    </div>
+    
+    <nav class="article-navigation">
+      <div class="container">
+        <a href="/blog" class="back-to-blog">
+          <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+        <div class="nav-buttons">
+          <button class="prev-article" disabled>Previous Article</button>
+          <button class="next-article">Next Article</button>
+        </div>
+      </div>
+    </nav>
+  </main>
+
+  <script>
+    // 平滑滚动到锚点
+    document.addEventListener('DOMContentLoaded', function() {
+      // 目录链接平滑滚动
+      const tocLinks = document.querySelectorAll('.toc-link');
+      tocLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          
+          // 使用 event.currentTarget 替代 this，并断言为 HTMLAnchorElement
+          const currentLink = event.currentTarget as HTMLAnchorElement;
+          const targetId = currentLink.getAttribute('href');
+          
+          if (targetId) {
+            // 需要去掉 # 符号来通过 ID 查找元素吗？通常 querySelector 需要 #
+            // href 通常是 "#some-id"，所以直接用 targetId 即可
+            const targetElement = document.querySelector(targetId) as HTMLElement;
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
+      
+      // 分享按钮功能
+      const shareButtons = document.querySelectorAll('.share-btn');
+      shareButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+          
+          // 使用 event.currentTarget 替代 this，并断言为 HTMLButtonElement
+          const btn = event.currentTarget as HTMLButtonElement;
+          
+          const url = window.location.href;
+          const titleElement = document.querySelector('.article-title') as HTMLElement;
+          const title = titleElement ? titleElement.textContent || '' : '';
+          
+          if (btn.classList.contains('twitter')) {
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank');
+          } else if (btn.classList.contains('facebook')) {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+          } else if (btn.classList.contains('linkedin')) {
+            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
+          }
+        });
+      });
+    });
+  </script>
+</Layout>
+
+<style>
+  /* 全局变量 */
+  :root {
+    --primary-blue: #3498db;
+    --primary-green: #2ecc71;
+    --primary-gradient: linear-gradient(135deg, #3498db, #2ecc71);
+    --text-dark: #2c3e50;
+    --text-gray: #6b7280;
+    --text-light: #9ca3af;
+    --bg-white: #ffffff;
+    --bg-light: #f8fafc;
+    --bg-light-blue: #f0f9ff;
+    --border-color: #e5e7eb;
+    --border-radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  /* 基础样式 */
+  .blog-article-page {
+    background: var(--bg-light);
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* 文章头部 */
+  .article-header {
+    background: var(--bg-light-blue);
+    padding: 4rem 0 2rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .breadcrumb {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+  
+  .breadcrumb a {
+    color: var(--primary-blue);
+    text-decoration: none;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  .breadcrumb span {
+    color: var(--text-gray);
+  }
+  
+  .article-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  
+  .article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .meta-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .publish-date, .read-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-gray);
+    font-size: 0.875rem;
+  }
+  
+  .category-badge {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .meta-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .share-label {
+    color: var(--text-gray);
+    font-size: 0.875rem;
+  }
+  
+  .share-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .share-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: white;
+    color: var(--text-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .share-btn.twitter:hover {
+    background: #1da1f2;
+    color: white;
+    border-color: #1da1f2;
+  }
+  
+  .share-btn.facebook:hover {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+  }
+  
+  .share-btn.linkedin:hover {
+    background: #0077b5;
+    color: white;
+    border-color: #0077b5;
+  }
+  
+  .article-excerpt {
+    font-size: 1.125rem;
+    color: var(--text-gray);
+    line-height: 1.6;
+    max-width: 800px;
+  }
+  
+  /* 文章内容区域 */
+  .article-container {
+    padding: 3rem 0;
+  }
+  
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .article-layout {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  
+  /* 主内容区 */
+  .article-content {
+    background: var(--bg-white);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .featured-image {
+    margin-bottom: 2rem;
+  }
+  
+  .featured-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+  }
+  
+  .image-caption {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  
+  /* Markdown 内容样式 */
+  .markdown-content {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+  }
+  
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+  }
+  
+  .markdown-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+  
+  .markdown-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .markdown-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .markdown-content ul,
+  .markdown-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  
+  .markdown-content li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .markdown-content li ul,
+  .markdown-content li ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .markdown-content blockquote {
+    border-left: 4px solid var(--primary-blue);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-gray);
+  }
+  
+  .markdown-content pre {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+  
+  .markdown-content code {
+    background: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+  }
+  
+  .markdown-content pre code {
+    background: transparent;
+    padding: 0;
+  }
+  
+  .markdown-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+  
+  .markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .markdown-content th,
+  .markdown-content td {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    text-align: left;
+  }
+  
+  .markdown-content th {
+    background: var(--bg-light);
+    font-weight: 600;
+  }
+  
+  .markdown-content tr:nth-child(even) {
+    background: var(--bg-light);
+  }
+  
+  /* 文章标签 */
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin: 2rem 0;
+  }
+  
+  .tags-label {
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  
+  .tag {
+    background: var(--bg-light);
+    color: var(--text-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .tag:hover {
+    background: var(--primary-blue);
+    color: white;
+  }
+  
+  /* 作者信息 */
+  .author-info {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius);
+  }
+  
+  .author-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  
+  .author-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .author-bio {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    line-height: 1.6;
+  }
+  
+  /* 侧边栏 */
+  .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .sidebar-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+  
+  .toc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .toc-link {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 0.875rem;
+    padding: 0.5rem 0;
+    border-left: 3px solid transparent;
+    padding-left: 0.75rem;
+    transition: var(--transition);
+  }
+  
+  .toc-link:hover {
+    color: var(--primary-blue);
+    border-left-color: var(--primary-blue);
+  }
+  
+  .related-post {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .related-post:last-child {
+    border-bottom: none;
+  }
+  
+  .related-title {
+    display: block;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+  
+  .related-title:hover {
+    color: var(--primary-blue);
+  }
+  
+  .related-date {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+  
+  /* 导航 */
+  .article-navigation {
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .article-navigation .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .back-to-blog {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .back-to-blog:hover {
+    text-decoration: underline;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .prev-article,
+  .next-article {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: var(--border-radius);
+    color: var(--text-gray);
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .prev-article:hover:not(:disabled),
+  .next-article:hover:not(:disabled) {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+  }
+  
+  .prev-article:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .article-header {
+      padding: 2rem 0 1.5rem;
+    }
+    
+    .article-title {
+      font-size: 2rem;
+    }
+    
+    .article-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .meta-right {
+      width: 100%;
+      justify-content: flex-start;
+    }
+    
+    .article-content {
+      padding: 1.5rem;
+    }
+    
+    .markdown-content h2 {
+      font-size: 1.5rem;
+    }
+    
+    .author-info {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .article-navigation .container {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+    
+    .nav-buttons {
+      justify-content: space-between;
+    }
+  }
+</style>

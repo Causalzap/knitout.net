@@ -1,0 +1,371 @@
+---
+// 这里暂时不需要写 JS
+---
+
+<section class="other-games-section">
+    <div class="other-games-container">
+        <div class="section-header">
+            <h2 class="section-title">More Mobile Game Walkthroughs</h2>
+            <p class="section-description">
+                In addition to Cookingdom, we also provide complete walkthroughs and strategy guides for other popular mobile puzzle games.
+            </p>
+        </div>
+        
+        <div class="games-grid">
+            <!-- Cookingdom 卡片 -->
+            <div class="game-card">
+                <div class="game-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M2 12h20M12 2v20"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M5 5l14 14M5 19l14-14"/>
+                    </svg>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">Cookingdom Walkthroughs & Level Solutions</h3>
+                    <p class="game-description">
+                        Master every culinary challenge with our complete level index, detailed video guides, and expert plating strategies for all global recipes.
+                    </p>
+                    <a href="/cookingdom/" class="game-button">
+                        Explore Cookingdom Guides
+                        <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 10h12M10 4l6 6-6 6"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 占位游戏卡片 1 (未来可添加) -->
+            <div class="game-card coming-soon">
+                <div class="game-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v4l2 2"/>
+                    </svg>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">New Game Guides Coming Soon</h3>
+                    <p class="game-description">
+                        We're constantly expanding our game guides collection. Check back soon for walkthroughs of other popular mobile puzzle games.
+                    </p>
+                    <div class="coming-soon-badge">Coming Soon</div>
+                </div>
+            </div>
+            
+            <!-- 占位游戏卡片 2 (未来可添加) -->
+            <div class="game-card coming-soon">
+                <div class="game-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title">More Puzzle Games</h3>
+                    <p class="game-description">
+                        Stay tuned for comprehensive guides to other engaging puzzle games that challenge your mind and creativity.
+                    </p>
+                    <div class="coming-soon-badge">Coming Soon</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* CSS变量定义 - 使用烹饪主题 */
+    :root {
+        --section-bg: #f8fafc;
+        --card-bg: #ffffff;
+        --text-dark: #2c3e50;
+        --text-gray: #6b7280;
+        --cooking-orange: #f97316;
+        --cooking-red: #dc2626;
+        --cooking-amber: #d97706;
+        --cooking-gradient: linear-gradient(135deg, var(--cooking-orange), var(--cooking-red));
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 整体区域 */
+    .other-games-section {
+        padding: 5rem 0;
+        background: var(--section-bg);
+        position: relative;
+    }
+
+    .other-games-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* 标题区域 */
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em;
+        background: var(--cooking-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .section-description {
+        font-size: 1.25rem;
+        color: var(--text-gray);
+        line-height: 1.6;
+        max-width: 36rem;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .section-title {
+            font-size: 3rem;
+        }
+        
+        .section-description {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* 游戏网格布局 */
+    .games-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .games-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .games-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* 游戏卡片样式 */
+    .game-card {
+        height: 100%;
+        background: var(--card-bg);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem 2rem;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        border: 2px solid rgba(249, 115, 22, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .game-card:not(.coming-soon):hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--cooking-orange);
+    }
+
+    /* 即将上线卡片样式 */
+    .game-card.coming-soon {
+        opacity: 0.9;
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    }
+
+    .game-card.coming-soon .game-icon {
+        background: rgba(156, 163, 175, 0.1);
+        color: #9ca3af;
+    }
+
+    .game-card.coming-soon .game-title {
+        color: #9ca3af;
+    }
+
+    .game-card.coming-soon .game-description {
+        color: #9ca3af;
+    }
+
+    /* 图标样式 */
+    .game-icon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        background: rgba(249, 115, 22, 0.1);
+        color: var(--cooking-orange);
+        transition: var(--transition);
+    }
+
+    .game-card:not(.coming-soon):hover .game-icon {
+        transform: scale(1.1) rotate(5deg);
+        background: var(--cooking-gradient);
+        color: white;
+    }
+
+    .icon {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    /* 内容样式 */
+    .game-content {
+        flex: 1;
+        width: 100%;
+    }
+
+    .game-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+
+    .game-description {
+        color: var(--text-gray);
+        line-height: 1.6;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* 按钮样式 */
+    .game-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.875rem 1.5rem;
+        border-radius: var(--radius-md);
+        background: var(--cooking-gradient);
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+    }
+
+    .game-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    .arrow-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-left: 0.5rem;
+        transition: var(--transition);
+    }
+
+    .game-button:hover .arrow-icon {
+        transform: translateX(4px);
+    }
+
+    /* 即将上线徽章 */
+    .coming-soon-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #9ca3af, #6b7280);
+        color: white;
+        font-weight: 600;
+        font-size: 0.875rem;
+        letter-spacing: 0.025em;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 767px) {
+        .other-games-section {
+            padding: 3rem 0;
+        }
+        
+        .section-header {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .section-description {
+            font-size: 1.125rem;
+        }
+        
+        .game-card {
+            padding: 1.75rem 1.5rem;
+        }
+        
+        .game-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .icon {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+        
+        .game-title {
+            font-size: 1.25rem;
+        }
+        
+        .game-description {
+            font-size: 0.9375rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .game-button {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9375rem;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .games-grid {
+            gap: 1.5rem;
+        }
+        
+        .game-card {
+            padding: 2rem 1.75rem;
+        }
+    }
+
+    /* 动画效果 */
+    .game-card {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .game-card:nth-child(1) { animation-delay: 0.1s; }
+    .game-card:nth-child(2) { animation-delay: 0.2s; }
+    .game-card:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

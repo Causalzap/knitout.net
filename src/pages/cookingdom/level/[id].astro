@@ -1,0 +1,515 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import levelData from '../../../data/cookingdom-videos1.json';
+
+type LevelItem = { id: number; title: string; videoId: string; thumb: string };
+
+// --- 数据处理 ---
+export async function getStaticPaths() {
+  const totalLevels = levelData.length;
+
+  return levelData.map((level) => ({
+    params: { id: level.id.toString() },
+    props: {
+      level,
+      totalLevels,
+    },
+  }));
+}
+
+const { id } = Astro.params as { id: string };
+
+const { level, totalLevels } = Astro.props as {
+  level: LevelItem;
+  totalLevels: number;
+};
+
+const currentLevel = parseInt(id, 10);
+const videoId = level.videoId;
+
+// ✅ 关键：按“实际存在的 id”做 Prev/Next + Nearby（避免 id 不连续导致 404）
+const ids = (levelData as LevelItem[]).map((l) => l.id).sort((a, b) => a - b);
+const currentIndex = ids.indexOf(currentLevel);
+
+const prevLevel = currentIndex > 0 ? ids[currentIndex - 1] : null;
+const nextLevel = currentIndex >= 0 && currentIndex < ids.length - 1 ? ids[currentIndex + 1] : null;
+
+// --- 2. 动态内容生成 (Spin Tax - 烹饪版) ---
+const isHardLevel = currentLevel > 150 || currentLevel % 10 === 0;
+const difficultyText = isHardLevel ? "Hard Challenge" : "Standard Order";
+
+// 模拟数据
+const estTimeSeconds = Math.min(60 + Math.floor(currentLevel / 5), 180);
+const estTimeFormatted = `${Math.floor(estTimeSeconds / 60)}:${(estTimeSeconds % 60).toString().padStart(2, '0')}`;
+const customerCount = 15 + Math.floor(currentLevel / 20);
+const boosters = isHardLevel ? "Non-Stick Pan, Double Coin" : "None Required";
+const stars = 3;
+
+// 文案变体
+const step1Variations = [
+  "Check the customer order queue first. Identify which dishes take the longest to cook.",
+  "Analyze the incoming orders. Start prepping the base ingredients immediately.",
+  "Look at the VIP customers. You need to prioritize their orders to keep them happy.",
+  "Survey your kitchen station. Make sure your drink dispenser is filling up before you start.",
+  "Check the level goals. Focus on the required dish count before time runs out."
+];
+
+const step2Variations = [
+  "Cook the meat dishes in batches to create combo streaks for higher scores.",
+  "Keep your stove full but don't burn the food. Manage the heat carefully.",
+  "Serve the drinks while the main course is cooking to buy some time.",
+  "Use both hands! Prepare the sides while the main ingredient is frying.",
+  "Watch the patience meters. Serve the most impatient customers first."
+];
+
+const step3NormalVariations = [
+  "Clear the remaining orders one by one to reach the target score.",
+  "Once the rush hour is over, simply serve the last few customers to finish.",
+  "Keep the rhythm steady until the restaurant closes.",
+  "With the main rush handled, finish up the last few detailed orders.",
+  "Collect the tips and aim for that final 3-star rating."
+];
+
+const step3HardVariations = [
+  "Use the 'Instant Cook' booster if the orders pile up too fast.",
+  "This service is chaotic. Don't be afraid to use a Cupcake to restore patience.",
+  "Planning is key here. One burnt dish can ruin your 3-star attempt.",
+  "Save your boosters for the final wave of customers, it gets intense.",
+  "Watch out for the food critic! Serve them perfectly or you'll fail."
+];
+
+const step1Text = step1Variations[currentLevel % step1Variations.length];
+const step2Text = step2Variations[currentLevel % step2Variations.length];
+const step3Base = isHardLevel ? step3HardVariations : step3NormalVariations;
+const step3Text = step3Base[(currentLevel + 7) % step3Base.length];
+
+// --- 3. Sidebar 数据 ---
+// ✅ Nearby：取“真实存在的后 12 个”
+const nearbyLevels: number[] =
+  currentIndex >= 0 ? ids.slice(currentIndex + 1, currentIndex + 13) : [];
+
+// 热门关卡（只显示站内存在的）
+const hotLevels = [10, 50, 100, 200, 300].filter((l) => ids.includes(l));
+
+// --- 4. SEO Metadata ---
+const cleanTitle = (level.title || "").trim();
+const title = cleanTitle
+  ? `${cleanTitle} | Cookingdom Level ${id} Solution`
+  : `Cookingdom Level ${id} Solution - 3 Stars Walkthrough`;
+
+const description = `Stuck on Cookingdom Level ${id}? Watch the video solution and follow our step-by-step strategy to earn 3 stars.${cleanTitle ? ` (${cleanTitle})` : ""}`;
+
+const canonical = `https://www.knitout.net/cookingdom/level/${id}`;
+const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+const videoThumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+const pageUrl = `https://www.knitout.net/cookingdom/level/${id}`;
+const videoDuration = "PT3M";
+
+const howToTotalTime = isHardLevel ? "PT5M" : "PT3M";
+
+// ✅ uploadDate：用“构建当天”避免写过去/写未来
+// 注意：Schema 的 uploadDate 更理想是视频真实发布时间；
+// 如果你没有真实日期，用构建日期是个折中且不会“未来”。
+const uploadDate = new Date().toISOString();
+
+// --- 5. Schema (Structure) ---
+const fullSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.cookingdom.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Levels", "item": "https://www.cookingdom.net/levels" },
+        { "@type": "ListItem", "position": 3, "name": `Level ${id}`, "item": pageUrl }
+      ]
+    },
+    {
+      "@type": "VideoObject",
+      "name": cleanTitle ? `${cleanTitle} - 3 Stars Solution` : `How to beat Cookingdom Level ${id} - 3 Stars`,
+      "description": description,
+      "thumbnailUrl": [videoThumbUrl],
+      "uploadDate": uploadDate,
+      "duration": videoDuration,
+      "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+      "embedUrl": videoEmbedUrl,
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cookingdom Solutions",
+        "url": "https://www.cookingdom.net"
+      }
+    },
+    {
+      "@type": "HowTo",
+      "name": `How to pass Cookingdom Level ${id}`,
+      "totalTime": howToTotalTime,
+      "step": [
+        { "@type": "HowToStep", "name": "Prep Ingredients", "text": step1Text },
+        { "@type": "HowToStep", "name": "Cooking Flow", "text": step2Text },
+        { "@type": "HowToStep", "name": "Final Service", "text": step3Text }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <script type="application/ld+json" set:html={JSON.stringify(fullSchema)} slot="head" />
+
+  <section class="sr-only">
+    <p>Game: Cookingdom</p>
+    <p>Level: {id}</p>
+    <p>Difficulty: {difficultyText}</p>
+    <p>Time Limit: {estTimeFormatted}</p>
+    <p>Customers: {customerCount}</p>
+  </section>
+
+  <div class="level-detail-page">
+    <div class="level-container">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/" class="breadcrumb-link">Home</a>
+        <svg class="breadcrumb-arrow" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M6 12l6-6-6-6"/>
+        </svg>
+        <a href="/cookingdom/levels" class="breadcrumb-link">All Recipes</a>
+        <svg class="breadcrumb-arrow" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M6 12l6-6-6-6"/>
+        </svg>
+        <span class="breadcrumb-current">Level {id}</span>
+      </nav>
+
+      <div class="level-layout">
+        <div class="main-content">
+          <div class="video-section">
+            <div class="section-header">
+              <h1 class="page-title">
+                Cookingdom <span class="highlight-level">Level {id}</span> Solution
+              </h1>
+              <div class="difficulty-badge">
+                <span class="badge-label">Status:</span>
+                <span class={`badge-value ${isHardLevel ? 'hard' : 'normal'}`}>
+                  {difficultyText}
+                </span>
+              </div>
+            </div>
+
+            <div class="video-wrapper">
+              <div class="video-container">
+                <iframe
+                  class="video-player"
+                  src={videoEmbedUrl}
+                  title={`Cookingdom Level ${id} Walkthrough`}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="navigation-controls">
+              {prevLevel ? (
+                <a href={`/level/${prevLevel}`} class="nav-button prev-button">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                  </svg>
+                  <span>Prev Level</span>
+                </a>
+              ) : (
+                <button class="nav-button disabled-button" disabled>
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                  </svg>
+                  <span>Prev Level</span>
+                </button>
+              )}
+
+              <a href="/levels" class="nav-button levels-button">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+                </svg>
+                <span>Menu List</span>
+              </a>
+
+              {nextLevel ? (
+                <a href={`/level/${nextLevel}`} class="nav-button next-button">
+                  <span>Next Level</span>
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </a>
+              ) : (
+                <button class="nav-button disabled-button" disabled>
+                  <span>Next Level</span>
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div class="steps-section">
+            <div class="section-header">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              <h2 class="section-title">Chef's Strategy Guide</h2>
+            </div>
+
+            <div class="steps-container">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h3 class="step-title">Order Analysis</h3>
+                  <p class="step-description">{step1Text}</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h3 class="step-title">Cooking Strategy</h3>
+                  <p class="step-description">{step2Text}</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h3 class="step-title">Final Service</h3>
+                  <p class="step-description">{step3Text}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <div class="promo-card">
+            <div class="promo-header">
+              <svg class="promo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 8v4l3 3"/>
+                <circle cx="12" cy="12" r="10"/>
+              </svg>
+              <h3 class="promo-title">Need More Tips?</h3>
+            </div>
+            <p class="promo-description">Discover more popular puzzle games loved by Cookingdom players.</p>
+            <a href="/hot-games" class="promo-button">
+              <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                <polyline points="13 2 13 9 20 9"></polyline>
+              </svg>
+              Explore Hot Games
+            </a>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-header">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+              <h3 class="sidebar-title">Nearby Levels</h3>
+            </div>
+
+            <div class="levels-grid">
+              {nearbyLevels.map((lvl) => (
+                <a href={`/level/${lvl}`} class="level-link" title={`Cookingdom Level ${lvl}`}>
+                  {lvl}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-header">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <h3 class="sidebar-title">Popular Recipes</h3>
+            </div>
+
+            <div class="trending-list">
+              {hotLevels.map((lvl) => (
+                <a href={`/level/${lvl}`} class="trending-item">
+                  <div class="trending-number">{lvl}</div>
+                  <div class="trending-content">
+                    <span class="trending-title">Level {lvl} Guide</span>
+                    <span class="trending-label">High Difficulty</span>
+                  </div>
+                  <svg class="trending-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* 下面 CSS 你原来的保持不变（我不改动样式） */
+  :root {
+    --bg-page: #fff9f5;
+    --bg-white: #ffffff;
+    --bg-card: #ffffff;
+    --bg-sidebar: #fff3e0;
+    --bg-promo: linear-gradient(135deg, #ffedd5, #fed7aa);
+
+    --text-dark: #2c3e50;
+    --text-gray: #6b7280;
+    --text-light: #9ca3af;
+
+    --accent-orange: #f97316;
+    --accent-red: #dc2626;
+    --accent-amber: #d97706;
+    --accent-green: #10b981;
+
+    --border-color: #fed7aa;
+    --border-light: #ffedd5;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+
+    --shadow-sm: 0 1px 3px rgba(249, 115, 22, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(249, 115, 22, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(249, 115, 22, 0.15);
+
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .level-detail-page { background: var(--bg-page); min-height: 100vh; padding: 2rem 0 4rem; }
+  .level-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .breadcrumb-nav { display:flex; align-items:center; gap:.5rem; font-size:.875rem; color:var(--text-gray); margin-bottom:2rem; flex-wrap:wrap; }
+  .breadcrumb-link { color:var(--text-gray); text-decoration:none; padding:.5rem .75rem; border-radius:var(--radius-sm); transition:var(--transition); }
+  .breadcrumb-link:hover { color:var(--accent-orange); background:var(--bg-sidebar); }
+  .breadcrumb-arrow { width:1rem; height:1rem; opacity:.4; }
+  .breadcrumb-current { color:var(--text-dark); font-weight:600; padding:.5rem 1rem; background:var(--bg-white); border-radius:999px; box-shadow:var(--shadow-sm); border:1px solid var(--border-light); }
+
+  .level-layout { display:grid; grid-template-columns:1fr; gap:2rem; }
+  @media (min-width: 1024px) { .level-layout { grid-template-columns: 2fr 1fr; } }
+
+  .main-content { display:flex; flex-direction:column; gap:2rem; }
+
+  .video-section { background:var(--bg-card); border-radius:var(--radius-xl); padding:2rem; box-shadow:var(--shadow-lg); border:1px solid var(--border-color); }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem; }
+  .page-title { font-size:2rem; font-weight:700; color:var(--text-dark); line-height:1.2; }
+  .highlight-level { color:var(--accent-orange); font-weight:800; }
+
+  .difficulty-badge { display:flex; align-items:center; gap:.5rem; background:var(--bg-sidebar); padding:.5rem 1rem; border-radius:999px; }
+  .badge-label { color:var(--text-gray); font-size:.875rem; }
+  .badge-value { font-weight:700; font-size:.875rem; }
+  .badge-value.normal { color:var(--accent-green); }
+  .badge-value.hard { color:var(--accent-red); }
+
+  .video-wrapper { margin-bottom:2rem; }
+  .video-container { position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:var(--radius-lg); background:#000; }
+  .video-player { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
+  .navigation-controls { display:flex; gap:1rem; justify-content:space-between; }
+  .nav-button { display:flex; align-items:center; justify-content:center; gap:.5rem; padding:.75rem 1.5rem; border-radius:var(--radius-lg); font-weight:600; text-decoration:none; transition:var(--transition); border:2px solid transparent; }
+  .nav-icon { width:1.25rem; height:1.25rem; }
+
+  .prev-button { background:var(--bg-sidebar); color:var(--text-gray); border-color:var(--border-color); }
+  .prev-button:hover { background:var(--border-light); transform:translateX(-2px); color:var(--accent-orange); }
+
+  .levels-button { background:var(--bg-white); color:var(--accent-orange); border-color:var(--accent-orange); }
+  .levels-button:hover { background:var(--accent-orange); color:white; transform:translateY(-2px); box-shadow:0 4px 12px rgba(249, 115, 22, .3); }
+
+  .next-button { background:var(--accent-orange); color:white; }
+  .next-button:hover { background:#ea580c; transform:translateX(2px); box-shadow:0 4px 12px rgba(249, 115, 22, .3); }
+
+  .disabled-button { opacity:.5; cursor:not-allowed; background:var(--bg-sidebar); color:var(--text-light); border:2px solid var(--border-color); }
+
+  .steps-section { background:var(--bg-card); border-radius:var(--radius-xl); padding:2rem; box-shadow:var(--shadow-lg); border:1px solid var(--border-color); }
+  .section-icon { width:2rem; height:2rem; color:var(--accent-orange); }
+  .section-title { font-size:1.5rem; font-weight:700; color:var(--text-dark); }
+
+  .steps-container { display:flex; flex-direction:column; gap:1.5rem; }
+  .step-item { display:flex; gap:1.5rem; align-items:flex-start; }
+  .step-number { width:3rem; height:3rem; border-radius:var(--radius-lg); background:linear-gradient(135deg, var(--accent-orange), var(--accent-red)); color:white; font-weight:700; font-size:1.25rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:var(--shadow-md); }
+  .step-title { font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:.5rem; }
+  .step-description { color:var(--text-gray); line-height:1.6; }
+
+  .sidebar { display:flex; flex-direction:column; gap:1.5rem; }
+
+  .promo-card { background:var(--bg-promo); border-radius:var(--radius-xl); padding:2rem; text-align:center; border:1px solid var(--border-color); box-shadow:var(--shadow-lg); }
+  .promo-header { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1rem; }
+  .promo-icon { width:2.5rem; height:2.5rem; color:var(--accent-red); }
+  .promo-title { font-size:1.5rem; font-weight:700; color:var(--text-dark); }
+  .promo-description { color:var(--text-dark); font-size:.9375rem; margin-bottom:1.5rem; opacity:.8; }
+  .promo-button { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.875rem 1.5rem; background:var(--accent-red); color:white; border-radius:var(--radius-lg); font-weight:700; text-decoration:none; transition:var(--transition); box-shadow:0 4px 12px rgba(220, 38, 38, .3); }
+  .promo-button:hover { background:#b91c1c; transform:translateY(-2px); box-shadow:0 6px 20px rgba(220, 38, 38, .4); }
+  .button-icon { width:1.25rem; height:1.25rem; }
+
+  .sidebar-card { background:var(--bg-card); border-radius:var(--radius-xl); padding:1.5rem; box-shadow:var(--shadow-lg); border:1px solid var(--border-color); }
+  .sidebar-header { display:flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:2px solid var(--border-light); }
+  .sidebar-icon { width:1.5rem; height:1.5rem; color:var(--accent-orange); }
+  .sidebar-title { font-size:1.125rem; font-weight:700; color:var(--text-dark); text-transform:uppercase; letter-spacing:.05em; }
+
+  .levels-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.75rem; }
+  .level-link { display:flex; align-items:center; justify-content:center; padding:.75rem .5rem; background:var(--bg-sidebar); color:var(--accent-orange); border-radius:var(--radius-md); font-weight:700; text-decoration:none; transition:var(--transition); border:2px solid transparent; }
+  .level-link:hover { background:var(--accent-orange); color:white; transform:translateY(-2px); box-shadow:0 4px 12px rgba(249, 115, 22, .3); }
+
+  .trending-list { display:flex; flex-direction:column; gap:.75rem; }
+  .trending-item { display:flex; align-items:center; gap:1rem; padding:.875rem 1rem; background:var(--bg-sidebar); border-radius:var(--radius-md); text-decoration:none; transition:var(--transition); border:1px solid transparent; }
+  .trending-item:hover { background:white; border-color:var(--accent-orange); transform:translateX(4px); }
+
+  .trending-number { width:2.5rem; height:2.5rem; border-radius:var(--radius-sm); background:var(--accent-orange); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.875rem; flex-shrink:0; }
+  .trending-title { display:block; font-weight:600; color:var(--text-dark); font-size:.9375rem; }
+  .trending-label { display:block; color:var(--accent-red); font-size:.75rem; margin-top:.125rem; font-weight:500; }
+  .trending-arrow { width:1.25rem; height:1.25rem; color:var(--text-light); opacity:.5; }
+  .trending-item:hover .trending-arrow { color:var(--accent-orange); opacity:1; }
+
+  @media (max-width: 767px) {
+    .level-detail-page { padding:1.5rem 0 3rem; }
+    .level-container { padding:0 1rem; }
+    .page-title { font-size:1.5rem; }
+    .video-section, .steps-section, .sidebar-card, .promo-card { padding:1.5rem; }
+    .step-item { gap:1rem; }
+    .step-number { width:2.5rem; height:2.5rem; font-size:1.125rem; }
+    .levels-grid { grid-template-columns:repeat(4, 1fr); }
+    .navigation-controls { flex-direction:column; }
+    .nav-button { justify-content:center; }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) { .levels-grid { grid-template-columns:repeat(6, 1fr); } }
+  @media (max-width: 1023px) { .sidebar-header { flex-direction:column; align-items:flex-start; gap:.5rem; } }
+
+  .sr-only {
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0, 0, 0, 0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  .video-container, .step-item, .sidebar > * {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .step-item:nth-child(1) { animation-delay: 0.1s; }
+  .step-item:nth-child(2) { animation-delay: 0.2s; }
+  .step-item:nth-child(3) { animation-delay: 0.3s; }
+
+  .sidebar > *:nth-child(1) { animation-delay: 0.4s; }
+  .sidebar > *:nth-child(2) { animation-delay: 0.5s; }
+  .sidebar > *:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+</style>

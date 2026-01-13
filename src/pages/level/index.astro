@@ -1,0 +1,18 @@
+---
+// src/pages/level/index.astro
+// 这个文件的作用：防止用户访问 /level 出现 404，直接重定向到 /levels
+
+export const prerender = false; // 如果是 SSR 模式需要这行；如果是纯静态(SSG)，用下面的 meta refresh
+
+return Astro.redirect('/levels');
+---
+
+<html lang="en">
+<head>
+    <meta http-equiv="refresh" content="0;url=/levels" />
+    <title>Redirecting...</title>
+</head>
+<body>
+    <p>Redirecting to <a href="/levels">all levels</a>...</p>
+</body>
+</html>

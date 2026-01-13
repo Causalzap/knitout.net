@@ -1,0 +1,76 @@
+---
+// 这里不需要复杂的 JS
+---
+
+<section class="py-16 bg-orange-50 relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-orange-200 rounded-full opacity-30 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-yellow-200 rounded-full opacity-30 blur-3xl"></div>
+
+    <div class="knit-container relative z-10">
+        <div class="flex flex-col md:flex-row items-center gap-10 bg-white rounded-3xl p-8 shadow-xl border border-orange-100">
+            
+            <div class="flex-1 text-center md:text-left">
+                <div class="inline-block px-4 py-1 bg-red-100 text-red-600 rounded-full text-sm font-bold mb-4">
+                    🔥 HOT GAME
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+                    Finished all levels? <br/>
+                    <span class="text-orange-500">Try Cookingdom!</span>
+                </h2>
+                <p class="text-gray-600 mb-8 text-lg">
+                    Dive into a delicious puzzle adventure. Manage your kitchen, serve customers, and become the ultimate chef master.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="/cookingdom" class="play-btn bg-orange-500 text-white hover:bg-orange-600">
+                        <i class="fas fa-play mr-2"></i> Play Now
+                    </a>
+                    <a href="/cookingdom-levels" class="guide-btn border-2 border-orange-500 text-orange-500 hover:bg-orange-50">
+                        View Guides
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex-1 w-full max-w-md">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity rounded-2xl"></div>
+                    <img 
+                        src="/images/cookingdom-cover.jpg" 
+                        alt="Cookingdom Game" 
+                        class="w-full rounded-2xl shadow-lg transform group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                    
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg hidden md:block">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-500">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">4.9/5</div>
+                                <div class="text-xs text-gray-500">Player Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .knit-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    .play-btn, .guide-btn {
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
+    }
+    
+    .play-btn:hover, .guide-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+</style>

@@ -1,0 +1,198 @@
+---
+// 这里不需要服务端 JS
+---
+
+<section class="knit-section">
+    <div class="knit-container">
+        <div class="section-header">
+            <h2 class="section-title">Why Cookingdom is the Ultimate Cozy Escape</h2>
+            <p class="section-subtitle">Discover the sensory details and relaxing mechanics that make Cookingdom a top-rated culinary simulation</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="card-content">
+                    <div class="card-icon bg-blue-100 text-knitBlue">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="card-title">Mindful, No-Timer Gameplay</h3>
+                    <p class="card-text">Unlike stressful time-management games, <strong>Cookingdom</strong> lets you cook at your own pace. Experience a <strong>relaxing cooking simulation</strong> where every chop, stir, and flip is a mindful action designed to decompress your mind, not test your reflexes.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-content">
+                    <div class="card-icon bg-green-100 text-knitGreen">
+                        <i class="fas fa-headphones-alt"></i>
+                    </div>
+                    <h3 class="card-title">Deeply Satisfying ASMR Audio</h3>
+                    <p class="card-text">Immerse yourself in "sounds you can feel." From the crisp crunch of fresh veggies to the gentle sizzle of a steak, the high-quality <strong>ASMR sound design</strong> paired with soft <strong>lo-fi beats</strong> creates a warm, auditory blanket for your ears.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-content">
+                    <div class="card-icon bg-purple-100 text-knitPurple">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3 class="card-title">Authentic World Cuisines</h3>
+                    <p class="card-text">Your recipe book is a passport to flavor. Unlock and master hundreds of <strong>global recipes</strong>—from fluffy Japanese pancakes and Tonkotsu ramen to spicy Texas BBQ and traditional Mooncakes. Explore rich cultures through their <strong>comfort foods</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-content">
+                    <div class="card-icon bg-pink-100 text-knitPink">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="card-title">Build Your Dream Kitchen</h3>
+                    <p class="card-text">Turn your culinary space into a sanctuary. Customize your environment with fairy lights, rustic shelves, and cute <strong>cat-themed kitchen tools</strong>. Every level you pass rewards you with decor to create the perfect <strong>cozy aesthetic</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* 功能区样式 */
+    .knit-section {
+        padding: 80px 0;
+        background: linear-gradient(to bottom, #ffffff, #fef7f0);
+    }
+
+    .knit-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* 标题区域样式 */
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, var(--cooking-orange), var(--cooking-red));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.2;
+    }
+
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: var(--knit-gray);
+        max-width: 768px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+        }
+    }
+
+    /* 功能网格布局 */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+        .features-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    /* 卡片样式 */
+    .feature-card {
+        background: white;
+        border-radius: var(--radius-large);
+        box-shadow: var(--shadow-light);
+        transition: var(--transition);
+        overflow: hidden;
+        border: 1px solid rgba(249, 115, 22, 0.1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-content {
+        padding: 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        transition: var(--transition);
+    }
+
+    .feature-card:hover .card-icon {
+        transform: scale(1.1);
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+        color: var(--knit-dark);
+    }
+
+    .card-text {
+        color: var(--knit-gray);
+        line-height: 1.6;
+        text-align: center;
+        flex: 1;
+    }
+
+    .card-text strong {
+        color: var(--cooking-orange);
+        font-weight: 600;
+    }
+
+    /* 图标背景色 */
+    .bg-blue-100 { background-color: rgba(52, 152, 219, 0.1); }
+    .bg-green-100 { background-color: rgba(46, 204, 113, 0.1); }
+    .bg-purple-100 { background-color: rgba(155, 89, 182, 0.1); }
+    .bg-pink-100 { background-color: rgba(232, 67, 147, 0.1); }
+
+    /* 图标颜色 */
+    .text-knitBlue { color: var(--knit-blue); }
+    .text-knitGreen { color: var(--knit-green); }
+    .text-knitPurple { color: var(--knit-purple); }
+    .text-knitPink { color: var(--knit-pink); }
+
+    /* Font Awesome 图标 */
+    .fa-leaf:before { content: "\f06c"; }
+    .fa-headphones-alt:before { content: "\f58f"; }
+    .fa-globe-asia:before { content: "\f57e"; }
+    .fa-home:before { content: "\f015"; }
+    
+    .fas {
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+    }
+</style>

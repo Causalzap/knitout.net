@@ -1,0 +1,235 @@
+---
+// 这里不需要服务端 JS
+---
+
+<section class="steps-section">
+    <div class="knit-container">
+        <div class="steps-grid">
+            <div class="steps-content">
+                <h2 class="steps-title">Your Path to Culinary Calm</h2>
+                <p class="steps-subtitle">
+                    Experience a cooking simulation where the joy comes from the process, not the pressure. Master the rhythm of the kitchen in three simple steps.
+                </p>
+                
+                <div class="steps-list">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-heading">Prep with Rhythm</h3>
+                            <p class="step-description">
+                                Swipe to slice fresh ingredients and tap to season. Immerse yourself in the crisp <strong>ASMR sounds</strong> of the knife against the board. There are no timers here—take your time to chop every vegetable with satisfying precision.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-heading">Cook with Care</h3>
+                            <p class="step-description">
+                                Stir soups until the colors blend perfectly, or wait for the sizzle to flip a steak. Watch for <strong>visual cues</strong> like steam and golden edges. It's not about rushing; it's about finding the perfect moment to serve.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-heading">Plate & Decorate</h3>
+                            <p class="step-description">
+                                Arrange your final dish to create a <strong>visual masterpiece</strong>. Earning high stars on your plating unlocks new world recipes and adorable <strong>kitchen decor</strong>, allowing you to turn your workspace into a cozy sanctuary.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="steps-visual">
+                <div class="visual-container">
+                    <img 
+                        src="/images/cookingdom/cookingdom-thanksgaving.webp" 
+                        alt="Cookingdom Thanksgiving celebration" 
+                        class="visual-image"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* 步骤区域样式 */
+    .steps-section {
+        padding: 80px 0;
+        background: white;
+    }
+
+    .knit-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* 网格布局 */
+    .steps-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+        .steps-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+    }
+
+    /* 左侧内容区域 */
+    .steps-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .steps-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, var(--cooking-orange), var(--cooking-red));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.2;
+    }
+
+    .steps-subtitle {
+        font-size: 1.25rem;
+        color: var(--knit-gray);
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .steps-title {
+            font-size: 2rem;
+        }
+        
+        .steps-subtitle {
+            font-size: 1.125rem;
+        }
+    }
+
+    /* 步骤列表 */
+    .steps-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* 步骤卡片 */
+    .step-card {
+        display: flex;
+        gap: 1.5rem;
+        background: white;
+        border-radius: var(--radius-large);
+        box-shadow: var(--shadow-light);
+        padding: 2rem;
+        border: 1px solid rgba(249, 115, 22, 0.1);
+        transition: var(--transition);
+        align-items: flex-start;
+    }
+
+    .step-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    .step-number {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border-radius: var(--radius-small);
+        background: linear-gradient(135deg, var(--cooking-orange), var(--cooking-red));
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+    }
+
+    .step-content {
+        flex: 1;
+    }
+
+    .step-heading {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--knit-dark);
+        margin-bottom: 0.75rem;
+    }
+
+    .step-description {
+        color: var(--knit-gray);
+        line-height: 1.6;
+    }
+
+    .step-description strong {
+        color: var(--cooking-orange);
+        font-weight: 600;
+    }
+
+    /* 右侧图片区域 */
+    .steps-visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .visual-container {
+        width: 100%;
+        max-width: 500px;
+        height: 500px;
+        border-radius: var(--radius-large);
+        overflow: hidden;
+        box-shadow: var(--shadow-heavy);
+        transition: var(--transition);
+    }
+
+    .visual-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .visual-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .visual-container:hover .visual-image {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 640px) {
+        .step-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            font-size: 1.25rem;
+        }
+        
+        .visual-container {
+            height: 400px;
+        }
+    }
+</style>

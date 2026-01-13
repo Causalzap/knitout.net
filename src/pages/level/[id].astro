@@ -1,0 +1,971 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import levelData from '../../data/test.json';
+
+// --- 1. 数据处理 ---
+export async function getStaticPaths() {
+  const levels = Object.entries(levelData).map(([id, videoId]) => ({
+    params: { id: id },
+    props: { 
+      videoId: videoId, 
+      totalLevels: Object.keys(levelData).length 
+    },
+  }));
+  return levels;
+}
+
+const { id } = Astro.params as { id: string };
+const { videoId, totalLevels } = Astro.props as { 
+  videoId: string; 
+  totalLevels: number 
+};
+const currentLevel = parseInt(id, 10);
+
+// --- 2. 动态内容生成 (Spin Tax) ---
+const isHardLevel = currentLevel > 100;
+const difficultyText = isHardLevel ? "Hard" : "Normal";
+
+// 🔥 新增：生成模拟数据 (用于 Info Card 和 Schema)
+// 逻辑：关卡越后，步数越多；颜色在 3-6 之间波动
+const estMoves = Math.min(15 + Math.floor(currentLevel / 10), 50); 
+const colorCount = 3 + (currentLevel % 4); 
+const boosters = isHardLevel ? "Scissors, Undo" : "None Required";
+const stars = 3; // 永远是 3 星攻略
+
+// 文案变体库... (保持你的代码不变)
+const step1Variations = [
+  "Analyze the yarn layers. Identify which colors are on top and blocking others.",
+  "Start by examining the spool arrangement. Look for the top-most threads that are accessible.",
+  "Carefully observe the pattern. Find the loose ends that are not covered by other yarns.",
+  "Check the layer hierarchy first. You need to prioritize removing the top blocking colors.",
+  "Survey the board. Your first move should target the yarns that are completely exposed."
+];
+const step2Variations = [
+  "Match accessible colors first to clear needle space.",
+  "Group same-colored spools immediately to free up slots on your needle.",
+  "Prioritize collecting matching colors to prevent your needle from getting full.",
+  "Look for pairs or triplets of the same color to clear them from the board quickly.",
+  "Always keep an eye on your needle capacity. Clear matches as soon as possible."
+];
+const step3NormalVariations = [
+  "Proceed to clear the bottom layers once the top is free.",
+  "Once the blockers are gone, the underlying patterns will be easy to solve.",
+  "Continue this process layer by layer until the board is empty.",
+  "With the top layer cleared, you can easily access the remaining colors.",
+  "Keep the rhythm going and clear the remaining spools to finish the level."
+];
+const step3HardVariations = [
+  "Use the 'Undo' booster if you make a mistake, as this level has tight margins.",
+  "This stage is tricky. Don't hesitate to use Scissors if you get stuck.",
+  "Planning ahead is crucial here. One wrong move can fill up your needle.",
+  "Save your boosters for the final layer if possible, it gets complicated.",
+  "Watch out for hidden colors underneath. Use hints if you can't see the next move."
+];
+
+const step1Text = step1Variations[currentLevel % step1Variations.length];
+const step2Text = step2Variations[currentLevel % step2Variations.length];
+const step3Base = isHardLevel ? step3HardVariations : step3NormalVariations;
+const step3Text = step3Base[(currentLevel + 7) % step3Base.length];
+
+// --- 3. Sidebar 数据 ---
+const nearbyLevels: number[] = [];
+for (let i = 1; i <= 12; i++) {
+    if (currentLevel + i <= totalLevels) nearbyLevels.push(currentLevel + i);
+}
+const hotLevels = [10, 25, 50, 99, 100];
+
+// --- 4. SEO Metadata ---
+const title = `Knit Out Level ${id} Solution - 3 Stars Walkthrough`;
+const description = `Stuck on Level ${id}? Watch the video solution and read our strategy guide. Learn how to beat Knit Out Level ${id} with 3 stars in ${estMoves} moves.`;
+const canonical = `https://www.knitout.net/level/${id}`;
+const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+const videoThumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+const pageUrl = `https://www.knitout.net/level/${id}`;
+const videoDuration =
+  currentLevel < 50 ? "PT2M" :
+  currentLevel < 200 ? "PT3M" :
+  "PT4M";
+
+const howToTotalTime =
+  isHardLevel ? "PT6M" : "PT4M";
+
+// --- 5. 🔥 核心：组合式 Schema (Structure) ---
+const fullSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    // 1. 面包屑
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.knitout.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Levels", "item": "https://www.knitout.net/levels" },
+        { "@type": "ListItem", "position": 3, "name": `Level ${id}`, "item": pageUrl }
+      ]
+    },
+    // 2. 视频结构 (已修复：添加 duration)
+    {
+      "@type": "VideoObject",
+      "name": `How to beat Knit Out Level ${id}`,
+      "description": `Full walkthrough video for Knit Out Level ${id}.`,
+      "thumbnailUrl": [videoThumbUrl],
+      "uploadDate": "2026-01-01T08:00:00+08:00",
+      "duration": videoDuration,
+      "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+      "embedUrl": videoEmbedUrl,
+      "publisher": {
+        "@type": "Organization",
+        "name": "Knit Out Solutions",
+        "url": "https://www.knitout.net"
+      }
+    }
+    ,
+    // 3. 教程结构
+    {
+      "@type": "HowTo",
+      "name": `How to solve Knit Out Level ${id}`,
+      "totalTime": howToTotalTime,
+      "step": [
+        { "@type": "HowToStep", "name": "Analyze Layers", "text": step1Text },
+        { "@type": "HowToStep", "name": "Clear Top Yarn", "text": step2Text },
+        { "@type": "HowToStep", "name": "Final Clear", "text": step3Text }
+      ]
+    }
+
+  ]
+};
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <script type="application/ld+json" set:html={JSON.stringify(fullSchema)} slot="head" />
+  
+  <!-- 🔥 Level Meta for Search Engines -->
+  <section class="sr-only">
+    <p>Game: Knit Out</p>
+    <p>Level: {id}</p>
+    <p>Difficulty: {difficultyText}</p>
+    <p>Estimated Moves: {estMoves}</p>
+    <p>Stars: {stars}</p>
+    <p>Walkthrough Video Available</p>
+  </section>
+
+  <div class="level-detail-page">
+    <div class="level-container">
+      <!-- 面包屑导航 -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/" class="breadcrumb-link">Home</a> 
+        <svg class="breadcrumb-arrow" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M6 12l6-6-6-6"/>
+        </svg>
+        <a href="/levels" class="breadcrumb-link">Levels</a> 
+        <svg class="breadcrumb-arrow" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M6 12l6-6-6-6"/>
+        </svg>
+        <span class="breadcrumb-current">Level {id}</span>
+      </nav>
+
+      <div class="level-layout">
+        <!-- 左侧主内容区域 -->
+        <div class="main-content">
+          <!-- 视频区域 -->
+          <div class="video-section">
+            <div class="section-header">
+              <h1 class="page-title">How to beat <span class="highlight-level">Level {id}</span></h1>
+              <div class="difficulty-badge">
+                <span class="badge-label">Difficulty:</span>
+                <span class={`badge-value ${isHardLevel ? 'hard' : 'normal'}`}>
+                  {difficultyText}
+                </span>
+              </div>
+            </div>
+            
+            <div class="video-wrapper">
+              <div class="video-container">
+                <iframe 
+                  class="video-player"
+                  src={videoEmbedUrl} 
+                  title={`Knit Out Level ${id} Solution`}
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen
+                  loading="lazy"
+                >
+                </iframe>
+              </div>
+            </div>
+
+            <!-- 导航按钮 -->
+            <div class="navigation-controls">
+              {currentLevel > 1 ? (
+                <a href={`/level/${currentLevel - 1}`} class="nav-button prev-button">
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                  </svg>
+                  <span>Previous Level</span>
+                </a>
+              ) : (
+                <button class="nav-button disabled-button" disabled>
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                  </svg>
+                  <span>Previous Level</span>
+                </button>
+              )}
+
+              <a href="/levels" class="nav-button levels-button">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"/>
+                  <rect x="14" y="3" width="7" height="7"/>
+                  <rect x="3" y="14" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/>
+                </svg>
+                <span>All Levels</span>
+              </a>
+
+              {currentLevel < totalLevels ? (
+                <a href={`/level/${currentLevel + 1}`} class="nav-button next-button">
+                  <span>Next Level</span>
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </a>
+              ) : (
+                <button class="nav-button disabled-button" disabled>
+                  <span>Next Level</span>
+                  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+
+          <!-- 步骤指南 -->
+          <div class="steps-section">
+            <div class="section-header">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2v20M2 12h20" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="4"/>
+              </svg>
+              <h2 class="section-title">Step-by-Step Strategy</h2>
+            </div>
+            
+            <div class="steps-container">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h3 class="step-title">Analyze Layers</h3>
+                  <p class="step-description">{step1Text}</p>
+                </div>
+              </div>
+              
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h3 class="step-title">Clear Top Yarn</h3>
+                  <p class="step-description">{step2Text}</p>
+                </div>
+              </div>
+              
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h3 class="step-title">Final Clear</h3>
+                  <p class="step-description">{step3Text}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧边栏 -->
+        <div class="sidebar">
+          <!-- 游戏推广 -->
+          <div class="promo-card">
+            <div class="promo-header">
+              <svg class="promo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <h3 class="promo-title">Mastered Knit Out?</h3>
+            </div>
+            <p class="promo-description">Discover more popular puzzle games loved by Knit Out players.</p>
+            <a href="/hot-games" class="promo-button">
+              <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21V5h12v16M9 21H7a2 2 0 01-2-2v-9a2 2 0 012-2h10a2 2 0 012 2v9a2 2 0 01-2 2H9z"/>
+                <path d="M9 9h12"/>
+              </svg>
+              Explore Hot Games
+            </a>
+          </div>
+
+          <!-- 附近关卡 -->
+          <div class="sidebar-card">
+            <div class="sidebar-header">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+              <h3 class="sidebar-title">Nearby Levels</h3>
+            </div>
+            
+            <div class="levels-grid">
+              {nearbyLevels.map(lvl => (
+                <a href={`/level/${lvl}`} class="level-link" title={`Go to Level ${lvl}`}>
+                  {lvl}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- 热门指南 -->
+          <div class="sidebar-card">
+            <div class="sidebar-header">
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+              <h3 class="sidebar-title">Trending Now</h3>
+            </div>
+            
+            <div class="trending-list">
+              {hotLevels.map(lvl => (
+                <a href={`/level/${lvl}`} class="trending-item">
+                  <div class="trending-number">Level {lvl}</div>
+                  <div class="trending-content">
+                    <span class="trending-title">Level {lvl} Guide</span>
+                    <span class="trending-label">Popular Walkthrough</span>
+                  </div>
+                  <svg class="trending-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* CSS变量定义 */
+  :root {
+    --bg-page: #f9fafb;
+    --bg-white: #ffffff;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f8fafc;
+    --bg-promo: linear-gradient(135deg, #ffedd5, #fed7aa);
+    --text-dark: #1f2937;
+    --text-gray: #6b7280;
+    --text-light: #9ca3af;
+    --accent-blue: #3b82f6;
+    --accent-green: #10b981;
+    --accent-orange: #f59e0b;
+    --accent-red: #ef4444;
+    --accent-purple: #8b5cf6;
+    --border-color: #e5e7eb;
+    --border-light: #f3f4f6;
+    --border-dark: #d1d5db;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 整体页面样式 */
+  .level-detail-page {
+    background: var(--bg-page);
+    min-height: 100vh;
+    padding: 2rem 0 4rem;
+  }
+
+  .level-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* 面包屑导航 */
+  .breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-link {
+    color: var(--text-gray);
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--accent-blue);
+    background: var(--bg-sidebar);
+  }
+
+  .breadcrumb-arrow {
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.4;
+  }
+
+  .breadcrumb-current {
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    background: var(--bg-white);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+  }
+
+  /* 主布局 */
+  .level-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .level-layout {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /* 主内容区域 */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* 视频区域 */
+  .video-section {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+  }
+
+  .highlight-level {
+    color: var(--accent-blue);
+    font-weight: 800;
+  }
+
+  .difficulty-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-sidebar);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+  }
+
+  .badge-label {
+    color: var(--text-gray);
+    font-size: 0.875rem;
+  }
+
+  .badge-value {
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .badge-value.normal {
+    color: var(--accent-green);
+  }
+
+  .badge-value.hard {
+    color: var(--accent-red);
+  }
+
+  /* 视频容器 */
+  .video-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 宽高比 */
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: #000;
+  }
+
+  .video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* 导航按钮 */
+  .navigation-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 2px solid transparent;
+  }
+
+  .nav-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .prev-button {
+    background: var(--bg-sidebar);
+    color: var(--text-gray);
+    border-color: var(--border-color);
+  }
+
+  .prev-button:hover {
+    background: var(--border-light);
+    transform: translateX(-2px);
+  }
+
+  .levels-button {
+    background: var(--bg-white);
+    color: var(--accent-blue);
+    border-color: var(--accent-blue);
+  }
+
+  .levels-button:hover {
+    background: var(--accent-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .next-button {
+    background: var(--accent-blue);
+    color: white;
+  }
+
+  .next-button:hover {
+    background: #2563eb;
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--bg-sidebar);
+    color: var(--text-light);
+    border: 2px solid var(--border-color);
+  }
+
+  /* 步骤指南 */
+  .steps-section {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--accent-blue);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .step-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--accent-blue), #60a5fa);
+    color: white;
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-md);
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-description {
+    color: var(--text-gray);
+    line-height: 1.6;
+  }
+
+  /* 右侧边栏 */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* 推广卡片 */
+  .promo-card {
+    background: var(--bg-promo);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid #fed7aa;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .promo-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .promo-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #ea580c;
+  }
+
+  .promo-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #7c2d12;
+  }
+
+  .promo-description {
+    color: #92400e;
+    font-size: 0.9375rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .promo-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: #ea580c;
+    color: white;
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+  }
+
+  .promo-button:hover {
+    background: #c2410c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+  }
+
+  .button-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  /* 侧边栏卡片 */
+  .sidebar-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .sidebar-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--accent-blue);
+  }
+
+  .sidebar-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* 附近关卡网格 */
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .level-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
+    background: var(--bg-sidebar);
+    color: var(--text-gray);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+    border: 2px solid transparent;
+  }
+
+  .level-link:hover {
+    background: var(--accent-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  /* 热门列表 */
+  .trending-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .trending-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+    background: var(--bg-sidebar);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: var(--transition);
+    border: 1px solid transparent;
+  }
+
+  .trending-item:hover {
+    background: white;
+    border-color: var(--accent-blue);
+    transform: translateX(4px);
+  }
+
+  .trending-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--accent-blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .trending-content {
+    flex: 1;
+  }
+
+  .trending-title {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.9375rem;
+  }
+
+  .trending-label {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
+  }
+
+  .trending-arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--text-light);
+    opacity: 0.5;
+  }
+
+  .trending-item:hover .trending-arrow {
+    color: var(--accent-blue);
+    opacity: 1;
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 767px) {
+    .level-detail-page {
+      padding: 1.5rem 0 3rem;
+    }
+    
+    .level-container {
+      padding: 0 1rem;
+    }
+    
+    .page-title {
+      font-size: 1.5rem;
+    }
+    
+    .video-section,
+    .steps-section,
+    .sidebar-card,
+    .promo-card {
+      padding: 1.5rem;
+    }
+    
+    .step-item {
+      gap: 1rem;
+    }
+    
+    .step-number {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.125rem;
+    }
+    
+    .levels-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .navigation-controls {
+      flex-direction: column;
+    }
+    
+    .nav-button {
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .levels-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .sidebar-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+  /* 动画效果 */
+  .video-container {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .step-item {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .step-item:nth-child(1) { animation-delay: 0.1s; }
+  .step-item:nth-child(2) { animation-delay: 0.2s; }
+  .step-item:nth-child(3) { animation-delay: 0.3s; }
+
+  .sidebar > * {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .sidebar > *:nth-child(1) { animation-delay: 0.4s; }
+  .sidebar > *:nth-child(2) { animation-delay: 0.5s; }
+  .sidebar > *:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,46 @@
+# KnitOut Robots.txt
+# Optimized for Astro pSEO & Cloudflare
+
+User-agent: *
+Allow: /
+# 禁止爬虫抓取搜索结果页和错误页，节省爬虫预算
+Disallow: /search
+Disallow: /404
+Disallow: /500
+# 禁止抓取 Cloudflare 系统目录
+Disallow: /cdn-cgi/
+# 如果你的后台或管理页面没有部署，可以删掉下面这两行，保留也没事
+Disallow: /admin/
+Disallow: /private/
+
+# 针对 AI 爬虫的设置
+# 如果你想让 AI (ChatGPT/Claude) 读取你的攻略并在回答中引用你，建议设为 Allow: /
+# 下面的设置是：只允许它们读取 llms.txt (AI专用索引)，禁止读取其他页面
+User-Agent: GPTBot
+Allow: /llms.txt
+Disallow: /
+
+User-Agent: ClaudeBot
+Allow: /llms.txt
+Disallow: /
+
+User-Agent: anthropic-ai
+Allow: /llms.txt
+Disallow: /
+
+# Googlebot 优化
+User-Agent: Googlebot
+Allow: /
+# 禁止 Google 抓取 API 接口（如果有）和 JSON 数据文件
+Disallow: /api/
+Disallow: /*.json$
+# 确保 Google 能抓取 CSS/JS/图片 (这对渲染至关重要)
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Sitemap (Astro 默认生成的通常是 sitemap-index.xml，请核对)
+Sitemap: https://www.knitout.net/sitemap-index.xml

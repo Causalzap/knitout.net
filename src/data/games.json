@@ -1,0 +1,52 @@
+[
+    {
+      "id": "cookingdom",
+      "title": "Cookingdom",
+      "description": "Master every recipe! The ultimate strategy guide and walkthrough database.",
+      "type": "strategy",
+      "iframeUrl": "",
+      "thumbnail": "fa-utensils",
+      "color": "from-orange-400 to-red-500",
+      "tags": ["Simulation", "Strategy"]
+    },
+    {
+      "id": "block-blast",
+      "title": "Block Blast",
+      "description": "Classic puzzle game. clear lines and beat your high score.",
+      "type": "iframe",
+      "iframeUrl": "https://blockblast.game/game",
+      "thumbnail": "fa-cubes",
+      "color": "from-blue-400 to-cyan-500",
+      "tags": ["Puzzle", "Classic"]
+    },
+    {
+      "id": "color-block-jam",
+      "title": "Color Block Jam",
+      "description": "Strategic block matching. Slide blocks to match colors and clear the board.",
+      "type": "iframe",
+      "iframeUrl": "https://1games.io/game/color-block-jam/",
+      "thumbnail": "fa-layer-group",
+      "color": "from-purple-500 to-indigo-500",
+      "tags": ["Puzzle", "Logic"]
+    },
+    {
+      "id": "sand-blast-block",
+      "title": "Sand Blast Block",
+      "description": "Satisfying physics game. Blast the blocks and guide the sand.",
+      "type": "iframe",
+      "iframeUrl": "https://online.sandblastgame.com/",
+      "thumbnail": "fa-wind",
+      "color": "from-yellow-400 to-orange-400",
+      "tags": ["Physics", "Relaxing"]
+    },
+    {
+      "id": "stickhole-io",
+      "title": "Stickhole.io",
+      "description": "Swallow everything! Control the hole and grow bigger in this .io game.",
+      "type": "iframe",
+      "iframeUrl": "https://www.gamenora.com/splash/stickhole-io/",
+      "thumbnail": "fa-circle-notch",
+      "color": "from-green-400 to-emerald-600",
+      "tags": ["Arcade", "IO"]
+    }
+  ]

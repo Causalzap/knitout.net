@@ -1,0 +1,205 @@
+/* CSS变量定义 */
+:root {
+  /* 背景颜色 */
+  --bg-page: #f9fafb;
+  --bg-card: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --bg-featured: linear-gradient(135deg, #ffedd5, #fed7aa);
+  
+  /* 文字颜色 */
+  --text-dark: #1f2937;
+  --text-gray: #6b7280;
+  --text-light: #9ca3af;
+  --text-accent: #3b82f6;
+  
+  /* 品牌颜色 */
+  --accent-blue: #3b82f6;
+  --accent-green: #10b981;
+  --accent-orange: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  --accent-cyan: #06b6d4;
+  
+  /* 边框颜色 */
+  --border-color: #e5e7eb;
+  --border-light: #f3f4f6;
+  --border-dark: #d1d5db;
+  
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 2rem;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* 过渡动画 */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 基础样式类 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* 页面容器 */
+.games-page {
+  background: var(--bg-page);
+  min-height: 100vh;
+  padding: 3rem 0 5rem;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.title-accent {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-description {
+  font-size: 1.25rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+}
+
+/* 游戏网格布局 */
+.games-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* 基础卡片样式 */
+.base-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+  text-decoration: none;
+  display: block;
+  position: relative;
+}
+
+.base-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* 游戏卡片特定样式 */
+.game-card {
+  composes: base-card;
+  /* 添加游戏卡片特有样式 */
+}
+
+/* 特色卡片样式 */
+.featured-card {
+  grid-column: 1 / -1;
+  position: relative;
+}
+
+.featured-card::before {
+  content: '🔥 Featured Game';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, var(--accent-orange), #d97706);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  z-index: 10;
+}
+
+/* 内容卡片样式 */
+.content-card {
+  composes: base-card;
+  padding: 2rem;
+}
+
+/* FAQ卡片样式 */
+.faq-card {
+  composes: base-card;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 动画效果 */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式断点 */
+@media (min-width: 768px) {
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .featured-card {
+    grid-column: span 2;
+  }
+  
+  .page-title {
+    font-size: 3.5rem;
+  }
+  
+  .page-description {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .games-page {
+    padding: 2rem 0 3rem;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+  }
+  
+  .page-description {
+    font-size: 1.125rem;
+  }
+}

@@ -1,0 +1,471 @@
+---
+// ... 组件导入和props保持不变 ...
+---
+
+<div class="game-content-wrapper">
+    <!-- 游戏概览部分 -->
+    <section class="mb-12 pb-8 border-b border-white/10">
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+        🎮 Game Overview
+      </h2>
+      <p class="text-gray-300 mb-4 leading-relaxed">
+        <strong class="text-white">Block Blast</strong> is the ultimate brain exercise, inspired by the timeless geometry of classic block games but elevated by a fresh, color-matching strategic core. Unlike traditional falling-block challenges, Block Blast requires pure logical thinking and calculated pre-planning.
+      </p>
+      <p class="text-gray-300 mb-6 leading-relaxed">
+        It's easy to pick up, but reaching the master level demands precision, observation, and a true high-score strategy. Are you ready to sharpen your spatial reasoning and become a Block Blast grandmaster?
+      </p>
+  
+      <div class="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-5 border border-blue-500/20">
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="text-yellow-400">🎯</span> Who Should Play?
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="bg-white/5 rounded-lg p-3 border border-white/5">
+            <h4 class="font-semibold text-white text-sm mb-2">Strategy Enthusiasts</h4>
+            <p class="text-xs text-gray-400">Players who thrive on calculated moves and long-term planning.</p>
+          </div>
+          <div class="bg-white/5 rounded-lg p-3 border border-white/5">
+            <h4 class="font-semibold text-white text-sm mb-2">Logic Trainers</h4>
+            <p class="text-xs text-gray-400">Anyone seeking to improve their logical thinking and spatial awareness.</p>
+          </div>
+          <div class="bg-white/5 rounded-lg p-3 border border-white/5">
+            <h4 class="font-semibold text-white text-sm mb-2">Puzzle Veterans</h4>
+            <p class="text-xs text-gray-400">Those looking for a deep, score-maximizing challenge beyond simple matching games.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- 如何游玩部分 -->
+    <section class="mb-12 pb-8 border-b border-white/10">
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent mb-4">
+        🎮 How to Play Block Blast?
+      </h2>
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-md bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+            <span class="text-emerald-400 text-xs font-bold">1</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white mb-1">Goal</h4>
+            <p class="text-gray-300 text-sm">Arrange blocks of the same color to form complete horizontal lines or vertical columns to eliminate them from the board.</p>
+          </div>
+        </div>
+  
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-md bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+            <span class="text-blue-400 text-xs font-bold">2</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white mb-1">Pure Strategy</h4>
+            <p class="text-gray-300 text-sm">This game strips away the chaos of gravity to focus entirely on calculated placement.</p>
+          </div>
+        </div>
+  
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-md bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+            <span class="text-purple-400 text-xs font-bold">3</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white mb-1">Logical Requirement</h4>
+            <p class="text-gray-300 text-sm">Elimination is achieved only when the small squares are completely filled in the row or column—forcing players to be precise and strategic with every placement.</p>
+          </div>
+        </div>
+  
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-md bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+            <span class="text-amber-400 text-xs font-bold">4</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white mb-1">Three-Block System</h4>
+            <p class="text-gray-300 text-sm">The blocks ready for use are displayed at the bottom of the screen—always showing three randomly generated blocks. You must calculate the optimal placement for all three before placing the first one.</p>
+          </div>
+        </div>
+  
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-md bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+            <span class="text-red-400 text-xs font-bold">5</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white mb-1">Score Maximization</h4>
+            <p class="text-gray-300 text-sm">Every successful column or row destroyed grants you additional points. Balance clearing space with achieving multi-line destruction for the highest score potential.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- 核心特性网格 -->
+    <section class="mb-12 pb-8 border-b border-white/10">
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-6">
+        ⭐ Core Features: Precision, Strategy, and Depth
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-xl p-5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center text-2xl mb-4">
+            🧠
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Pure Strategy Core</h3>
+          <p class="text-gray-300 text-sm">Focus entirely on calculated placement without time pressure. Eliminate blocks by forming complete lines or columns.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-amber-500/10 to-amber-600/10 rounded-xl p-5 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center text-2xl mb-4">
+            🏆
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Score Maximization</h3>
+          <p class="text-gray-300 text-sm">Achieve high scores through smart elimination. Bonus points for multi-line destruction and strategic planning.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 rounded-xl p-5 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center text-2xl mb-4">
+            👁️
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Three-Block Pre-Planning</h3>
+          <p class="text-gray-300 text-sm">Master the art of observing three upcoming blocks and calculating optimal placements before your first move.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-rose-500/10 to-rose-600/10 rounded-xl p-5 border border-rose-500/20 hover:border-rose-500/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-rose-500/20 flex items-center justify-center text-2xl mb-4">
+            ⚡
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">No-Timer Challenge</h3>
+          <p class="text-gray-300 text-sm">Enjoy a relaxing, thoughtful experience that tests your pure logic skills without the pressure of a countdown.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-violet-500/10 to-violet-600/10 rounded-xl p-5 border border-violet-500/20 hover:border-violet-500/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-violet-500/20 flex items-center justify-center text-2xl mb-4">
+            🎯
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Increasing Difficulty</h3>
+          <p class="text-gray-300 text-sm">As you progress, the game introduces more complex block shapes, demanding superior spatial reasoning.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-cyan-500/10 to-cyan-600/10 rounded-xl p-5 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-cyan-500/20 flex items-center justify-center text-2xl mb-4">
+            🚀
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-2">Instant Play</h3>
+          <p class="text-gray-300 text-sm">No sign-ups required; play instantly online without registration. Perfect for quick brain training sessions.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- 策略指南 -->
+    <section class="mb-12 pb-8 border-b border-white/10">
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-6">
+        💡 Strategy Guide: Becoming a Master
+      </h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-gradient-to-br from-amber-500/10 to-amber-600/10 rounded-xl p-6 border border-amber-500/20">
+          <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <span class="text-amber-400">🧠</span> Strategic Thinking & High Score Maximization
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+              </div>
+              <span class="text-sm text-gray-300"><strong class="text-white">Keep the screen empty:</strong> The highest scores come from maintaining as much empty space as possible while setting up multi-line eliminations.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+              </div>
+              <span class="text-sm text-gray-300"><strong class="text-white">Plan in sets of three:</strong> Always calculate the optimal placement order for all three upcoming blocks to minimize permanent fragments.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+              </div>
+              <span class="text-sm text-gray-300"><strong class="text-white">Create elimination channels:</strong> Focus on creating vertical and horizontal open lines that can be easily filled for future eliminations.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+              </div>
+              <span class="text-sm text-gray-300"><strong class="text-white">Balance priorities:</strong> When the screen gets crowded, shift from high-score strategies to immediate space-clearing tactics.</span>
+            </li>
+          </ul>
+        </div>
+  
+        <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 rounded-xl p-6 border border-emerald-500/20">
+          <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+            <span class="text-emerald-400">🏆</span> Appeal and Competition
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+              </div>
+              <span class="text-sm text-gray-300"><strong class="text-white">For Tetris veterans:</strong> Block Blast offers a deeper, more cerebral challenge that substitutes time pressure with pure strategic complexity.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+              </div>
+              <span class="text-sm text-gray-300"><strong class="text-white">Global competition:</strong> The pursuit of the highest score drives the core competition. Aim to dominate the leaderboards!</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <!-- 平台兼容性 -->
+    <section class="mb-12 pb-8 border-b border-white/10">
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-6">
+        🌍 Platform Compatibility
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-xl p-5 border border-cyan-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+              <i class="fas fa-desktop text-cyan-400"></i>
+            </div>
+            <h3 class="font-semibold text-white">Desktop Experience</h3>
+          </div>
+          <p class="text-sm text-gray-300">Optimized for desktop browsers with smooth performance and precise controls.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-5 border border-blue-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-mobile-alt text-blue-400"></i>
+            </div>
+            <h3 class="font-semibold text-white">Mobile Access</h3>
+          </div>
+          <p class="text-sm text-gray-300">Currently best experienced on desktop devices for optimal strategic planning.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-emerald-500/10 to-green-500/10 rounded-xl p-5 border border-emerald-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+              <i class="fas fa-download text-emerald-400"></i>
+            </div>
+            <h3 class="font-semibold text-white">No Downloads Required</h3>
+          </div>
+          <p class="text-sm text-gray-300">Requires no downloads or installation - play directly in your browser.</p>
+        </div>
+  
+        <div class="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-5 border border-green-500/20">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+              <i class="fas fa-unlock text-green-400"></i>
+            </div>
+            <h3 class="font-semibold text-white">100% Free to Play</h3>
+          </div>
+          <p class="text-sm text-gray-300">Complete access to all game features without any cost or subscription.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- 为什么在此游玩 -->
+    <section class="mb-12 pb-8 border-b border-white/10">
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-6">
+        🎮 Why Play Block Blast on Knit Out?
+      </h2>
+      
+      <div class="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {['Curated selection of high-quality logic and puzzle games', 'Free to play with minimal interruptions for a focused experience', 'Guaranteed Unblocked Access for uninterrupted gameplay', 'Regular updates and recommendations for similar brain-training games', 'Score tracking to monitor your improvement over time'].map((item, index) => (
+            <div class="flex items-start gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+              <div class="w-6 h-6 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-white text-xs"></i>
+              </div>
+              <span class="text-sm text-gray-300">{item.replace('🚀 ', '').replace('🆓 ', '').replace('🔓 ', '').replace('🏆 ', '').replace('📊 ', '')}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  
+    <!-- FAQ 部分 -->
+    <section class="mb-12">
+        <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-6">
+          ❓ Block Blast FAQ
+        </h2>
+      
+        <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
+          {[
+            {
+              question: 'Is Block Blast free to play?',
+              answer: 'Yes, Block Blast is completely free with no in-game purchases or hidden costs.'
+            },
+            {
+              question: "What's the main difference between Block Blast and Tetris?",
+              answer: 'Block Blast focuses on pure strategy without time pressure. Instead of falling blocks, you strategically place blocks to form complete lines, with three blocks visible for pre-planning.'
+            },
+            {
+              question: 'How do I achieve the highest scores?',
+              answer: 'Focus on multi-line eliminations, keep the board as empty as possible, and always plan three moves ahead using the block preview system.'
+            },
+            {
+              question: 'What happens when the game gets harder?',
+              answer: 'As you achieve higher scores, the game introduces more complex block shapes that require superior spatial reasoning and strategic planning.'
+            },
+            {
+              question: 'Is there a time limit in Block Blast?',
+              answer: 'No, Block Blast is a no-timer challenge that allows you to think through each move carefully, making it perfect for strategic thinkers.'
+            },
+            {
+              question: 'Can I play Block Blast on mobile devices?',
+              answer: "While the game is accessible on mobile browsers, it's optimized for desktop play where strategic planning is easier with precise mouse controls."
+            },
+            {
+              question: "What's the best strategy for beginners?",
+              answer: 'Start by focusing on keeping the board organized, create elimination channels, and always look at all three upcoming blocks before making your first move.'
+            }
+          ].map((faq, index) => (
+            <div
+              class="bg-white/5 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 overflow-hidden"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <button
+                type="button"
+                class="w-full flex items-center justify-between p-5 text-left"
+                data-faq-toggle
+                aria-expanded="false"
+                aria-controls={`faq-${index}`}
+              >
+                <div class="flex items-center gap-4">
+                  <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                    <span class="text-purple-400 font-semibold text-sm">Q{index + 1}</span>
+                  </div>
+                  <h3 class="text-lg font-semibold text-white" itemprop="name">
+                    {faq.question}
+                  </h3>
+                </div>
+                <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+              </button>
+      
+              <div
+                id={`faq-${index}`}
+                class="hidden p-5 pt-0 border-t border-white/10"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="text-gray-300" itemprop="text">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      
+  
+    <!-- 最终召唤行动 -->
+    <section class="bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-8 border border-white/10 text-center">
+        <h2 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+          ⬇️ Final Call: Your Brain's Next Challenge Awaits
+        </h2>
+      
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Block Blast is more than a puzzle—it's a rigorous workout for your mind, built on pure strategy and calculation.
+        </p>
+      
+        <p class="text-white font-semibold mb-4 text-lg">
+          🧩 Don't just play blocks. Master the logic.
+        </p>
+      
+        <p class="text-gray-300 mb-6 leading-relaxed">
+          Play Block Blast now and prove your strategic genius!
+        </p>
+      
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            type="button"
+            class="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/30"
+            data-scroll-to-game
+          >
+            <i class="fas fa-play mr-2"></i> Play Now
+          </button>
+      
+          <button
+            type="button"
+            class="px-8 py-3 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105"
+            data-fullscreen
+          >
+            <i class="fas fa-expand mr-2"></i> Fullscreen Mode
+          </button>
+        </div>
+      </section>
+      
+    
+</div>
+  
+  <style>
+    /* 添加一些交互效果 */
+    .game-content-wrapper {
+      scroll-behavior: smooth;
+    }
+    
+    /* FAQ 手风琴动画 */
+    [onClick*="toggle"] + div {
+      transition: all 0.3s ease-out;
+    }
+    
+    /* 渐变文字效果 */
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+  
+  <script>
+    // FAQ 手风琴
+    function initFaqAccordion() {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-faq-toggle]');
+  
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const controlsId = btn.getAttribute('aria-controls');
+          if (!controlsId) return;
+  
+          const content = document.getElementById(controlsId);
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+  
+          btn.setAttribute('aria-expanded', (!expanded).toString());
+  
+          // 展开/收起
+          content?.classList.toggle('hidden', expanded);
+  
+          // 旋转图标
+          const icon = btn.querySelector('i');
+          icon?.classList.toggle('rotate-180', !expanded);
+        });
+      });
+    }
+  
+    // Play Now：滚动到 iframe
+    function initScrollToGame() {
+      const btn = document.querySelector<HTMLButtonElement>('[data-scroll-to-game]');
+      btn?.addEventListener('click', () => {
+        const iframe = document.getElementById('game-iframe');
+        iframe?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  
+    // Fullscreen：点击你已有的 fullscreen 按钮
+    function initFullscreenProxy() {
+      const btn = document.querySelector<HTMLButtonElement>('[data-fullscreen]');
+      btn?.addEventListener('click', () => {
+        const fsBtn = document.getElementById('fullscreen-btn') as HTMLButtonElement | null;
+        fsBtn?.click();
+      });
+    }
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      initFaqAccordion();
+      initScrollToGame();
+      initFullscreenProxy();
+    });
+  </script>
+  

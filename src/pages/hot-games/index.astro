@@ -1,0 +1,468 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import gamesData from '../../data/games.json';
+
+const title = "Hot Games - Play Free Puzzles & View Strategies";
+const description = "Play free online games like Block Blast and Sand Blast. Get expert strategy guides for Knit Out and Cookingdom.";
+const canonical = "https://www.knitout.net/hot-games";
+
+// 🔥 FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are these games free to play?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! All games listed here, including Block Blast and Cookingdom, are 100% free to play in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which game is best for brain training?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For pure logic and spatial awareness, we recommend Knit Out or Block Blast. Both require forward thinking and pattern recognition."
+      }
+    }
+  ]
+};
+
+// ⭐ ItemList Schema（机器读懂这是一个游戏 Hub）
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": gamesData.map((game, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": game.title,
+    "url": `https://www.knitout.net/${game.type === 'strategy' ? game.id : `hot-games/${game.id}`}`
+  }))
+};
+
+// 颜色映射函数 (保持你原来的)
+const getGameColors = (id: string) => {
+  const colorMap: Record<string, { gradient: string; light: string; text: string }> = {
+    'knit-out': { gradient: 'linear-gradient(135deg, #3b82f6, #2563eb)', light: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6'},
+    'cookingdom': { gradient: 'linear-gradient(135deg, #10b981, #059669)', light: 'rgba(16, 185, 129, 0.1)', text: '#10b981'},
+    'block-blast': { gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', light: 'rgba(139, 92, 246, 0.1)', text: '#8b5cf6'},
+    'sand-blast-block': { gradient: 'linear-gradient(135deg, #f59e0b, #d97706)', light: 'rgba(245, 158, 11, 0.1)', text: '#f59e0b'},
+    'stickhole-io': { gradient: 'linear-gradient(135deg, #ec4899, #db2777)', light: 'rgba(236, 72, 153, 0.1)', text: '#ec4899'},
+    'color-block-jam': { gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)', light: 'rgba(6, 182, 212, 0.1)', text: '#06b6d4'}
+  };
+  return colorMap[id] || { gradient: 'linear-gradient(135deg, #6b7280, #4b5563)', light: 'rgba(107, 114, 128, 0.1)', text: '#6b7280'};
+};
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  
+    <div class="games-page">
+      <div class="games-container">
+  
+        <!-- Header -->
+        <div class="page-header">
+          <h1 class="page-title">Hot <span class="title-accent">Games</span></h1>
+          <p class="page-description">
+            Discover today’s most popular browser games — from relaxing block puzzles to fast-paced arcade challenges.
+            Play instantly or dive into expert strategies curated by KnitOut.net.
+          </p>
+        </div>
+
+        <!-- Game Cards -->
+        <div class="games-grid mb-24">
+            {gamesData.map((game) => {
+              const colors = getGameColors(game.id);
+              const linkUrl = game.type === 'strategy' ? `/${game.id}` : `/hot-games/${game.id}`;
+              const btnText = game.type === 'strategy' ? "Get Strategy" : "Play Now";
+              const isFeatured = game.id === 'cookingdom';
+    
+              return (
+                <a href={linkUrl} class={`game-card ${isFeatured ? 'featured-card' : ''}`}
+                  style={`--game-gradient:${colors.gradient};--game-light:${colors.light};--game-text:${colors.text};`}>
+                  <div class="card-header"></div>
+                  <div class="card-content">
+                    <h3 class="game-title">{game.title}</h3>
+                    <p class="game-description">{game.description}</p>
+                    <span class="sr-only">
+                      This is a free online browser game popular among casual and puzzle game players.
+                    </span>
+                    <div class="game-action">
+                      <span>{btnText}</span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        
+        
+          <!-- Comparison -->
+      <div class="section-container mb-24">
+         <div class="section-header">
+            <h2 class="section-title">Quick Comparison: Find Your Match</h2>
+            <p class="section-subtitle text-center max-w-3xl mx-auto">
+                These strategy overviews are written by experienced players to help you progress faster,
+                avoid common mistakes, and enjoy each game at a deeper level — whether you're a beginner or a veteran.
+            </p>
+         </div>
+         
+         <div class="table-wrapper">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Game Title</th>
+                        <th>Genre</th>
+                        <th>Pacing</th>
+                        <th>Difficulty</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="game-name"><span class="dot knit-dot"></span>Knit Out</td>
+                        <td>Sort Puzzle</td>
+                        <td>Relaxed</td>
+                        <td><span class="diff-high">High</span></td>
+                        <td>Deep thinkers</td>
+                    </tr>
+                    <tr>
+                        <td class="game-name"><span class="dot block-dot"></span>Block Blast</td>
+                        <td>Grid Puzzle</td>
+                        <td>Relaxed</td>
+                        <td><span class="diff-low">Gentle</span></td>
+                        <td>Quick breaks</td>
+                    </tr>
+                    <tr>
+                        <td class="game-name"><span class="dot cook-dot"></span>Cookingdom</td>
+                        <td>Simulation</td>
+                        <td>Fast</td>
+                        <td><span class="diff-med">Medium</span></td>
+                        <td>Multitaskers</td>
+                    </tr>
+                    <tr>
+                        <td class="game-name"><span class="dot sand-dot"></span>Sand Blast</td>
+                        <td>Physics</td>
+                        <td>Moderate</td>
+                        <td><span class="diff-low">Low</span></td>
+                        <td>Visual satisfaction</td>
+                    </tr>
+                    <tr>
+                        <td class="game-name"><span class="dot stick-dot"></span>Stickhole.io</td>
+                        <td>Arcade / IO</td>
+                        <td>Intense</td>
+                        <td><span class="diff-var">Variable</span></td>
+                        <td>Competitive players</td>
+                    </tr>
+                </tbody>
+            </table>
+         </div>
+      </div>
+
+      <!-- Strategy Guides -->
+      <div class="section-container mb-24">
+        <h2 class="section-title text-center mb-12">Expert Strategy Guides</h2>
+        <p class="section-subtitle text-center max-w-3xl mx-auto">
+            These strategy overviews are written by experienced players to help you progress faster,
+            avoid common mistakes, and enjoy each game at a deeper level.
+          </p>
+        
+        <div class="strategy-grid">
+            <div class="strategy-card puzzle-card">
+                <div class="strategy-header">
+                    <h3 class="strategy-title">Logic & Puzzle Strategy</h3>
+                    <p class="strategy-subtitle">Best for: <strong>Knit Out, Block Blast</strong></p>
+                </div>
+
+                <div class="strategy-content">
+                    <div class="strategy-block">
+                        <span class="badge beginner">Beginner Tips</span>
+                        <ul class="strategy-list">
+                            <li><strong>Take Your Time:</strong> Unlike arcade games, these puzzles usually have no timer. Rushing leads to mistakes. Analyze the board before clicking.</li>
+                            <li><strong>Clear From the Top:</strong> In games like <em>Knit Out</em>, focusing on top layers often reveals critical moves underneath.</li>
+                        </ul>
+                    </div>
+                    <div class="strategy-block">
+                        <span class="badge expert">Veteran Tactics</span>
+                        <ul class="strategy-list">
+                            <li><strong>Set Up Combos:</strong> In <em>Block Blast</em>, build up structure to clear 3-4 lines at once for massive score multipliers.</li>
+                            <li><strong>Look for Patterns:</strong> Learn to recognize "sandwich" structures (A-B-A) to clear spools efficiently.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="strategy-card arcade-card">
+                <div class="strategy-header">
+                    <h3 class="strategy-title">Simulation & Action Strategy</h3>
+                    <p class="strategy-subtitle">Best for: <strong>Cookingdom, Stickhole.io</strong></p>
+                </div>
+                <div class="strategy-content">
+                    <div class="strategy-block">
+                        <span class="badge beginner">Beginner Tips</span>
+                        <ul class="strategy-list">
+                            <li><strong>One Thing at a Time:</strong> In <em>Cookingdom</em>, focus on one order completely before starting the next to prevent burning food.</li>
+                            <li><strong>Stay Small, Stay Safe:</strong> In <em>Stickhole.io</em>, avoid large players early on. Farm small objects to grow safely.</li>
+                        </ul>
+                    </div>
+                    <div class="strategy-block">
+                        <span class="badge expert">Veteran Tactics</span>
+                        <ul class="strategy-list">
+                            <li><strong>Upgrade Efficiency:</strong> Upgrade cooking speed first. Faster cooking times mean more profit per second.</li>
+                            <li><strong>Prediction:</strong> Predict where your opponent is moving. Cut off their path to trap them.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">How to Choose the Right Game</h2>
+            <p class="section-subtitle">Find your perfect match based on your mood.</p>
+        </div>
+        <div class="games-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            <div class="info-card text-center">
+                <div class="info-icon text-blue-600 bg-blue-100">🧠</div>
+                <h3 class="info-title">Logic Lovers</h3>
+                <p class="info-desc">If you enjoy patterns and thinking ahead.</p>
+                <div class="info-cta text-blue-600">Play Knit Out</div>
+            </div>
+            <div class="info-card text-center">
+                <div class="info-icon text-orange-600 bg-orange-100">⏱️</div>
+                <h3 class="info-title">Multitaskers</h3>
+                <p class="info-desc">If you love time management and upgrades.</p>
+                <div class="info-cta text-orange-600">Play Cookingdom</div>
+            </div>
+            <div class="info-card text-center">
+                <div class="info-icon text-purple-600 bg-purple-100">☕</div>
+                <h3 class="info-title">Relaxation</h3>
+                <p class="info-desc">If you want stress-free satisfaction.</p>
+                <div class="info-cta text-purple-600">Play Block Blast</div>
+            </div>
+            <div class="info-card text-center">
+                <div class="info-icon text-green-600 bg-green-100">⚡</div>
+                <h3 class="info-title">Action Seekers</h3>
+                <p class="info-desc">If you crave fast-paced competition.</p>
+                <div class="info-cta text-green-600">Play Stickhole.io</div>
+            </div>
+        </div>
+      </div>
+
+      <div class="section-container">
+        <div class="split-section">
+            <div class="split-content">
+                <h2 class="section-title text-left">Who Are These For?</h2>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon bg-yellow-100 text-yellow-600">🎓</div>
+                        <div>
+                            <h3 class="feature-title">Students & Brain Training</h3>
+                            <p class="feature-desc">Perfect for keeping your mind sharp. Unblocked HTML5 games accessible on most devices.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon bg-pink-100 text-pink-600">☕</div>
+                        <div>
+                            <h3 class="feature-title">Casual Players</h3>
+                            <p class="feature-desc">Have 5 minutes? Jump into <em>Block Blast</em> for a quick session. No long tutorials.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-box">
+                <h3 class="trust-title">Why Play on KnitOut.net?</h3>
+                <ul class="trust-list">
+                    <li><strong>Hand-Picked:</strong> Tested by our team, not bots.</li>
+                    <li><strong>Strategy First:</strong> Only site with video guides.</li>
+                    <li><strong>Zero Lag:</strong> Optimized for speed.</li>
+                    <li><strong>100% Free:</strong> No hidden paywalls.</li>
+                </ul>
+            </div>
+        </div>
+      </div>
+
+      <!-- Trending -->
+      <div class="section-container">
+        <div class="trend-card">
+          <h2 class="trend-title">Why Block Puzzles Are Taking Over?</h2>
+          <p class="trend-desc">
+            Block-based puzzle games are trending because they offer short, satisfying sessions
+            that fit perfectly into modern schedules — engaging without long-term commitment.
+          </p>
+        </div>
+      </div>
+      
+      <div class="section-container">
+        <h2 class="section-title text-center">Explore More</h2>
+        <div class="map-grid">
+            <a href="/levels" class="map-link border-blue-200 hover:border-blue-400">
+                <span class="map-icon text-blue-500">📋</span>
+                <span class="map-text">Knit Out Levels</span>
+            </a>
+            <a href="/cookingdom" class="map-link border-orange-200 hover:border-orange-400">
+                <span class="map-icon text-orange-500">🍳</span>
+                <span class="map-text">Cookingdom Hub</span>
+            </a>
+            <a href="/hot-games" class="map-link border-purple-200 hover:border-purple-400">
+                <span class="map-icon text-purple-500">🎮</span>
+                <span class="map-text">Puzzle Arcade</span>
+            </a>
+            <a href="/download" class="map-link border-green-200 hover:border-green-400">
+                <span class="map-icon text-green-500">⬇️</span>
+                <span class="map-text">Game Download</span>
+            </a>
+        </div>
+      </div>
+
+      <div class="section-container max-w-4xl mx-auto">
+        <h2 class="section-title text-center mb-12">Frequently Asked Questions</h2>
+        
+        <div class="faq-list">
+            <div class="faq-item">
+                <h3 class="faq-question">Why play these games on KnitOut.net?</h3>
+                <p class="faq-answer">
+                    Unlike cluttered game aggregators, we hand-pick only high-quality games like <strong>Block Blast</strong> and <strong>Cookingdom</strong>. We ensure they are ad-lite, fast-loading, and safe for all ages.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Can I play these games on my school Chromebook?</h3>
+                <p class="faq-answer">
+                    Yes! Our arcade utilizes HTML5 technology which is generally compatible with school Chromebooks and bypasses standard flash blocks.
+                </p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Where are the strategy guides?</h3>
+                <p class="faq-answer">
+                    For <strong>Cookingdom</strong>, visit our <a href="/cookingdom" class="link-highlight">Dedicated Strategy Hub</a>. For <strong>Knit Out</strong>, browse our <a href="/levels" class="link-highlight">Level Index</a> to find video solutions.
+                </p>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+    /* --- 保持原有的 CSS 变量和卡片样式不变 --- */
+    :root {
+      --bg-page: #f9fafb; --bg-card: #ffffff; --text-dark: #1f2937; --text-gray: #6b7280;
+      --text-light: #9ca3af; --border-color: #e5e7eb; --border-light: #f3f4f6;
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1); --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1); --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .games-page { background: var(--bg-page); min-height: 100vh; padding: 3rem 0 5rem; }
+    .games-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .page-header { text-align: center; margin-bottom: 3rem; }
+    .page-title { font-size: 3rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .title-accent { background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .page-description { font-size: 1.25rem; color: var(--text-gray); }
+    .games-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 768px) { .games-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+    .featured-card { grid-column: 1 / -1; }
+    @media (min-width: 768px) { .featured-card { grid-column: span 2; } }
+    .game-card { background: var(--bg-card); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); transition: var(--transition); text-decoration: none; display: block; position: relative; }
+    .game-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
+    .card-header { height: 6px; background: var(--game-gradient); }
+    .card-content { padding: 2rem; position: relative; }
+    .game-icon-wrapper { width: 5rem; height: 5rem; margin-bottom: 1.5rem; }
+    .game-icon { width: 100%; height: 100%; border-radius: var(--radius-lg); background: var(--game-light); display: flex; align-items: center; justify-content: center; color: var(--game-text); border: 2px solid rgba(255, 255, 255, 0.2); }
+    .icon { width: 2.5rem; height: 2.5rem; }
+    .game-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .game-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); background: var(--border-light); padding: 0.25rem 0.75rem; border-radius: 999px; }
+    .game-title { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.75rem; transition: var(--transition); }
+    .game-card:hover .game-title { color: var(--game-text); }
+    .game-description { color: var(--text-gray); line-height: 1.6; margin-bottom: 1.5rem; }
+    .game-action { display: flex; align-items: center; gap: 0.5rem; color: var(--game-text); font-weight: 700; transition: var(--transition); }
+    .action-arrow { width: 1.25rem; height: 1.25rem; }
+    .featured-card::before { content: '🔥 Featured Game'; position: absolute; top: 1rem; right: 1rem; background: var(--game-gradient); color: white; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 999px; z-index: 10; }
+    .featured-card .card-content { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 768px) { .featured-card .card-content { grid-template-columns: 1fr 2fr; align-items: center; } }
+  
+    /* --- 🔥 新增样式的 CSS (已修复 w-full 错误) --- */
+    .section-container { margin-bottom: 6rem; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-title { font-size: 2.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 1rem; }
+    .section-subtitle { font-size: 1.125rem; color: var(--text-gray); }
+  
+    /* 表格样式 - 这里我修复了 w-full */
+    .table-wrapper { overflow-x: auto; background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); }
+    /* 👇 修复点：删掉了 w-full，保留了 width: 100% */
+    .comparison-table { border-collapse: collapse; text-align: left; width: 100%; min-width: 600px; }
+    .comparison-table th { background: var(--bg-page); padding: 1.25rem 1.5rem; font-weight: 700; color: var(--text-dark); border-bottom: 1px solid var(--border-color); }
+    .comparison-table td { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); color: var(--text-gray); font-size: 0.95rem; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:hover { background: #f9fafb; }
+    .game-name { font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 0.75rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .knit-dot { background: #3b82f6; } .block-dot { background: #8b5cf6; } .cook-dot { background: #10b981; } .sand-dot { background: #f59e0b; } .stick-dot { background: #ec4899; }
+    .diff-high { color: #ef4444; font-weight: 700; } .diff-med { color: #f59e0b; font-weight: 700; } .diff-low { color: #10b981; font-weight: 700; } .diff-var { color: #8b5cf6; font-weight: 700; }
+  
+    /* 策略卡片样式 */
+    .strategy-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 1024px) { .strategy-grid { grid-template-columns: 1fr 1fr; } }
+    .strategy-card { background: white; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+    .strategy-header { padding: 2rem; border-bottom: 1px solid var(--border-light); }
+    .puzzle-card .strategy-header { background: #eff6ff; } .arcade-card .strategy-header { background: #fff7ed; }
+    .strategy-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .strategy-subtitle { color: var(--text-gray); font-size: 0.9rem; }
+    .strategy-content { padding: 2rem; flex: 1; }
+    .strategy-block { margin-bottom: 2rem; }
+    .strategy-block:last-child { margin-bottom: 0; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+    .beginner { background: #d1fae5; color: #047857; } .expert { background: #ede9fe; color: #6d28d9; }
+    .strategy-list { padding-left: 0; list-style: none; }
+    .strategy-list li { margin-bottom: 0.75rem; color: var(--text-gray); font-size: 0.95rem; position: relative; padding-left: 1.5rem; }
+    .strategy-list li::before { content: '•'; position: absolute; left: 0; color: var(--text-light); font-weight: bold; }
+    .strategy-list strong { color: var(--text-dark); }
+    
+    /* --- 新增模块样式 --- */
+    .info-card { background: white; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .info-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .info-icon { width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin: 0 auto 1rem; }
+    .info-title { font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .info-desc { font-size: 0.875rem; color: var(--text-gray); margin-bottom: 1rem; }
+    .info-cta { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .split-section { display: grid; gap: 3rem; }
+    @media (min-width: 1024px) { .split-section { grid-template-columns: 3fr 2fr; align-items: start; } }
+    .feature-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .feature-icon { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .feature-title { font-weight: 700; color: var(--text-dark); margin-bottom: 0.25rem; }
+    .feature-desc { font-size: 0.875rem; color: var(--text-gray); line-height: 1.5; }
+    
+    .trust-box { background: var(--border-light); padding: 2rem; border-radius: var(--radius-xl); border: 1px solid var(--border-color); }
+    .trust-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-dark); }
+    .trust-list li { margin-bottom: 0.75rem; color: var(--text-gray); font-size: 0.95rem; }
+    
+    .trend-card { background: linear-gradient(135deg, #2563eb, #7c3aed); border-radius: var(--radius-xl); padding: 3rem; color: white; position: relative; overflow: hidden; }
+    .trend-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+    .trend-title { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .trend-desc { color: rgba(255,255,255,0.9); line-height: 1.6; max-width: 600px; margin-bottom: 1.5rem; }
+    .trend-stats { display: flex; gap: 1rem; }
+    .stat-item { background: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; }
+
+    .map-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    @media (min-width: 768px) { .map-grid { grid-template-columns: repeat(4, 1fr); } }
+    .map-link { background: white; padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); text-align: center; text-decoration: none; transition: var(--transition); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+    .map-link:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .map-icon { font-size: 1.5rem; }
+    .map-text { font-weight: 700; color: var(--text-dark); font-size: 0.95rem; }
+
+    /* FAQ 样式 */
+    .faq-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .faq-item { background: white; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .faq-question { font-size: 1.125rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .faq-answer { color: var(--text-gray); line-height: 1.6; }
+    .link-highlight { color: #3b82f6; font-weight: 600; text-decoration: none; }
+    .link-highlight:hover { text-decoration: underline; }
+  </style>

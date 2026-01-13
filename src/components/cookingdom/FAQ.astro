@@ -1,0 +1,242 @@
+---
+// 这里不需要服务端 JS
+---
+
+<section class="faq-section">
+    <div class="knit-container">
+        <div class="faq-header">
+            <h2 class="faq-title">Cookingdom Strategy & FAQ</h2>
+            <p class="faq-subtitle">Master the mechanics, perfect your timing, and get answers to common player questions.</p>
+        </div>
+        
+        <div class="faq-grid">
+            <div class="faq-card">
+                <h3 class="faq-question">
+                    <i class="fas fa-clock faq-icon text-knitBlue"></i>
+                    Does timing actually matter?
+                </h3>
+                <div class="faq-answer">
+                    <p><strong>Yes.</strong> While there are no stressful timers, individual steps have "judgment windows."</p>
+                    <ul>
+                        <li><strong>Visual Cues:</strong> Watch for bubbling intensity or golden brown color shifts.</li>
+                        <li><strong>Consequence:</strong> Mistiming affects your <strong>Star Rating</strong> and visual beauty, but rarely causes a "Game Over."</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-card">
+                <h3 class="faq-question">
+                    <i class="fas fa-utensils faq-icon text-knitYellow"></i>
+                    Can I plate the food however I want?
+                </h3>
+                <div class="faq-answer">
+                    <p><strong>Not entirely.</strong> Plating is mechanically a spatial puzzle.</p>
+                    <p>Use the <strong>Anchor Strategy</strong>: Place largest items (proteins) first as they have strict hitboxes. Garnishes allow for slight deviations. If chasing 3 stars, treat the preview as a strict blueprint.</p>
+                </div>
+            </div>
+            
+            <div class="faq-card">
+                <h3 class="faq-question">
+                    <i class="fas fa-book-open faq-icon text-knitGreen"></i>
+                    How do I unlock Fusion Dishes?
+                </h3>
+                <div class="faq-answer">
+                    <p>Progression is tied to <strong>level completion</strong>, not kitchen upgrades. You must clear levels sequentially to unlock the "World Cookbook." Fusion dishes usually appear in the mid-to-late game (Levels 40+). Buying a "Cat Whisk" won't unlock recipes, only playing the campaign does.</p>
+                </div>
+            </div>
+            
+            <div class="faq-card">
+                <h3 class="faq-question">
+                    <i class="fas fa-ban faq-icon text-knitPurple"></i>
+                    Can I "Fail" a level?
+                </h3>
+                <div class="faq-answer">
+                    <p><strong>Technically, no.</strong> Cookingdom is a low-stakes environment. If you severely burn a dish, you may get a low score or a funny animation, but you are encouraged to retry immediately. There are <strong>no energy systems</strong> or lives blocking your play.</p>
+                </div>
+            </div>
+            
+            <div class="faq-card">
+                <h3 class="faq-question">
+                    <i class="fas fa-wifi faq-icon text-knitPink"></i>
+                    Is Cookingdom Offline-Friendly?
+                </h3>
+                <div class="faq-answer">
+                    <p><strong>Mostly Yes.</strong> You can play the core campaign levels in airplane mode. However, you need an internet connection for Updates, Seasonal Events, and Cloud Saves. We recommend connecting once a week to back up your progress.</p>   
+                </div>
+            </div>
+            
+            <div class="faq-card">
+                <h3 class="faq-question">
+                    <i class="fas fa-layer-group faq-icon text-knitBlue"></i>
+                    How much content is there?
+                </h3>
+                <div class="faq-answer">
+                    <p>As of late 2025, the game features <strong>90+ Unique Recipes</strong> spanning diverse world cuisines. Developers also frequently release limited-time updates (e.g., Thanksgiving Turkey, Halloween Treats) that add temporary recipes and festive decor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* FAQ区域样式 */
+    .faq-section {
+        padding: 80px 0;
+        background: linear-gradient(to bottom, #fef7f0, #fdf2e8);
+    }
+
+    .knit-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* 标题区域样式 */
+    .faq-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .faq-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(90deg, var(--cooking-orange), var(--cooking-red));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1.2;
+    }
+
+    .faq-subtitle {
+        font-size: 1.25rem;
+        color: var(--knit-gray);
+        max-width: 768px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .faq-title {
+            font-size: 2rem;
+        }
+        
+        .faq-subtitle {
+            font-size: 1.125rem;
+        }
+    }
+
+    /* FAQ网格布局 */
+    .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .faq-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .faq-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* FAQ卡片样式 */
+    .faq-card {
+        background: white;
+        border-radius: var(--radius-large);
+        box-shadow: var(--shadow-light);
+        padding: 2rem;
+        border: 1px solid rgba(249, 115, 22, 0.1);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .faq-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    /* 问题标题 */
+    .faq-question {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--knit-dark);
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* 图标样式 */
+    .faq-icon {
+        font-size: 1.5rem;
+        width: 1.5em;
+        height: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 答案内容 */
+    .faq-answer {
+        flex: 1;
+    }
+
+    .faq-answer p {
+        color: var(--knit-gray);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .faq-answer p:last-child {
+        margin-bottom: 0;
+    }
+
+    .faq-answer strong {
+        color: var(--cooking-orange);
+        font-weight: 600;
+    }
+
+    /* 列表样式 */
+    .faq-answer ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin: 0.75rem 0;
+    }
+
+    .faq-answer li {
+        color: var(--knit-gray);
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+    }
+
+    .faq-answer li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* 图标颜色 */
+    .text-knitBlue { color: var(--knit-blue); }
+    .text-knitYellow { color: #f1c40f; } /* 新增黄色变量 */
+    .text-knitGreen { color: var(--knit-green); }
+    .text-knitPurple { color: var(--knit-purple); }
+    .text-knitPink { color: var(--knit-pink); }
+
+    /* 字体图标 */
+    .fa-clock:before { content: "\f017"; }
+    .fa-utensils:before { content: "\f2e7"; }
+    .fa-book-open:before { content: "\f518"; }
+    .fa-ban:before { content: "\f05e"; }
+    .fa-wifi:before { content: "\f1eb"; }
+    .fa-layer-group:before { content: "\f5fd"; }
+    
+    .fas {
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+    }
+</style>

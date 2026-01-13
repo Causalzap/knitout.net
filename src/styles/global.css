@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --knit-gradient: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+/* 修复图片默认显示问题 */
+img {
+  max-width: 100%;
+  height: auto;
+}

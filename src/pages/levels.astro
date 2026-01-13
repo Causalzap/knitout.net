@@ -1,0 +1,176 @@
+---
+import Layout from '../layouts/Layout.astro';
+import levelData from '../data/test.json';
+
+// 1. 数据处理
+const allLevelIds = Object.keys(levelData).map(id => parseInt(id)).sort((a, b) => a - b);
+const chunkSize = 100;
+const levelGroups = [];
+
+for (let i = 0; i < allLevelIds.length; i += chunkSize) {
+    const chunk = allLevelIds.slice(i, i + chunkSize);
+    levelGroups.push({
+        title: `Levels ${chunk[0]} - ${chunk[chunk.length - 1]}`,
+        levels: chunk
+    });
+}
+
+// 2. SEO
+const title = "All Knit Out Level Solutions & Walkthroughs (1-1000+)";
+const description = "Browse our complete index of Knit Out solutions. Find 3-star walkthrough guides for every level from 1 to 1000+.";
+const canonical = "https://www.knitout.net/levels";
+
+// 3. Schema (只保留跟关卡有关的，与下方 HTML 对应)
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "How many levels are in Knit Out?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": `Knit Out currently has over ${allLevelIds.length} levels. This page lists every available level in one place, with direct links to 3-star video walkthroughs and strategy guides.`
+    }
+  }, {
+    "@type": "Question",
+    "name": "Where can I find video solutions for hard levels?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You are on the right page! We have compiled 3-star walkthrough videos for every single level. Simply click on the level number above to watch the solution."
+    }
+  }]
+};
+
+// 4. ItemList Schema（轻量版，只告诉 Google 这是关卡索引页）
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Knit Out Level Index",
+  "description": "A complete list of all Knit Out levels with links to 3-star walkthrough solutions.",
+  "numberOfItems": allLevelIds.length,
+  "itemListElement": allLevelIds.slice(0, 50).map((id, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "url": `https://www.knitout.net/level/${id}`
+  }))
+};
+
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+  
+    <div class="page-wrapper">
+        <div class="knit-container">
+            
+            <div class="header-box">
+                <h1 class="text-3xl md:text-4xl font-bold text-knitDark mb-4">
+                    Knit Out Complete Level Index & Walkthrough Solutions
+                </h1>
+                <p class="text-gray-600">
+                    This page contains a complete index of all Knit Out levels, from Level 1 to Level {allLevelIds.length}.
+                    Each level includes a 3-star video walkthrough and step-by-step strategy guide.
+                </p>
+            </div>
+
+            <div class="groups-wrapper">
+                {levelGroups.map((group) => (
+                    <div class="group-card">
+                        <div class="group-header">
+                          <span class="folder-icon"><i class="fas fa-folder-open"></i></span>
+                          <div>
+                            <h2 class="group-title">{group.title}</h2>
+                            <p class="group-desc">
+                              Walkthrough solutions and video guides for Knit Out {group.title}.
+                            </p>
+                          </div>
+                        </div>
+      
+                        <div class="custom-grid">
+                            {group.levels.map((id) => (
+                                <a 
+                                  href={`/level/${id}`} 
+                                  class="level-square" 
+                                  title={`Solution for Level ${id}`}
+                                  aria-label={`Knit Out Level ${id} Solution and Walkthrough`}
+                                >
+                                  {id}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div class="seo-box">
+                <h2 class="section-title"><i class="fas fa-question-circle text-knitBlue mr-2"></i> Quick Level FAQ</h2>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3 class="faq-question">How many levels are in Knit Out?</h3>
+                        <p class="text-content">There are currently over <strong>{allLevelIds.length} levels</strong> in Knit Out, and the developers are constantly updating the game with new challenges.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">Where can I find video solutions for hard levels?</h3>
+                        <p class="text-content">You are on the right page! We have compiled <strong>3-star walkthrough videos</strong> for every single level. Simply click on the level number above to watch the solution.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* 1. 基础容器 */
+    .page-wrapper { background-color: #f9fafb; min-height: 100vh; padding: 3rem 0; }
+    .knit-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    .header-box { 
+        background: white; border-radius: 24px; padding: 2rem; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02); margin-bottom: 3rem; text-align: center;
+        border: 1px solid #f3f4f6;
+    }
+
+    /* 2. 分组网格 */
+    .groups-wrapper { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
+    .group-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid #f3f4f6; }
+    .group-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #f3f4f6; padding-bottom: 15px; }
+    .folder-icon { color: #3498db; font-size: 1.2rem; }
+    .group-title { font-size: 1.25rem; font-weight: 700; color: #1f2937; margin: 0; }
+
+    .custom-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    @media (min-width: 640px) { .custom-grid { grid-template-columns: repeat(8, 1fr); gap: 10px; } }
+    @media (min-width: 1024px) { .custom-grid { grid-template-columns: repeat(12, 1fr); } }
+
+    .level-square {
+        display: flex; align-items: center; justify-content: center;
+        height: 40px; background-color: #f3f4f6; color: #4b5563;
+        font-weight: 600; font-size: 0.9rem; border-radius: 8px;
+        text-decoration: none; transition: all 0.2s; border: 1px solid transparent;
+    }
+    .level-square:hover { background-color: #3498db; color: white; transform: translateY(-2px); }
+
+    /* 3. 底部 SEO 盒子 */
+    .seo-box { 
+        background: white; border-radius: 24px; padding: 2.5rem; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid #f3f4f6;
+    }
+    .section-title { font-size: 1.5rem; font-weight: 700; color: #2c3e50; margin-bottom: 1.5rem; display: flex; align-items: center; }
+    
+    .group-desc {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    /* 简单的两列布局 */
+    .faq-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 768px) { .faq-grid { grid-template-columns: 1fr 1fr; } }
+
+    .faq-question { font-weight: 700; color: #1f2937; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .text-content { color: #4b5563; line-height: 1.6; font-size: 0.95rem; }
+</style>
+

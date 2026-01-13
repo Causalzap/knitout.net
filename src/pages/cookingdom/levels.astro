@@ -1,0 +1,277 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import levelData from '../../data/cookingdom-videos1.json';
+
+// 1. 数据处理
+const allLevelIds = Object.keys(levelData)
+  .map(id => parseInt(id))
+  .sort((a, b) => a - b);
+
+const chunkSize = 100;
+const levelGroups = [];
+
+for (let i = 0; i < allLevelIds.length; i += chunkSize) {
+  const chunk = allLevelIds.slice(i, i + chunkSize);
+  levelGroups.push({
+    title: `Levels ${chunk[0]} - ${chunk[chunk.length - 1]}`,
+    levels: chunk
+  });
+}
+
+// 2. SEO Meta
+const title = "All Cookingdom Level Solutions & Walkthroughs (1–100+)";
+const description =
+  "Browse the complete Cookingdom level index with 3-star walkthrough videos and strategy guides. Find solutions for every level from early stages to the hardest challenges.";
+const canonical = "https://www.knitout.net/cookingdom/levels";
+
+// 3. FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many levels are in Cookingdom?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Cookingdom currently features over ${allLevelIds.length} levels, with new levels added regularly. This page provides a complete index with direct links to verified 3-star walkthrough videos.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do all Cookingdom levels have 3-star video walkthroughs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every level listed on this page includes a verified video walkthrough demonstrating a 3-star completion strategy."
+      }
+    }
+  ]
+};
+
+// 4. ItemList Schema（轻量版）
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Cookingdom Level Index",
+  "description": "A complete list of Cookingdom levels with links to 3-star walkthrough solutions.",
+  "numberOfItems": allLevelIds.length,
+  "itemListElement": allLevelIds.slice(0, 50).map((id, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "url": `https://www.knitout.net/cookingdom/level/${id}`
+  }))
+};
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+
+  <div class="page-wrapper">
+    <div class="knit-container">
+
+      <!-- Header -->
+      <div class="header-box">
+        <h1 class="text-3xl md:text-4xl font-bold text-knitDark mb-4">
+          Cookingdom Complete Level Index & Walkthrough Solutions
+        </h1>
+        <p class="text-gray-600">
+          Cookingdom is a puzzle-cooking game that gradually increases in complexity
+          as new mechanics, tighter timing windows, and multi-order management are
+          introduced. While early levels can be completed with basic actions, later
+          stages often require precise execution and optimized serving order to
+          consistently achieve a 3-star rating.
+        </p>
+      </div>
+
+      <!-- Difficulty Breakdown -->
+      <div class="header-box">
+        <h2 class="text-2xl font-bold text-knitDark mb-4">
+          Cookingdom Level Difficulty Breakdown
+        </h2>
+        <ul class="text-gray-600 leading-relaxed">
+          <li><strong>Levels 1–20:</strong> Core mechanics and basic cooking flow.</li>
+          <li><strong>Levels 21–40:</strong> Increased time pressure and early multitasking.</li>
+          <li><strong>Levels 41–70:</strong> Multiple orders and stricter serving sequences.</li>
+          <li><strong>Levels 71–99:</strong> High difficulty levels requiring near-perfect execution.</li>
+          <li><strong>Levels 100+:</strong> Advanced challenges where small mistakes prevent 3 stars.</li>
+        </ul>
+      </div>
+
+      <!-- Level Groups -->
+      <div class="groups-wrapper">
+        {levelGroups.map(group => (
+          <div class="group-card">
+            <div class="group-header">
+              <span class="folder-icon">📁</span>
+              <div>
+                <h2 class="group-title">{group.title}</h2>
+                <p class="group-desc">
+                  3-star walkthrough solutions and video guides for Cookingdom {group.title}.
+                </p>
+              </div>
+            </div>
+
+            <div class="custom-grid">
+              {group.levels.map(id => (
+                <a
+                  href={`/cookingdom/level/${id}`}
+                  class="level-square"
+                  title={`Cookingdom Level ${id} Solution`}
+                  aria-label={`Cookingdom Level ${id} Solution and Walkthrough`}
+                >
+                  {id}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Hard Levels -->
+      <div class="seo-box" style="margin-bottom: 3rem;">
+        <h2 class="section-title">Most Difficult Cookingdom Levels</h2>
+        <p class="text-content mb-4">
+          Based on player feedback and completion difficulty, the following levels
+          are commonly considered the hardest when aiming for a 3-star rating:
+        </p>
+        <ul class="text-content list-disc pl-6">
+          <li><a href="/cookingdom/level/37">Level 37</a> – First major timing challenge.</li>
+          <li><a href="/cookingdom/level/58">Level 58</a> – Heavy multi-order pressure.</li>
+          <li><a href="/cookingdom/level/76">Level 76</a> – Tool cooldown optimization required.</li>
+          <li><a href="/cookingdom/level/103">Level 103</a> – Extremely strict 3-star conditions.</li>
+        </ul>
+      </div>
+
+      <!-- FAQ -->
+      <div class="seo-box">
+        <h2 class="section-title">Cookingdom Walkthrough FAQ</h2>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3 class="faq-question">How many levels are in Cookingdom?</h3>
+            <p class="text-content">
+              There are currently over <strong>{allLevelIds.length} levels</strong> in
+              Cookingdom, with new levels added regularly.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Do all levels have 3-star solutions?</h3>
+            <p class="text-content">
+              Yes. Every level on this page links to a verified video walkthrough
+              demonstrating a 3-star completion strategy.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+.page-wrapper { background-color: #f9fafb; min-height: 100vh; padding: 3rem 0; }
+.knit-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.header-box {
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  margin-bottom: 3rem;
+  text-align: center;
+  border: 1px solid #f3f4f6;
+}
+
+.groups-wrapper { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 4rem; }
+
+.group-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  border: 1px solid #f3f4f6;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 15px;
+}
+
+.group-title { font-size: 1.25rem; font-weight: 700; color: #1f2937; }
+.group-desc { font-size: 0.85rem; color: #6b7280; }
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .custom-grid { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .custom-grid { grid-template-columns: repeat(12, 1fr); }
+}
+
+.level-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.level-square:hover {
+  background-color: #3498db;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.seo-box {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  border: 1px solid #f3f4f6;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .faq-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.faq-question {
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.text-content {
+  color: #4b5563;
+  line-height: 1.6;
+}
+</style>
