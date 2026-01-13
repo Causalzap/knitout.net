@@ -1,0 +1,99 @@
+name: IndexNow on push
+
+on:
+  push:
+    branches: [ main ]  # 确保这里是你真正的主分支名
+  workflow_dispatch:      # 允许手动触发
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    env:
+      DOMAIN: https://www.knitout.net
+      # 你的 IndexNow Key
+      INDEXNOW_KEY: "cb5ad8431a4a499d9048348786f972eb"
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 2 }
+
+      - name: Collect changed files
+        env:
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          # 1. 计算差异
+          BASE="${BEFORE:-$(git rev-parse HEAD^)}"
+          git diff --name-only "$BASE" "$SHA" > changed.txt || true
+          
+          # 2. 筛选网页文件 (增加了对 .astro 的支持)
+          # 逻辑：找 src/pages 下的 .astro, .md, .html 以及 public 下的 .html
+          grep -E '^(src/pages/).*\.(astro|md|mdx|html)|^(public/).*\.html$' changed.txt > urlfiles.txt || true
+          
+          echo "Changed files detected:"
+          cat urlfiles.txt || true
+
+      - name: Build payload
+        run: |
+          python3 - <<'PY'
+          import os, re, json
+          domain = os.environ['DOMAIN'].rstrip('/')
+          key = os.environ['INDEXNOW_KEY']
+
+          try:
+            with open('urlfiles.txt') as f:
+                paths = [l.strip() for l in f if l.strip()]
+          except FileNotFoundError:
+            paths = []
+
+          def to_url(p: str):
+            p = p.replace('\\','/')
+            
+            # 处理 public 文件夹
+            if p.startswith('public/'):
+              return f"{domain}/" + p[len('public/'):].lstrip('/')
+            
+            # 处理 Astro Pages (src/pages)
+            if p.startswith('src/pages/'):
+              u = re.sub(r'^src/pages/', '', p)
+              # 去掉文件后缀
+              u = re.sub(r'\.(astro|md|mdx|html)$', '', u)
+              # 处理 index 文件 -> 根目录
+              if u.endswith('index'):
+                  u = u[:-5] # 去掉 index
+              return f"{domain}/" + u.strip('/')
+            
+            return None
+
+          # 生成 URL 列表并去重
+          urls = sorted({ u for p in paths for u in [to_url(p)] if u and not '[' in u }) 
+          # 注意：上面那个 'and not '[' in u' 是为了过滤掉动态路由文件 (如 [id].astro)，
+          # 因为 IndexNow 不知道 [id] 应该填什么数字。动态路由主要靠 Sitemap 提交。
+
+          # 如果列表为空（或者只改了组件没改页面），为了活跃度，我们默认提交一下首页
+          if not urls:
+              urls = [domain + "/"]
+
+          payload = {
+            "host": re.sub(r'^https?://','',domain),
+            "key": key,
+            "keyLocation": f"{domain}/{key}.txt",
+            "urlList": urls
+          }
+          
+          with open('payload.json','w') as f:
+              f.write(json.dumps(payload))
+          
+          print(f"Payload created with {len(urls)} URLs")
+          print(json.dumps(urls, indent=2))
+          PY
+
+      - name: Submit to IndexNow
+        run: |
+          if [ -s payload.json ]; then
+            echo "Submitting to IndexNow..."
+            curl -sS -X POST 'https://api.indexnow.org/indexnow' \
+              -H 'Content-Type: application/json; charset=utf-8' \
+              --data @payload.json
+          else
+            echo "No URLs to submit."
+          fi
