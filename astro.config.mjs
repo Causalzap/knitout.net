@@ -11,6 +11,13 @@ export default defineConfig({
   // 但为了兼容性，建议保留 server 模式并加上适配器。
   output: 'server', 
 
+  trailingSlash: 'never',
+  
+  // 强制生成文件而不是文件夹 (这步最关键，能解决 cookingdom 的 308 问题)
+  build: {
+    format: 'file'
+  },
+  
   // 3. 添加适配器配置
   adapter: cloudflare({
     imageService: 'cloudflare', // 使用 Cloudflare 处理图片优化
