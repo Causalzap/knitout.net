@@ -1,12 +1,12 @@
 # ========================================================
-# 1. 关卡详情页重定向 (必须处理 Query Parameters)
+# 1. 关卡详情页重定向 (处理 Query Parameters)
 # ========================================================
 
 # 处理 https://www.knitout.net/level-detail.html?id=70 -> /level/70
-/level-detail.html  id=:id  /level/:id  301!
+/level-detail.html id=:id  /level/:id  301
 
 # 处理 https://www.knitout.net/level-detail-cookingdom.html?id=42 -> /cookingdom/level/42
-/level-detail-cookingdom.html  id=:id  /cookingdom/level/:id  301!
+/level-detail-cookingdom.html id=:id  /cookingdom/level/:id  301
 
 
 # ========================================================
@@ -19,21 +19,15 @@
 /download.html                  /download             301
 /blog.html                      /blog                 301
 
-# 保底逻辑：如果用户访问了不带参数的详情页，重定向到主列表
+# 保底逻辑：如果没有 id 参数，重定向到列表页
 /level-detail.html              /level                301
 /level-detail-cookingdom.html   /cookingdom/level     301
 
 
 # ========================================================
-# 3. 博客文章重定向 (从 /articles/ 迁移到 /blog/)
+# 3. 博客文章批量重定向 (使用通配符 :slug)
 # ========================================================
 
-/articles/knit-out-vs-knit-n-loop-review.html                        /blog/knit-out-vs-knit-n-loop-review 301
-/articles/hybrid-casual-games-market-trends-2025-part2.html           /blog/hybrid-casual-games-market-trends-2025-part2 301
-/articles/rollic-game-strategy-innovation-skin-swaps-ip.html          /blog/rollic-game-strategy-innovation-skin-swaps-ip 301
-/articles/knit-out-unbeatable-yarn-themed-game-2025.html              /blog/knit-out-unbeatable-yarn-themed-game-2025 301
-/articles/knit-out-hybrid-casual.html                                 /blog/knit-out-hybrid-casual 301
-/articles/hybrid-casual-monetization-coin-sort-revenue-blueprint.html  /blog/hybrid-casual-monetization-coin-sort-revenue-blueprint 301
-/articles/knit-out-vs-knit-match-comparison.html                      /blog/knit-out-vs-knit-match-comparison 301
-/articles/wool-craze-vs-knit-out-yarn-puzzle-games-2025.html          /blog/wool-craze-vs-knit-out-yarn-puzzle-games-2025 301
-/articles/hybrid-casual-games-market-trends-2025-part1.html           /blog/hybrid-casual-games-market-trends-2025-part1 301
+# 这一行会自动匹配 /articles/ 下的所有 .html 文件并跳转到 /blog/ 下
+# 例如: /articles/knit-out-vs-knit-n-loop-review.html -> /blog/knit-out-vs-knit-n-loop-review
+/articles/:slug.html            /blog/:slug           301
