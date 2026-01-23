@@ -9,38 +9,45 @@ import SandBlastContent from '../../components/games/SandBlastContent.astro';
 import StickholeContent from '../../components/games/StickholeContent.astro';
 
 export async function getStaticPaths() {
-  return gamesData
-    .filter((game) => game.type === 'iframe')
-    .map((game) => ({
-      params: { id: game.id },
-      props: { game },
-    }));
+  // 仅导出 type 为 iframe 且有 id 的数据
+  const validGames = gamesData.filter((g) => g.type === 'iframe' && g.id);
+  
+  return validGames.map((game) => ({
+    params: { id: String(game.id) }, // 强制转为字符串防止 404
+    props: { game },
+  }));
 }
 
-const { game } = Astro.props;
+// 1. 获取 ID 和 Props
+const { id } = Astro.params;
+const { game: propsGame } = Astro.props;
+
+// 2. 容错逻辑：如果 props 丢失，从 JSON 找回
+const game = propsGame || gamesData.find(g => String(g.id) === id);
+
+// 3. 彻底找不到的极端情况处理
+if (!game) {
+  return Astro.redirect('/404');
+}
 
 // 组件映射
-const GameComponents = {
+const GameComponents: Record<string, any> = {
   'block-blast': BlockBlastContent,
   'color-block-jam': ColorJamContent,
   'sand-blast-block': SandBlastContent,
   'stickhole-io': StickholeContent,
 };
 
-const SpecificGameContent =
-  GameComponents[game.id as keyof typeof GameComponents] || null;
+const SpecificGameContent = GameComponents[game.id] || null;
 
-// 推荐（同你首页的 related 逻辑）
+// 相关游戏逻辑
 const relatedGames = gamesData
   .filter((g) => g.type === 'iframe' && g.id !== game.id)
   .slice(0, 6);
 
-// SEO
+// SEO 
 const title = `Play ${game.title} Online Free | KnitOut.net`;
-const description = game.description
-  ? `Play ${game.title} online for free. ${game.description} Fullscreen supported.`
-  : `Play ${game.title} online for free. No download required. Fullscreen supported.`;
-
+const description = game.description || `Play ${game.title} online for free. No download required. Fullscreen supported.`;
 const canonical = `https://www.knitout.net/hot-games/${game.id}`;
 
 // JSON-LD (VideoGame)
