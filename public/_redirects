@@ -1,16 +1,32 @@
 # ========================================================
-# 1. 关卡详情页重定向 (处理 Query Parameters)
+# 1. 关卡详情页 (带 id 参数的规则必须置顶)
 # ========================================================
 
-# 处理 https://www.knitout.net/level-detail.html?id=70 -> /level/70
-/level-detail.html id=:id  /level/:id  301
+# 匹配带 .html 的路径
+/level-detail.html  id=:id  /level/:id  301
+# 匹配不带 .html 的路径 (防止 Cloudflare 自动去除了后缀)
+/level-detail       id=:id  /level/:id  301
 
-# 处理 https://www.knitout.net/level-detail-cookingdom.html?id=42 -> /cookingdom/level/42
-/level-detail-cookingdom.html id=:id  /cookingdom/level/:id  301
+# Cookingdom 同样处理
+/level-detail-cookingdom.html  id=:id  /cookingdom/level/:id  301
+/level-detail-cookingdom       id=:id  /cookingdom/level/:id  301
 
 
 # ========================================================
-# 2. 核心页面重定向 (去掉 .html 后缀)
+# 2. 保底逻辑 (如果没有 id 参数，跳转到列表页)
+# ========================================================
+
+# 注意：这里请确认你是想跳到 /level 还是 /levels
+# 如果你希望跳到主列表，建议统一指向 /levels
+/level-detail.html              /levels               301
+/level-detail                   /levels               301
+
+/level-detail-cookingdom.html   /cookingdom/level     301
+/level-detail-cookingdom        /cookingdom/level     301
+
+
+# ========================================================
+# 3. 其他静态页面重定向
 # ========================================================
 
 /levels.html                    /levels               301
@@ -19,15 +35,10 @@
 /download.html                  /download             301
 /blog.html                      /blog                 301
 
-# 保底逻辑：如果没有 id 参数，重定向到列表页
-/level-detail.html              /level                301
-/level-detail-cookingdom.html   /cookingdom/level     301
-
 
 # ========================================================
-# 3. 博客文章批量重定向 (使用通配符 :slug)
+# 4. 博客文章批量重定向
 # ========================================================
 
-# 这一行会自动匹配 /articles/ 下的所有 .html 文件并跳转到 /blog/ 下
-# 例如: /articles/knit-out-vs-knit-n-loop-review.html -> /blog/knit-out-vs-knit-n-loop-review
 /articles/:slug.html            /blog/:slug           301
+/articles/:slug                 /blog/:slug           301
