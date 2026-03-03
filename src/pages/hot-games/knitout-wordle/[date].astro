@@ -1,0 +1,257 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { WORDS } from "@/constants/wordlist";
+import WordleDailyContent from '../../../components/games/WordleDailyContent.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+
+export const prerender = true;
+
+type StaticPath = {
+  params: { date: string };
+  props: { word: string; index: number };
+};
+
+export async function getStaticPaths(): Promise<StaticPath[]> {
+  const START_DATE_ISO = '2026-03-03';
+  const DAY_MS = 24 * 60 * 60 * 1000;
+
+  const msFromISODateUTC = (iso: string): number => globalThis.Date.parse(`${iso}T00:00:00.000Z`);
+  const toISODateFromMs = (ms: number): string => new globalThis.Date(ms).toISOString().split('T')[0];
+  const todayUtcMs = (): number => {
+    const now = new globalThis.Date();
+    return globalThis.Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  };
+
+  const startMs = msFromISODateUTC(START_DATE_ISO);
+  const todayMs = todayUtcMs();
+
+  const maxDays = Math.floor((todayMs - startMs) / DAY_MS);
+  const total = Math.min(WORDS.length, Math.max(0, maxDays + 1));
+
+  return Array.from({ length: total }).map((_, index) => {
+    const date = toISODateFromMs(startMs + index * DAY_MS);
+    return { params: { date }, props: { word: WORDS[index], index } };
+  });
+}
+
+interface Props {
+  word: string;
+  index: number;
+}
+
+const { word, index } = Astro.props as Props;
+const { date } = Astro.params as { date: string };
+
+const START_DATE_ISO = '2026-03-03';
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+const msFromISODateUTC = (iso: string): number => globalThis.Date.parse(`${iso}T00:00:00.000Z`);
+const toISODateFromMs = (ms: number): string => new globalThis.Date(ms).toISOString().split('T')[0];
+const todayUtcMs = (): number => {
+  const now = new globalThis.Date();
+  return globalThis.Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+};
+
+const startMs = msFromISODateUTC(START_DATE_ISO);
+const currentMs = msFromISODateUTC(date);
+const dayIndex = Math.floor((currentMs - startMs) / DAY_MS);
+
+const prevDate = dayIndex > 0 ? toISODateFromMs(startMs + (dayIndex - 1) * DAY_MS) : undefined;
+const lastGeneratedIndex = Math.min(WORDS.length - 1, Math.floor((todayUtcMs() - startMs) / DAY_MS));
+const nextDate = dayIndex < lastGeneratedIndex ? toISODateFromMs(startMs + (dayIndex + 1) * DAY_MS) : undefined;
+
+// SEO Logic
+const upper = word.toUpperCase();
+const title = `KnitOut Wordle Answer & Hints (${date}) — Starts with ${upper[0]}`;
+const description = `Daily KnitOut Wordle for ${date}: spoiler-free hints and the hidden answer.`;
+const canonical = `https://www.knitout.net/hot-games/knitout-wordle/${date}/`;
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <main class="page-container">
+    
+    <div class="content-wrapper">
+        <div class="topbar">
+            <Breadcrumbs 
+              items={[
+                { label: 'Hot Games', href: '/hot-games' },
+                { label: 'KnitOut Wordle', href: '/hot-games/knitout-wordle' }
+              ]}
+            >
+              <span slot="last-item" class="pill">{date}</span>
+            </Breadcrumbs>
+          </div>
+
+      <header class="hero">
+        <div class="hero-left">
+          <div class="hero-text">
+            <h1>KnitOut Wordle</h1>
+            <p>Solve the daily 5-letter puzzle. Today is <strong>Puzzle #{index}</strong>.</p>
+          </div>
+        </div>
+        <button id="fullscreen-btn" class="btn-primary">Fullscreen</button>
+      </header>
+
+      <section class="game-card">
+        <div id="game-wrapper" class="game-frame">
+          <div id="loading" class="loading">Loading today's puzzle…</div>
+          <iframe
+            id="game-iframe"
+            src={`https://react-wordle-1xb.pages.dev/?d=${index}`}
+            title={`KnitOut Wordle Game for ${date}`}
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </section>
+
+      <WordleDailyContent word={word} date={date} index={index} prevDate={prevDate} nextDate={nextDate} />
+    </div>
+
+  </main>
+</Layout>
+
+<style>
+  /* Logic for Centering with Side Gutters */
+  .page-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f9fafb; /* Light background to see the center clearly */
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem; /* Top/Bottom padding and mobile side padding */
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 1000px; /* This controls the width of your center column */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Game Frame Specifics */
+  .game-frame {
+    height: 650px;
+    background: #121213;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Utility Styles */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .topbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  color: var(--text-gray);
+}
+
+/* 添加层级符号 / */
+.breadcrumb-item:not(:last-child)::after {
+  content: "/";
+  margin-left: 0.75rem;
+  color: var(--text-light);
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.breadcrumb-item a {
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--game-text);
+}
+
+/* 针对最后一项（当前页面）的特殊处理 */
+.breadcrumb-item.active {
+  margin-left: 0.25rem;
+}
+
+/* 保持你原有的 pill 样式，但微调间距 */
+.pill {
+  margin: 0;
+  white-space: nowrap;
+}
+</style>
+
+<script is:inline>
+  const btn = document.getElementById('fullscreen-btn');
+  const wrapper = document.getElementById('game-wrapper');
+  const iframe = document.getElementById('game-iframe');
+  const loading = document.getElementById('loading');
+
+  if (iframe) {
+    iframe.addEventListener('load', () => {
+      if (loading) loading.style.display = 'none';
+    });
+  }
+
+  function requestFullscreen(el) {
+    if (!el) return;
+    if (el.requestFullscreen) return el.requestFullscreen();
+    if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
+  }
+
+  if (btn) {
+    btn.addEventListener('click', () => requestFullscreen(wrapper));
+  }
+</script>

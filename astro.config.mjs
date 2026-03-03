@@ -1,26 +1,39 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-// 1. 引入 Cloudflare 适配器
 import cloudflare from '@astrojs/cloudflare';
+
+// 🔴 必须引入这两个 Node.js 内置模块来处理路径
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// 🔴 在 ES Module (.mjs) 环境下，手动构造 __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   site: 'https://www.knitout.net',
   
-  // 2. 显式设置为 'server' 或 'hybrid' (根据报错来看，你可能需要这个)
-  // 如果你本来就是想做纯静态网站，也可以试试改成 'static'，那样就不需要适配器了。
-  // 但为了兼容性，建议保留 server 模式并加上适配器。
+  // 使用 server 模式配合 Cloudflare 适配器
   output: 'server', 
 
   trailingSlash: 'never',
   
-  // 强制生成文件而不是文件夹 (这步最关键，能解决 cookingdom 的 308 问题)
+  // 强制生成文件而不是文件夹
   build: {
     format: 'file'
   },
+
+  // ✅ 此时配置 Vite 别名，path 和 __dirname 就能完美生效了
+  vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+  },
   
-  // 3. 添加适配器配置
   adapter: cloudflare({
-    imageService: 'cloudflare', // 使用 Cloudflare 处理图片优化
+    imageService: 'cloudflare', 
   }),
 
   integrations: [sitemap()],

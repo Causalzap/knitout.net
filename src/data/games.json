@@ -48,5 +48,16 @@
       "thumbnail": "fa-circle-notch",
       "color": "from-green-400 to-emerald-600",
       "tags": ["Arcade", "IO"]
+    },
+    {
+      "id": "knitout-wordle",
+      "title": "KnitOut Wordle",
+      "description": "The daily word puzzle for KnitOut fans. Guess the secret 5-letter word in 6 tries.",
+      "type": "iframe",
+      "iframeUrl": "https://react-wordle-1xb.pages.dev/",
+      "thumbnail": "fa-keyboard",
+      "color": "from-blue-500 to-blue-700",
+      "tags": ["Word", "Daily", "Puzzle"]
     }
+    
   ]

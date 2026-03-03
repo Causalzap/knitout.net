@@ -1,0 +1,246 @@
+---
+// src/components/games/WordleDailyContent.astro
+
+interface Props {
+  word: string;
+  date: string;
+  index: number;
+  prevDate?: string;
+  nextDate?: string;
+}
+
+const { word, date, index, prevDate, nextDate } = Astro.props;
+
+// Helper: Safely fallback if 'word' is unexpectedly missing
+const safeWord = typeof word === 'string' ? word.toUpperCase() : "SOLVE";
+
+// Analysis Logic
+const analyzeWord = (w: string) => {
+  const letters = w.split("");
+  const unique = new Set(letters);
+  const vowels = (w.match(/[AEIOU]/g) ?? []).length;
+  const hasDouble = unique.size !== letters.length;
+  const rare = /[JQXZ]/.test(w);
+  const first = letters[0];
+  const last = letters[letters.length - 1];
+
+  return { upper: w, first, last, vowels, hasDouble, rare, uniqueCount: unique.size };
+};
+
+const a = analyzeWord(safeWord);
+
+// Hint Generation
+const hintLines = [
+  `Starts with "${a.first}" and ends with "${a.last}".`,
+  `Contains ${a.vowels} vowel(s) and ${a.uniqueCount} unique letter(s).`,
+  a.hasDouble
+    ? `This is a repeat-letter puzzle. Avoid assuming all letters are unique — verify duplicates early.`
+    : `No repeated letters. Your fastest path is broad elimination with high-coverage guesses.`,
+  a.rare
+    ? `Includes at least one rare letter (J, Q, X, or Z). Consider probing for it by guess 2 or 3 if your board is stuck.`
+    : `No rare letters — prioritize common consonants to lock in positions quickly.`
+];
+
+// Difficulty Rating
+const difficulty = Math.min(
+  10,
+  4 + a.vowels + (a.hasDouble ? 3 : 0) + (a.rare ? 3 : 0)
+);
+
+// Strategy Generation
+const strategy = [
+  a.hasDouble
+    ? `If you get 4 correct letters but still miss the word, test for a duplicate by reusing a confirmed letter in a new slot.`
+    : `Use one "coverage" guess early to eliminate many letters at once before committing to a pattern.`,
+  a.vowels <= 1
+    ? `Low-vowel pattern: prioritize consonant-heavy guesses and watch for 'Y' behaving like a vowel.`
+    : `Normal vowel density: lock down vowel positions early; it reduces branching more than consonants.`,
+  a.rare
+    ? `Rare-letter warning: if you’re stuck, try a guess that specifically tests J/Q/X/Z rather than rerolling the same pattern.`
+    : `No rare letters: avoid wasting guesses on exotic letters unless the board forces it.`
+];
+
+// Common Mistakes Generation
+const mistakes = [];
+if (a.hasDouble) {
+  mistakes.push(`Assuming "no duplicates" and eliminating the correct answer line too early.`);
+  mistakes.push(`Over-committing to a pattern without confirming repeat placement.`);
+} else {
+  mistakes.push(`Chasing a pattern too early instead of eliminating letters broadly.`);
+}
+if (a.vowels >= 3) mistakes.push(`Ignoring vowel positions — you’ll waste guesses swapping consonants.`);
+if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word is consonant-heavy.`);
+---
+
+<section class="card content-card" id="guide">
+  <article class="prose">
+    <h2>KnitOut Wordle Guide — {date}</h2>
+
+    <p>
+      This is <strong>Puzzle #{index}</strong>. Below are today’s hints, a quick strategy path, and the full answer (hidden by default). If you’re trying to solve it without spoilers, start with the hints and the strategy checklist.
+    </p>
+
+    <div class="hint-box">
+      <h3>💡 Today’s Hints</h3>
+      <ul>
+        {hintLines.map((h) => <li>{h}</li>)}
+      </ul>
+      <p style="margin-top: 0.5rem; font-weight: bold; color: var(--text-dark);">
+        Difficulty Rating: {difficulty}/10
+      </p>
+    </div>
+
+    <h3>Quick Signals (for faster decisions)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Value</th>
+          <th>What to do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vowels</strong></td>
+          <td>{a.vowels}</td>
+          <td>{a.vowels <= 1 ? "Go consonant-heavy; consider Y." : "Lock vowels early to reduce branching."}</td>
+        </tr>
+        <tr>
+          <td><strong>Repeated letter</strong></td>
+          <td>{a.hasDouble ? "Yes" : "No"}</td>
+          <td>{a.hasDouble ? "Verify duplicates by guess 3." : "Eliminate broadly before pattern-chasing."}</td>
+        </tr>
+        <tr>
+          <td><strong>Rare letter (J/Q/X/Z)</strong></td>
+          <td>{a.rare ? "Yes" : "No"}</td>
+          <td>{a.rare ? "Probe rare letters if stuck." : "Avoid exotic letters unless forced."}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+
+    <h3>Winning Strategy (Non-Spoiler)</h3>
+    <ul>
+      {strategy.map((s) => <li>{s}</li>)}
+    </ul>
+
+    <h3>Common Mistakes Today</h3>
+    <ul>
+      {mistakes.map((m) => <li>{m}</li>)}
+    </ul>
+
+    <hr />
+
+    <h3>How to Play</h3>
+    <ul>
+      <li><strong>Green:</strong> Correct letter, correct position.</li>
+      <li><strong>Yellow:</strong> Correct letter, wrong position.</li>
+      <li><strong>Gray:</strong> Letter not in the word.</li>
+    </ul>
+
+    <h3>Answer Disclosure</h3>
+    <details class="answer-box">
+      <summary><strong>Click to reveal today’s answer</strong></summary>
+      <div class="answer-content">
+        <p class="answer">{a.upper}</p>
+      </div>
+    </details>
+    <p class="note">
+      <em>Tip: If you want a spoiler-free version, use the hint + strategy section above first.</em>
+    </p>
+
+    <nav class="day-nav" aria-label="Daily puzzle navigation">
+      <a class="nav-link" href="/hot-games/knitout-wordle/">All puzzles</a>
+      {prevDate && <a class="nav-link" href={`/hot-games/knitout-wordle/${prevDate}/`}>← {prevDate}</a>}
+      {nextDate && <a class="nav-link" href={`/hot-games/knitout-wordle/${nextDate}/`}>{nextDate} →</a>}
+    </nav>
+  </article>
+</section>
+
+<style>
+  .prose { max-width: 100%; color: var(--text-dark); }
+  .prose h2 { margin-bottom: 1rem; }
+  .prose h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  
+  .hint-box {
+    background: var(--game-light);
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    border-left: 5px solid var(--game-text);
+  }
+  .hint-box h3 { margin-top: 0; color: var(--game-text); }
+  .hint-box ul { margin-bottom: 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--bg-page); font-weight: 700; color: var(--text-dark); }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border-light);
+    margin: 2rem 0;
+  }
+
+  .answer-box {
+    cursor: pointer;
+    background: var(--border-light);
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+  }
+  .answer-box:hover { border-color: var(--text-light); }
+  .answer-box summary { font-weight: 800; color: var(--text-dark); }
+  .answer-content {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-color);
+    text-align: center;
+  }
+  .answer {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #10b981; /* Keep the classic Wordle green */
+    letter-spacing: 0.5rem;
+  }
+  .note { color: var(--text-gray); font-size: 0.9rem; margin-top: 0.5rem; text-align: center; }
+
+  .day-nav {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .nav-link {
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    transition: var(--transition);
+  }
+  .nav-link:hover {
+    background: var(--game-light);
+    color: var(--game-text);
+    border-color: var(--game-text);
+  }
+</style>
