@@ -1,0 +1,28 @@
+name: Daily rebuild Cloudflare Pages
+
+on:
+  schedule:
+    # 每天 UTC 00:05 触发
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Cloudflare Pages Deploy Hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "Missing secret: CLOUDFLARE_PAGES_DEPLOY_HOOK"
+            exit 1
+          fi
+
+          echo "Triggering Cloudflare Pages rebuild..."
+          curl --fail --silent --show-error \
+            -X POST \
+            "$DEPLOY_HOOK_URL"
+
+          echo "Cloudflare Pages rebuild triggered successfully."

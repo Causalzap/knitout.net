@@ -3,6 +3,10 @@ name: IndexNow on push
 on:
   push:
     branches: [ main ]  # 确保这里是你真正的主分支名
+    paths:
+      - "src/pages/**"
+      - "src/components/**"
+      - "public/**"
   workflow_dispatch:      # 允许手动触发
 
 jobs:
