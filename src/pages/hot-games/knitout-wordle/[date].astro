@@ -62,8 +62,8 @@ const nextDate = dayIndex < lastGeneratedIndex ? toISODateFromMs(startMs + (dayI
 
 // SEO Logic
 const upper = word.toUpperCase();
-const title = `KnitOut Wordle Answer & Hints (${date}) — Starts with ${upper[0]}`;
-const description = `Daily KnitOut Wordle for ${date}: spoiler-free hints and the hidden answer.`;
+const title = `KnitOut Wordle Answer & Hints for ${date} | Daily Puzzle Guide`;
+const description = `Get spoiler-free KnitOut Wordle hints for ${date}, plus the final 5-letter answer, clue breakdown, and help solving today’s puzzle.`;
 const canonical = `https://www.knitout.net/hot-games/knitout-wordle/${date}/`;
 ---
 
@@ -85,8 +85,8 @@ const canonical = `https://www.knitout.net/hot-games/knitout-wordle/${date}/`;
       <header class="hero">
         <div class="hero-left">
           <div class="hero-text">
-            <h1>KnitOut Wordle</h1>
-            <p>Solve the daily 5-letter puzzle. Today is <strong>Puzzle #{index}</strong>.</p>
+            <h1>KnitOut Wordle Hints and Answer for {date}</h1>
+            <p>Solve the daily 5-letter puzzle. Today is <strong>Puzzle #{index + 1}</strong>.</p>
           </div>
         </div>
         <button id="fullscreen-btn" class="btn-primary">Fullscreen</button>

@@ -11,12 +11,10 @@ interface Props {
 
 const { word, date, index, prevDate, nextDate } = Astro.props;
 
-// Helper: Safely fallback if 'word' is unexpectedly missing
-const safeWord = typeof word === 'string' ? word.toUpperCase() : "SOLVE";
+const safeWord = typeof word === 'string' ? word.toUpperCase() : 'SOLVE';
 
-// Analysis Logic
 const analyzeWord = (w: string) => {
-  const letters = w.split("");
+  const letters = w.split('');
   const unique = new Set(letters);
   const vowels = (w.match(/[AEIOU]/g) ?? []).length;
   const hasDouble = unique.size !== letters.length;
@@ -24,12 +22,19 @@ const analyzeWord = (w: string) => {
   const first = letters[0];
   const last = letters[letters.length - 1];
 
-  return { upper: w, first, last, vowels, hasDouble, rare, uniqueCount: unique.size };
+  return {
+    upper: w,
+    first,
+    last,
+    vowels,
+    hasDouble,
+    rare,
+    uniqueCount: unique.size,
+  };
 };
 
 const a = analyzeWord(safeWord);
 
-// Hint Generation
 const hintLines = [
   `Starts with "${a.first}" and ends with "${a.last}".`,
   `Contains ${a.vowels} vowel(s) and ${a.uniqueCount} unique letter(s).`,
@@ -38,59 +43,105 @@ const hintLines = [
     : `No repeated letters. Your fastest path is broad elimination with high-coverage guesses.`,
   a.rare
     ? `Includes at least one rare letter (J, Q, X, or Z). Consider probing for it by guess 2 or 3 if your board is stuck.`
-    : `No rare letters — prioritize common consonants to lock in positions quickly.`
+    : `No rare letters — prioritize common consonants to lock in positions quickly.`,
 ];
 
-// Difficulty Rating
 const difficulty = Math.min(
   10,
   4 + a.vowels + (a.hasDouble ? 3 : 0) + (a.rare ? 3 : 0)
 );
 
-// Strategy Generation
 const strategy = [
   a.hasDouble
     ? `If you get 4 correct letters but still miss the word, test for a duplicate by reusing a confirmed letter in a new slot.`
-    : `Use one "coverage" guess early to eliminate many letters at once before committing to a pattern.`,
+    : `Use one coverage guess early to eliminate many letters at once before committing to a pattern.`,
   a.vowels <= 1
-    ? `Low-vowel pattern: prioritize consonant-heavy guesses and watch for 'Y' behaving like a vowel.`
+    ? `Low-vowel pattern: prioritize consonant-heavy guesses and watch for "Y" behaving like a vowel.`
     : `Normal vowel density: lock down vowel positions early; it reduces branching more than consonants.`,
   a.rare
-    ? `Rare-letter warning: if you’re stuck, try a guess that specifically tests J/Q/X/Z rather than rerolling the same pattern.`
-    : `No rare letters: avoid wasting guesses on exotic letters unless the board forces it.`
+    ? `Rare-letter warning: if you’re stuck, try a guess that specifically tests J, Q, X, or Z rather than rerolling the same pattern.`
+    : `No rare letters: avoid wasting guesses on exotic letters unless the board forces it.`,
 ];
 
-// Common Mistakes Generation
-const mistakes = [];
+const mistakes: string[] = [];
 if (a.hasDouble) {
-  mistakes.push(`Assuming "no duplicates" and eliminating the correct answer line too early.`);
-  mistakes.push(`Over-committing to a pattern without confirming repeat placement.`);
+  mistakes.push(
+    `Assuming there are no duplicates and crossing out the correct answer path too early.`
+  );
+  mistakes.push(
+    `Over-committing to a pattern without confirming where the repeated letter sits.`
+  );
 } else {
-  mistakes.push(`Chasing a pattern too early instead of eliminating letters broadly.`);
+  mistakes.push(
+    `Chasing a visual pattern too early instead of eliminating letters broadly.`
+  );
 }
-if (a.vowels >= 3) mistakes.push(`Ignoring vowel positions — you’ll waste guesses swapping consonants.`);
-if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word is consonant-heavy.`);
+if (a.vowels >= 3) {
+  mistakes.push(
+    `Ignoring vowel positions and wasting guesses swapping consonants around the same frame.`
+  );
+}
+if (a.vowels <= 1) {
+  mistakes.push(
+    `Burning guesses on extra vowels when today’s word is likely more consonant-heavy.`
+  );
+}
+
+const puzzleNumber = index + 1;
+
+const patternSummary = a.hasDouble
+  ? `One letter appears more than once, which makes duplicate handling one of the main traps in this puzzle.`
+  : `All five letters are unique, so broad elimination and position testing are especially effective here.`;
+
+const raritySummary = a.rare
+  ? `The answer also includes a rare letter, so common patterns may fail unless you deliberately test less frequent characters.`
+  : `The answer avoids rare letters, so common-letter solving paths are more reliable than exotic probes.`;
+
+const vowelSummary =
+  a.vowels <= 1
+    ? `This is a low-vowel word, which usually means consonant structure matters more than early vowel stacking.`
+    : a.vowels >= 3
+    ? `This puzzle has a relatively high vowel load, so locking vowel positions early can save a full guess.`
+    : `This word has a normal vowel balance, so a standard elimination path should work if you avoid overcommitting too early.`;
 ---
 
 <section class="card content-card" id="guide">
   <article class="prose">
     <h2>KnitOut Wordle Guide — {date}</h2>
 
+    <p class="intro">
+      Looking for the <strong>KnitOut Wordle answer for {date}</strong>? Start
+      with the spoiler-free hints below before revealing the final word. This
+      daily guide includes clue patterns, difficulty signals, solving strategy,
+      common mistakes, and the full answer if you get stuck.
+    </p>
+
     <p>
-      This is <strong>Puzzle #{index}</strong>. Below are today’s hints, a quick strategy path, and the full answer (hidden by default). If you’re trying to solve it without spoilers, start with the hints and the strategy checklist.
+      This is <strong>Puzzle #{puzzleNumber}</strong>. If you want to solve it
+      cleanly, begin with the hint section and the pattern analysis before
+      opening the answer box.
     </p>
 
     <div class="hint-box">
-      <h3>💡 Today’s Hints</h3>
+      <h3>Today’s Hints</h3>
       <ul>
         {hintLines.map((h) => <li>{h}</li>)}
       </ul>
-      <p style="margin-top: 0.5rem; font-weight: bold; color: var(--text-dark);">
-        Difficulty Rating: {difficulty}/10
+      <p class="difficulty">
+        Difficulty Rating: <strong>{difficulty}/10</strong>
       </p>
     </div>
 
-    <h3>Quick Signals (for faster decisions)</h3>
+    <h3>Today’s Pattern Analysis</h3>
+    <p>
+      The <strong>{date}</strong> KnitOut Wordle answer starts with
+      <strong>{a.first}</strong> and ends with <strong>{a.last}</strong>. It
+      uses <strong>{a.vowels}</strong> vowel(s) and
+      <strong>{a.uniqueCount}</strong> unique letter(s). {patternSummary}{' '}
+      {vowelSummary} {raritySummary}
+    </p>
+
+    <h3>Quick Signals</h3>
     <table>
       <thead>
         <tr>
@@ -103,17 +154,29 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
         <tr>
           <td><strong>Vowels</strong></td>
           <td>{a.vowels}</td>
-          <td>{a.vowels <= 1 ? "Go consonant-heavy; consider Y." : "Lock vowels early to reduce branching."}</td>
+          <td>
+            {a.vowels <= 1
+              ? 'Go consonant-heavy and consider Y as a support vowel.'
+              : 'Lock vowel positions early to reduce branching.'}
+          </td>
         </tr>
         <tr>
           <td><strong>Repeated letter</strong></td>
-          <td>{a.hasDouble ? "Yes" : "No"}</td>
-          <td>{a.hasDouble ? "Verify duplicates by guess 3." : "Eliminate broadly before pattern-chasing."}</td>
+          <td>{a.hasDouble ? 'Yes' : 'No'}</td>
+          <td>
+            {a.hasDouble
+              ? 'Verify duplicates by guess 3 instead of assuming all letters are unique.'
+              : 'Eliminate broadly before chasing a narrow pattern.'}
+          </td>
         </tr>
         <tr>
           <td><strong>Rare letter (J/Q/X/Z)</strong></td>
-          <td>{a.rare ? "Yes" : "No"}</td>
-          <td>{a.rare ? "Probe rare letters if stuck." : "Avoid exotic letters unless forced."}</td>
+          <td>{a.rare ? 'Yes' : 'No'}</td>
+          <td>
+            {a.rare
+              ? 'Probe rare letters if common patterns stall.'
+              : 'Avoid exotic letters unless the board strongly suggests them.'}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -132,7 +195,7 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
 
     <hr />
 
-    <h3>How to Play</h3>
+    <h3>How to Play KnitOut Wordle</h3>
     <ul>
       <li><strong>Green:</strong> Correct letter, correct position.</li>
       <li><strong>Yellow:</strong> Correct letter, wrong position.</li>
@@ -147,22 +210,85 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
       </div>
     </details>
     <p class="note">
-      <em>Tip: If you want a spoiler-free version, use the hint + strategy section above first.</em>
+      <em>
+        Tip: if you want a spoiler-free solve, use the hint and strategy
+        sections first.
+      </em>
     </p>
+
+    <hr />
+
+    <h3>FAQ</h3>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>What is the KnitOut Wordle answer for {date}?</h4>
+        <p>
+          The answer is <strong>{a.upper}</strong>.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Does today’s KnitOut Wordle have repeated letters?</h4>
+        <p>
+          {a.hasDouble
+            ? `Yes. Today's puzzle includes repeated letters, so duplicate handling matters.`
+            : `No. Today's puzzle does not use repeated letters.`}
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h4>How difficult is today’s KnitOut Wordle?</h4>
+        <p>
+          We rate this puzzle <strong>{difficulty}/10</strong> based on vowel
+          count, repeated-letter risk, and rare-letter usage.
+        </p>
+      </div>
+    </div>
 
     <nav class="day-nav" aria-label="Daily puzzle navigation">
       <a class="nav-link" href="/hot-games/knitout-wordle">All puzzles</a>
-      {prevDate && <a class="nav-link" href={`/hot-games/knitout-wordle/${prevDate}`}>← {prevDate}</a>}
-      {nextDate && <a class="nav-link" href={`/hot-games/knitout-wordle/${nextDate}`}>{nextDate} →</a>}
+      {prevDate && (
+        <a class="nav-link" href={`/hot-games/knitout-wordle/${prevDate}`}>
+          ← {prevDate}
+        </a>
+      )}
+      {nextDate && (
+        <a class="nav-link" href={`/hot-games/knitout-wordle/${nextDate}`}>
+          {nextDate} →
+        </a>
+      )}
     </nav>
   </article>
 </section>
 
 <style>
-  .prose { max-width: 100%; color: var(--text-dark); }
-  .prose h2 { margin-bottom: 1rem; }
-  .prose h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; }
-  
+  .prose {
+    max-width: 100%;
+    color: var(--text-dark);
+    line-height: 1.75;
+  }
+
+  .prose h2 {
+    margin-bottom: 1rem;
+  }
+
+  .prose h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose h4 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-dark);
+  }
+
+  .intro {
+    font-size: 1.02rem;
+    color: var(--text-gray);
+  }
+
   .hint-box {
     background: var(--game-light);
     padding: 1.25rem;
@@ -170,8 +296,20 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
     margin: 1.5rem 0;
     border-left: 5px solid var(--game-text);
   }
-  .hint-box h3 { margin-top: 0; color: var(--game-text); }
-  .hint-box ul { margin-bottom: 0; }
+
+  .hint-box h3 {
+    margin-top: 0;
+    color: var(--game-text);
+  }
+
+  .hint-box ul {
+    margin-bottom: 0;
+  }
+
+  .difficulty {
+    margin-top: 0.75rem;
+    color: var(--text-dark);
+  }
 
   table {
     width: 100%;
@@ -179,13 +317,20 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
     margin: 1rem 0 1.5rem;
     font-size: 0.95rem;
   }
-  th, td {
+
+  th,
+  td {
     border: 1px solid var(--border-color);
     padding: 0.75rem 1rem;
     text-align: left;
     vertical-align: top;
   }
-  th { background: var(--bg-page); font-weight: 700; color: var(--text-dark); }
+
+  th {
+    background: var(--bg-page);
+    font-weight: 700;
+    color: var(--text-dark);
+  }
 
   hr {
     border: 0;
@@ -201,22 +346,54 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
     border: 1px solid var(--border-color);
     transition: var(--transition);
   }
-  .answer-box:hover { border-color: var(--text-light); }
-  .answer-box summary { font-weight: 800; color: var(--text-dark); }
+
+  .answer-box:hover {
+    border-color: var(--text-light);
+  }
+
+  .answer-box summary {
+    font-weight: 800;
+    color: var(--text-dark);
+  }
+
   .answer-content {
     margin-top: 1.25rem;
     padding-top: 1rem;
     border-top: 1px dashed var(--border-color);
     text-align: center;
   }
+
   .answer {
     margin: 0;
     font-size: 2rem;
     font-weight: 900;
-    color: #10b981; /* Keep the classic Wordle green */
+    color: #10b981;
     letter-spacing: 0.5rem;
   }
-  .note { color: var(--text-gray); font-size: 0.9rem; margin-top: 0.5rem; text-align: center; }
+
+  .note {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .faq-item p {
+    margin: 0;
+    color: var(--text-gray);
+  }
 
   .day-nav {
     display: flex;
@@ -227,6 +404,7 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-light);
   }
+
   .nav-link {
     text-decoration: none;
     font-weight: 800;
@@ -238,6 +416,7 @@ if (a.vowels <= 1) mistakes.push(`Burning guesses on extra vowels when the word 
     border-radius: 999px;
     transition: var(--transition);
   }
+
   .nav-link:hover {
     background: var(--game-light);
     color: var(--game-text);
