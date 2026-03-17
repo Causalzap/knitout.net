@@ -2,23 +2,39 @@
 import Layout from '../../layouts/Layout.astro';
 import levelData from '../../data/test.json';
 
+export const prerender = true;
 // --- 1. 数据处理 ---
 export async function getStaticPaths() {
-  const levels = Object.entries(levelData).map(([id, videoId]) => ({
-    params: { id: id },
-    props: { 
-      videoId: videoId, 
-      totalLevels: Object.keys(levelData).length 
-    },
-  }));
-  return levels;
+  console.log('--- getStaticPaths Started ---');
+  console.log('Raw levelData:', levelData); // 检查 JSON 是否真的被加载了
+
+  const entries = Object.entries(levelData);
+  console.log('Total entries found:', entries.length);
+
+  return entries.map(([id, vId]) => {
+    // 强制打印每一条映射，确认 vId 是否存在
+    console.log(`Mapping Level ${id} to Video ${vId}`); 
+    
+    return {
+      params: { id: id.toString() },
+      props: { 
+        videoId: vId, 
+        totalLevels: entries.length 
+      },
+    };
+  });
 }
 
-const { id } = Astro.params as { id: string };
-const { videoId, totalLevels } = Astro.props as { 
-  videoId: string; 
-  totalLevels: number 
-};
+// 获取参数和属性
+const { id } = Astro.params;
+const { videoId, totalLevels } = Astro.props;
+
+
+// 检查数据是否正确拿到的防御性逻辑
+if (!videoId || videoId === "undefined") {
+    console.error(`Error: Video ID for Level ${id} is missing!`);
+}
+
 const currentLevel = parseInt(id, 10);
 
 // --- 2. 动态内容生成 (Spin Tax) ---
@@ -133,6 +149,7 @@ const fullSchema = {
 
   ]
 };
+
 ---
 
 <Layout title={title} description={description} canonical={canonical}>
