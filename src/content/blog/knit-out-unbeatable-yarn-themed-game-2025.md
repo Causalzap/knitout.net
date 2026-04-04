@@ -14,7 +14,7 @@ tags:
 
 A comprehensive guide to the mind-bending puzzle game experience.
 
-If you're looking for a [puzzle game](https://causalzap.com/en/c/puzzle-games) that combines strategic depth with a relaxing, knitting-themed experience, **Knit Out** is the game for you. Released in 2025, it offers a unique blend of intellectual challenge and soothing gameplay.
+If you're looking for a [puzzle game](https://causalzap.com/) that combines strategic depth with a relaxing, knitting-themed experience, **Knit Out** is the game for you. Released in 2025, it offers a unique blend of intellectual challenge and soothing gameplay.
 
 Perfect for players who enjoy strategic thinking and games like **chess**, Knit Out invites you to immerse yourself in an experience where every move counts—and each level brings its own rewarding challenge.
 
